@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/ic_home"
+            android:title="Trang chủ" />
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_search"
+            android:title="Tra cứu" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_alert"
+            android:title="Báo sự cố" />
+
+    </group>
+
+
+    <group>
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_settings"
+            android:title="Cài đật" />
+        <item
+            android:id="@+id/nav_send"
+            android:icon="@drawable/ic_logout"
+            android:title="Đăng xuất" />
+    </group>
+
+
+</menu>

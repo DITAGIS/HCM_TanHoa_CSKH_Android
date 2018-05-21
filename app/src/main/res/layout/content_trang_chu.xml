@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".TrangChuActivity"
+    tools:showIn="@layout/app_bar_trang_chu">
+
+    <!--Layout thông tin khách hàng-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/MyTextAppearance.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Danh bộ:" />
+
+            <TextView
+                style="@style/MyTextAppearance.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="131400900890" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_avt" />
+
+            <TextView
+                style="@style/MyTextAppearance.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Nguyễn Văn A" />
+
+            <TextView
+                style="@style/MyTextAppearance.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="01234567890" />
+
+            <TextView
+                style="@style/MyTextAppearance.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="268 Lý Thường Kiệt, Quận 10" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--Layout thông tin đồng hồ khách hàng-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+        <!--Layout rate-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!--Layout rate of SH-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorCSC_SL_0_1"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    style="@style/MyTextAppearance.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SH: " />
+
+                <TextView
+                    style="@style/MyTextAppearance.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30" />
+
+                <TextView
+                    style="@style/MyTextAppearance.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="%" />
+            </LinearLayout>
+            <!--Layout rate of SX-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorCSC_SL_1_1"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    style="@style/MyTextAppearance.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SX: " />
+
+                <TextView
+                    style="@style/MyTextAppearance.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="70" />
+
+                <TextView
+                    style="@style/MyTextAppearance.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="%" />
+            </LinearLayout>
+            <!--Layout rate of DV-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorCSC_SL_2_1"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    style="@style/MyTextAppearance.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DV: " />
+
+                <TextView
+                    style="@style/MyTextAppearance.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0" />
+
+                <TextView
+                    style="@style/MyTextAppearance.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="%" />
+            </LinearLayout>
+            <!--Layout rate of HC-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorCSC_SL_3_1"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    style="@style/MyTextAppearance.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HC: " />
+
+                <TextView
+                    style="@style/MyTextAppearance.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0" />
+
+                <TextView
+                    style="@style/MyTextAppearance.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="%" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--Layout more info-->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+                <!--Tablerow giá biểu-->
+                <TableRow
+                    android:background="@color/color_row_check_1"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/MyTextAppearance.Black"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Giá biểu" />
+
+                    <TextView
+                        style="@style/MyTextAppearance.Black"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="15" />
+                </TableRow>
+                <!--Tablerow định mức-->
+                <TableRow android:padding="5dp">
+
+                    <TextView
+                        style="@style/MyTextAppearance.Black"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Định mức" />
+
+                    <TextView
+                        style="@style/MyTextAppearance.Black"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="50" />
+                </TableRow>
+                <!--Tablerow chỉ số cũ-->
+                <TableRow
+                    android:background="@color/color_row_check_1"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/MyTextAppearance.Black"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Chỉ số cũ" />
+
+                    <TextView
+                        style="@style/MyTextAppearance.Black"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="1970" />
+                </TableRow>
+                <!--Tablerow tiêu thụ cũ-->
+                <TableRow android:padding="5dp">
+
+                    <TextView
+                        style="@style/MyTextAppearance.Black"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tiêu thụ cũ" />
+
+                    <TextView
+                        style="@style/MyTextAppearance.Black"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="70" />
+                </TableRow>
+                <!--Tablerow tổng tiền-->
+                <TableRow android:padding="5dp" android:background="@color/color_row_check_1">
+
+                    <TextView
+                        style="@style/MyTextAppearance.Black"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tổng tiền" />
+
+                    <TextView
+                        style="@style/MyTextAppearance.Black"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="790.000" />
+                </TableRow>
+            </TableLayout>
+        </ScrollView>
+    </LinearLayout>
+
+
+</LinearLayout>
