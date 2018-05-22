@@ -15,11 +15,13 @@
         android:orientation="horizontal">
         <!--tra cứu tiền nước-->
         <LinearLayout
+            android:id="@+id/layout_tracuu_tiennuoc"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:visibility="invisible">
 
             <ImageView
                 android:layout_width="70dp"
@@ -37,11 +39,13 @@
         </LinearLayout>
         <!--tra cứu giá nước-->
         <LinearLayout
+            android:id="@+id/layout_tracuu_gianuoc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:visibility="invisible">
 
             <ImageView
                 android:layout_width="70dp"
@@ -66,11 +70,13 @@
         android:orientation="horizontal">
         <!--tra cứu sự cố-->
         <LinearLayout
+            android:id="@+id/layout_tracuu_suco"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:visibility="invisible">
 
             <ImageView
                 android:layout_width="70dp"
@@ -88,11 +94,13 @@
         </LinearLayout>
         <!--tra cứu thông báo-->
         <LinearLayout
+            android:id="@+id/layout_tracuu_thongbao"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:visibility="invisible">
 
             <ImageView
                 android:layout_width="70dp"
