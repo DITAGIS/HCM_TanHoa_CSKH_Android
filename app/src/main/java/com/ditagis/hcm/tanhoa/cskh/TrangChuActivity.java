@@ -11,21 +11,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.ditagis.hcm.tanhoa.cskh.acynchronize.FindKhachHangAsycn;
+import com.ditagis.hcm.tanhoa.cskh.adapter.TitleValueAdapter;
+import com.ditagis.hcm.tanhoa.cskh.cskh.R;
+import com.ditagis.hcm.tanhoa.cskh.entity.KhachHang;
+import com.ditagis.hcm.tanhoa.cskh.utities.Preference;
 
 import java.util.ArrayList;
 
-import com.ditagis.hcm.tanhoa.cskh.adapter.TitleValueAdapter;
-import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-
 public class TrangChuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    LinearLayout mLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trang_chu);
-
+        mLayout = findViewById(R.id.layout_content_trangchu);
+        mLayout.setVisibility(View.INVISIBLE);
         //-----------------------------
         //start default
         //-----------------------------
@@ -53,18 +61,40 @@ public class TrangChuActivity extends AppCompatActivity
         //end default
         //-----------------------------
 
-        ListView lstView = findViewById(R.id.lstView_info_main_page);
-        TitleValueAdapter adapter = new TitleValueAdapter(this, new ArrayList<TitleValueAdapter.Item>());
-        lstView.setAdapter(adapter);
-        adapter.add(new TitleValueAdapter.Item("Giá biểu", "11"));
-        adapter.add(new TitleValueAdapter.Item("Đinh mức", "0"));
-        adapter.add(new TitleValueAdapter.Item("Chỉ số cũ", "335"));
-        adapter.add(new TitleValueAdapter.Item("Chỉ số mới", "365"));
-        adapter.add(new TitleValueAdapter.Item("Tiêu thụ", "30"));
-        adapter.add(new TitleValueAdapter.Item("Tổng tiền", "150.000"));
-        adapter.add(new TitleValueAdapter.Item("Tổng tiền", "150.000"));
-        adapter.add(new TitleValueAdapter.Item("Tổng tiền", "150.000"));
-        adapter.notifyDataSetChanged();
+        FindKhachHangAsycn asycn = new FindKhachHangAsycn(this, new FindKhachHangAsycn.AsyncResponse() {
+            @Override
+            public void processFinish(KhachHang output) {
+                if (output == null) {
+                    finish();
+                    return;
+                }
+                ((TextView) findViewById(R.id.txt_content_trangchu_danhBo)).setText("Danh bộ: " +
+                        output.getDanhBa());
+                ((TextView) findViewById(R.id.txt_content_trangchu_tenKH)).setText(output.getTenKH());
+                ((TextView) findViewById(R.id.txt_content_trangchu_sdt)).setText(output.getSdt());
+                ((TextView) findViewById(R.id.txt_content_trangchu_diachi)).setText(output.getSo()
+                        + " " + output.getDuong());
+                ListView lstView = findViewById(R.id.lstView_info_main_page);
+                TitleValueAdapter adapter = new TitleValueAdapter(TrangChuActivity.this,
+                        new ArrayList<TitleValueAdapter.Item>());
+                lstView.setAdapter(adapter);
+                adapter.add(new TitleValueAdapter.Item("Giá biểu", "11"));
+                adapter.add(new TitleValueAdapter.Item("Đinh mức", "0"));
+                adapter.add(new TitleValueAdapter.Item("Chỉ số cũ", "335"));
+                adapter.add(new TitleValueAdapter.Item("Chỉ số mới", "365"));
+                adapter.add(new TitleValueAdapter.Item("Tiêu thụ", "30"));
+                adapter.add(new TitleValueAdapter.Item("Tổng tiền", "150.000"));
+                adapter.add(new TitleValueAdapter.Item("Tổng tiền", "150.000"));
+                adapter.add(new TitleValueAdapter.Item("Tổng tiền", "150.000"));
+                adapter.notifyDataSetChanged();
+
+                mLayout.setVisibility(View.VISIBLE);
+            }
+        });
+        asycn.execute(Preference.getInstance().loadPreference(getString(R.string.preference_username)),
+                Preference.getInstance().loadPreference(getString(R.string.preference_password)));
+
+
     }
 
     @Override

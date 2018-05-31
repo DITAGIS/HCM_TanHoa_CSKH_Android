@@ -1,3 +1,5 @@
+<!DOCTYPE resources [<!ENTITY table_temp_docso "#docsotemp"><!ENTITY table_docso "Docso1"><!ENTITY table_khachhang "KhachHang1"><!ENTITY table_hinhdhn "Docsoth_hinh..HinhDHN1">]>
+
 <resources>
     <!--activity begin-->
     <string name="app_name">Chăm sóc khách hàng TH</string>
@@ -9,9 +11,36 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
     <!--activity end-->
 
     <!--preference begin-->
     <string name="preference_username">username</string>
+    <string name="preference_password">pasword</string>
     <!--preference end-->
+
+    <!--sql begin-->
+    <string name="sql_table_name_docso">&table_docso;</string>
+    <string name="sql_table_name_khachhang">&table_khachhang;</string>
+    <string name="sql_table_name_hinhdhn">&table_hinhdhn;</string>
+
+    <!--sql column khachhang begin-->
+    <string name="sql_coloumn_khachhang_hieuluc">hieuluc</string>
+    <string name="sql_coloumn_khachhang_tenkh">tenkh</string>
+    <string name="sql_coloumn_khachhang_so">so</string>
+    <string name="sql_coloumn_khachhang_duong">duong</string>
+    <string name="sql_coloumn_khachhang_phuong">phuong</string>
+    <string name="sql_coloumn_khachhang_quan">quan</string>
+    <string name="sql_coloumn_khachhang_sdt">sdt</string>
+    <string name="sql_coloumn_khachhang_hopdong">hopdong</string>
+    <string name="sql_coloumn_khachhang_mlt">mlt1</string>
+
+    <!--sql column khachhang end-->
+    <string name="sql_get_khachhang">select * from &table_khachhang;
+        where danhba = ? and pin = ?</string>
+    <!--sql end-->
+    <string name="find_khachhHang_message">Đang lấy thông tin khác hàng...</string>
+    <string name="connect_message">Đang kết nối cơ sở dữ liệu...</string>
+    <string name="login_message">Đang kiểm tra thông tin đăng nhập...</string>
+
 </resources>

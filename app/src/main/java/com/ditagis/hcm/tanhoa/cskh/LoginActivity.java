@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mTxtUsername = findViewById(R.id.txtUsername);
         mTxtPassword = findViewById(R.id.txtPassword);
 
+
         create();
     }
 
@@ -65,9 +66,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             handleLoginFail();
             return;
         }
-        if (userName.equals("111") && passWord.equals("123456")) {
+//        if (userName.equals("12101860725") && passWord.equals("123456")) {
             handleLoginSuccess(userName, passWord);
-        }
+//        }
     }
 
     private void handleLoginFail() {
@@ -79,6 +80,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mTxtPassword.setText("");
 
         Preference.getInstance().savePreferences(getString(R.string.preference_username), userName);
+        Preference.getInstance().savePreferences(getString(R.string.preference_password), passWord);
 
         Intent intent = new Intent(this, TrangChuActivity.class);
         startActivity(intent);
