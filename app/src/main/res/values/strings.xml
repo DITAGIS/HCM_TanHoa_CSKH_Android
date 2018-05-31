@@ -10,4 +10,8 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <!--activity end-->
+
+    <!--preference begin-->
+    <string name="preference_username">username</string>
+    <!--preference end-->
 </resources>

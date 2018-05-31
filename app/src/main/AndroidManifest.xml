@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cskh.tanhoa.com.ditagis.hcm.cskh">
+    package="com.ditagis.hcm.tanhoa.cskh.cskh">
 
     <application
         android:allowBackup="true"
@@ -10,24 +10,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".TrangChuActivity"
+            android:name="com.ditagis.hcm.tanhoa.cskh.TrangChuActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name="com.ditagis.hcm.tanhoa.cskh.TraCuuActivity"
+            android:label="@string/tra_cuu_activity"
+            android:parentActivityName="com.ditagis.hcm.tanhoa.cskh.TrangChuActivity" />
+        <activity
+            android:name="com.ditagis.hcm.tanhoa.cskh.tracuu.TraCuuTienNuocActivity"
+            android:label="@string/tra_cuu_tien_nuoc_activity"
+            android:parentActivityName="com.ditagis.hcm.tanhoa.cskh.TraCuuActivity" />
+        <activity android:name="com.ditagis.hcm.tanhoa.cskh.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".TraCuuActivity"
-            android:label="@string/tra_cuu_activity"
-            android:parentActivityName=".TrangChuActivity" />
-        <activity
-            android:name=".tracuu.TraCuuTienNuocActivity"
-            android:label="@string/tra_cuu_tien_nuoc_activity"
-            android:parentActivityName=".TraCuuActivity" />
-        <activity android:name=".LoginActivity"></activity>
     </application>
 
 </manifest>
