@@ -1,9 +1,13 @@
 <resources>
-    <string name="app_name">CSKH</string>
+    <!--activity begin-->
+    <string name="app_name">Chăm sóc khách hàng TH</string>
+    <string name="tra_cuu_activity">Tra cứu</string>
+    <string name="tra_cuu_tien_nuoc_activity">Tra cứu tiền nước</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">CTY CP Cấp nước Tân Hòa</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <!--activity end-->
 </resources>

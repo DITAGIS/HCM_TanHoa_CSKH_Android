@@ -1,12 +1,16 @@
 package cskh.tanhoa.com.ditagis.hcm.cskh;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
-public class TraCuuActivity extends AppCompatActivity {
+import cskh.tanhoa.com.ditagis.hcm.cskh.tracuu.TraCuuTienNuocActivity;
+
+public class TraCuuActivity extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout mLayoutTraCuuTienNuoc, mLayoutTraCuuGiaNuoc, mLayoutTraCuuSuCo, mLayoutTraCuuThongBao;
 
     @Override
@@ -27,5 +31,17 @@ public class TraCuuActivity extends AppCompatActivity {
         mLayoutTraCuuGiaNuoc.startAnimation(animFade2);
         mLayoutTraCuuSuCo.startAnimation(animFade3);
         mLayoutTraCuuThongBao.startAnimation(animFade4);
+
+        mLayoutTraCuuTienNuoc.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.layout_tracuu_tiennuoc:
+                Intent intent = new Intent(TraCuuActivity.this, TraCuuTienNuocActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }

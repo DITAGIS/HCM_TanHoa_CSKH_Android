@@ -17,7 +17,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <!--Style textview-->
+    <!--textview begin-->
     <style name="MyTextAppearance.White" parent="@android:style/TextAppearance">
         <item name="android:textSize">17sp</item>
         <item name="android:textColor">@color/colorWhite</item>
@@ -33,4 +33,11 @@
         <item name="android:textSize">17sp</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
+    <!--textview end-->
+
+    <!--datepicker begin-->
+    <style name="MyDatePicker" parent="@android:style/Theme.Holo.Light">
+        <item name="android:datePickerStyle">@android:style/Widget.DatePicker</item>
+    </style>
+    <!--datepicker end-->
 </resources>

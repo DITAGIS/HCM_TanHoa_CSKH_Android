@@ -21,8 +21,13 @@
         </activity>
         <activity
             android:name=".TraCuuActivity"
-            android:label="Tra cứu"
-            android:parentActivityName=".TrangChuActivity"></activity>
+            android:label="@string/tra_cuu_activity"
+            android:parentActivityName=".TrangChuActivity" />
+        <activity
+            android:name=".tracuu.TraCuuTienNuocActivity"
+            android:label="@string/tra_cuu_tien_nuoc_activity"
+            android:parentActivityName=".TraCuuActivity" />
+        <activity android:name=".LoginActivity"></activity>
     </application>
 
 </manifest>
