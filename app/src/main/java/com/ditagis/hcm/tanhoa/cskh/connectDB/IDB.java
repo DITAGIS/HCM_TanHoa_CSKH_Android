@@ -13,6 +13,7 @@ public interface IDB<E, T, K> {
     public T update(E e);
 
     public E find(K k, K k1);
+    public E find(K k, K k1, K k2);
 
     public List<E> getAll();
 

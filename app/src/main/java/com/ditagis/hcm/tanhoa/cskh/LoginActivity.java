@@ -3,6 +3,7 @@ package com.ditagis.hcm.tanhoa.cskh;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -45,7 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //nếu chưa từng đăng nhập thành công trước đó
         //nhập username và password bình thường
         if (preference_userName == null || preference_userName.isEmpty()) {
-            findViewById(R.id.layout_login_tool).setVisibility(View.INVISIBLE);
+            findViewById(R.id.layout_login_tool).setVisibility(View.GONE);
             findViewById(R.id.layout_login_username).setVisibility(View.VISIBLE);
             isLastLogin = false;
         }
@@ -54,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         else {
             isLastLogin = true;
             findViewById(R.id.layout_login_tool).setVisibility(View.VISIBLE);
-            findViewById(R.id.layout_login_username).setVisibility(View.INVISIBLE);
+            findViewById(R.id.layout_login_username).setVisibility(View.GONE);
         }
 
     }
@@ -93,10 +94,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 //        }
     }
+
     private void handleInfoLoginEmpty() {
         mTxtValidation.setText(R.string.info_login_empty);
         mTxtValidation.setVisibility(View.VISIBLE);
     }
+
     private void handleLoginFail() {
         mTxtValidation.setText(R.string.validate_login_fail);
         mTxtValidation.setVisibility(View.VISIBLE);
@@ -140,4 +143,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_ENTER:
+                if (mTxtPassword.getText().toString().trim().length() > 0) {
+                    login();
+                    return true;
+                }
+            default:
+                return super.onKeyUp(keyCode, event);
+        }
+    }
 }

@@ -16,10 +16,11 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
-import com.ditagis.hcm.tanhoa.cskh.cskh.R;
 import com.ditagis.hcm.tanhoa.cskh.adapter.TitleValueTraCuuTienNuocAdapter;
+import com.ditagis.hcm.tanhoa.cskh.cskh.R;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 
 public class TraCuuTienNuocActivity extends AppCompatActivity implements View.OnClickListener {
     private DatePicker mDatePicker;
@@ -30,6 +31,8 @@ public class TraCuuTienNuocActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tra_cuu_tien_nuoc);
         mTxtMonthYear = findViewById(R.id.txt_tracuutiennuoc_MonthYear);
+        Calendar calendar = Calendar.getInstance();
+        mTxtMonthYear.setText(String.format(getString(R.string.format_monthyear), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR)));
         ListView lstView = findViewById(R.id.lstView_tracuutiennuoc);
         TitleValueTraCuuTienNuocAdapter adapter = new TitleValueTraCuuTienNuocAdapter(
                 this, new ArrayList<TitleValueTraCuuTienNuocAdapter.Item>());

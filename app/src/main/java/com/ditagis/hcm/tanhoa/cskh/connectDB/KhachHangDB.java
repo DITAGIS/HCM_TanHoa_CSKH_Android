@@ -73,6 +73,8 @@ public class KhachHangDB implements IDB<KhachHang, Boolean, String> {
                 int sx = rs.getInt(mContext.getString(R.string.sql_coloumn_khachhang_sx));
                 int dv = rs.getInt(mContext.getString(R.string.sql_coloumn_khachhang_dv));
                 int hc = rs.getInt(mContext.getString(R.string.sql_coloumn_khachhang_hc));
+                int dot = rs.getInt(mContext.getString(R.string.sql_coloumn_khachhang_dot));
+                int may = rs.getInt(mContext.getString(R.string.sql_coloumn_khachhang_may));
                 String soThan = rs.getString(mContext.getString(R.string.sql_coloumn_khachhang_sothan));
                 khachHang = new KhachHang();
                 khachHang.setDanhBa(danhBo);
@@ -92,6 +94,8 @@ public class KhachHangDB implements IDB<KhachHang, Boolean, String> {
                 khachHang.setDv(dv);
                 khachHang.setHc(hc);
                 khachHang.setSoThan(soThan);
+                khachHang.setDot(String.format(mContext.getString(R.string.format_number_two), dot));
+                khachHang.setMay(String.format(mContext.getString(R.string.format_number_two), may));
             }
         } catch (SQLException e1) {
             e1.printStackTrace();
@@ -105,6 +109,11 @@ public class KhachHangDB implements IDB<KhachHang, Boolean, String> {
         }
 
         return khachHang;
+    }
+
+    @Override
+    public KhachHang find(String s, String k1, String k2) {
+        return null;
     }
 
     @Override

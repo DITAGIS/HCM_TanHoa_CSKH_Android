@@ -3,14 +3,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/colorWhite"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:background="@color/colorBackground_1"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:paddingLeft="@dimen/login_activity_horizontal_margin"
@@ -33,6 +33,7 @@
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="150dp"
+                android:layout_margin="@dimen/login_activity_horizontal_margin"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
 
@@ -44,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/colorWhite"
             android:minHeight="25px"
             android:minWidth="25px"
             android:orientation="vertical">
@@ -83,16 +85,14 @@
                     android:textCursorDrawable="@null" />
             </LinearLayout>
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.2" />
+
             <!--Layout hiển thị icon password và password-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/layout_border_curve"
                 android:focusable="true"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:focusableInTouchMode="true"
                 android:minHeight="25px"
                 android:minWidth="25px"
@@ -170,8 +170,7 @@
     <FrameLayout
         android:id="@+id/layout_login_tool"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         android:padding="@dimen/padding_layout"
         android:visibility="invisible">
@@ -189,6 +188,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
+            android:background="@color/colorWhite"
             android:clickable="true"
             android:text="Đổi tài khoản"
             android:textColor="@color/colorPrimary"

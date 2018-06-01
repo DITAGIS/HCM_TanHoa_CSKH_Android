@@ -1,4 +1,4 @@
-<!DOCTYPE resources [<!ENTITY table_temp_docso "#docsotemp"><!ENTITY table_docso "Docso1"><!ENTITY table_khachhang "KhachHang1"><!ENTITY table_hinhdhn "Docsoth_hinh..HinhDHN1">]>
+<!DOCTYPE resources [<!ENTITY table_temp_docso "#docsotemp"><!ENTITY table_docso "Docso"><!ENTITY table_lichsuds "LichSuDS"><!ENTITY table_khachhang "KhachHang1"><!ENTITY table_hinhdhn "Docsoth_hinh..HinhDHN">]>
 
 <resources>
     <!--activity begin-->
@@ -18,6 +18,9 @@
     <string name="validate_no_connect">Không có kết nối internet</string>
     <string name="info_login_empty">Danh bạ hoặc mật khẩu không được để trống</string>
     <string name="validate_login_fail">Sai danh bạ hoặc mật khẩu</string>
+    <string name="validate_hieuluc">Đồng hồ của khách hàng đã không còn hiệu lực\nVui lòng liên hệ công ty Cấp nước Tân Hòa\nđể biết thêm thông tin</string>
+
+
     <!--activity end-->
 
     <!--preference begin-->
@@ -29,6 +32,7 @@
     <string name="sql_table_name_docso">&table_docso;</string>
     <string name="sql_table_name_khachhang">&table_khachhang;</string>
     <string name="sql_table_name_hinhdhn">&table_hinhdhn;</string>
+    <string name="sql_table_name_lichsuds">&table_lichsuds;</string>
 
     <!--sql column khachhang begin-->
     <string name="sql_coloumn_khachhang_hieuluc">hieuluc</string>
@@ -49,11 +53,32 @@
     <string name="sql_coloumn_khachhang_co">co</string>
     <string name="sql_coloumn_khachhang_sothan">sothan</string>
     <string name="sql_coloumn_khachhang_chithan">chithan</string>
+    <string name="sql_coloumn_khachhang_dot">dot</string>
+    <string name="sql_coloumn_khachhang_may">may</string>
     <!--sql column khachhang end-->
+
+    <!--sql column docso start-->
+    <string name="sql_coloumn_docso_cscu">cscu</string>
+    <string name="sql_coloumn_docso_csmoi">csmoi</string>
+    <string name="sql_coloumn_docso_tieuthucu">tieuthucu</string>
+    <string name="sql_coloumn_docso_tieuthumoi">tieuthumoi</string>
+    <string name="sql_coloumn_docso_tiennuoc">tiennuoc</string>
+    <string name="sql_coloumn_docso_thuevat">thue</string>
+    <string name="sql_coloumn_docso_phibvmt">bvmt</string>
+    <string name="sql_coloumn_docso_tongtien">tongtien</string>
+    <!--sql column docso end-->
+
+    <!--sql column lichsuds begin-->
+    <string name="sql_coloumn_lichsuds_nam">nam</string>
+    <string name="sql_coloumn_lichsuds_ky">ky</string>
+    <string name="sql_coloumn_lichsuds_nhanviends">nhanviends</string>
+    <!--sql column lichsuds end-->
+    <string name="sql_get_lichsuds">select top 1 * from &table_lichsuds; where dot = ? and may = ? order by nam desc, ky desc</string>
     <string name="sql_get_khachhang">select * from &table_khachhang;
         where danhba = ? and pin = ?</string>
     <string name="sql_login">select danhba from &table_khachhang;
         where danhba = ? and pin = ?</string>
+    <string name="sql_get_docso">select top 1 * from &table_docso; where docsoid = ? </string>
     <!--sql end-->
     <string name="find_khachhHang_message">Đang lấy thông tin khách hàng...</string>
     <string name="connect_message">Đang kết nối cơ sở dữ liệu...</string>
@@ -69,6 +94,12 @@
     <string name="format_number">%d</string>
     <string name="format_nav_tenkh_over">Xin chào %s...</string>
     <string name="format_nav_tenkh">Xin chào %s</string>
+    <string name="format_number_two">%02d</string>
+    <string name="format_number_money">%s đ</string>
+    <string name="format_number_m3">%d m3</string>
+    <string name="format_new_line">\n%s</string>
+    <string name="format_newline_address">\n%s %s</string>
+    <string name="format_monthyear">%02d/%d</string>
     <!--string format end-->
 
 
@@ -78,6 +109,7 @@
     <string name="csmoi">Chỉ số mới</string>
     <string name="tieuthu">Tiêu thụ</string>
     <string name="tongtien">Tổng tiền</string>
+    <string name="validate_tracuutiennuoc">Vui lòng chọn thời gian cần tra cứu</string>
 
 
 

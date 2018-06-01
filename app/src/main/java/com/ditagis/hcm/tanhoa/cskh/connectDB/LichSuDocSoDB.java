@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.StrictMode;
 
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-import com.ditagis.hcm.tanhoa.cskh.entity.KhachHang;
+import com.ditagis.hcm.tanhoa.cskh.entity.LichSuDocSo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,15 +14,17 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class LoginDB implements IDB<KhachHang, Boolean, String> {
+public class LichSuDocSoDB implements IDB<LichSuDocSo, Boolean, String> {
     DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     private Context mContext;
 
-    public LoginDB(Context mContext) {
+    public LichSuDocSoDB(Context mContext) {
         this.mContext = mContext;
     }
+
+    //    private final String SQL_FIND = "SELECT * FROM " + TABLE_NAME + " WHERE ID=?";
     @Override
-    public Boolean add(KhachHang khachHang) {
+    public Boolean add(LichSuDocSo khachHang) {
         return null;
     }
 
@@ -32,31 +34,36 @@ public class LoginDB implements IDB<KhachHang, Boolean, String> {
     }
 
     @Override
-    public Boolean update(KhachHang khachHang) {
+    public Boolean update(LichSuDocSo khachHang) {
         return null;
     }
 
 
     @Override
-    public KhachHang find(String danhBo, String pin) {
+    public LichSuDocSo find(String dot, String may) {
         Connection cnn = ConnectionDB.getInstance().getConnection();
-        KhachHang khachHang = null;
+        LichSuDocSo lichSuDocSo = null;
         ResultSet rs = null;
         try {
             if (cnn == null)
                 return null;
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
-            String query = mContext.getString(R.string.sql_login);
+            String query = mContext.getString(R.string.sql_get_lichsuds);
             PreparedStatement mStatement = cnn.prepareStatement(query);
-            mStatement.setString(1, danhBo);
-            mStatement.setString(2, pin);
+            mStatement.setString(1, dot);
+            mStatement.setString(2, may);
             rs = mStatement.executeQuery();
 
             while (rs.next()) {
-
-                khachHang = new KhachHang();
-                khachHang.setDanhBa(danhBo);
+                int nam = rs.getInt(mContext.getString(R.string.sql_coloumn_lichsuds_nam));
+                int ky = rs.getInt(mContext.getString(R.string.sql_coloumn_lichsuds_ky));
+                String nhanVienDS = rs.getString(mContext.getString(R.string.sql_coloumn_lichsuds_nhanviends));
+                lichSuDocSo = new LichSuDocSo(may);
+                lichSuDocSo.setDot(dot);
+                lichSuDocSo.setNam(nam);
+                lichSuDocSo.setKy(ky);
+                lichSuDocSo.setNhanVienDS(nhanVienDS);
             }
         } catch (SQLException e1) {
             e1.printStackTrace();
@@ -68,16 +75,17 @@ public class LoginDB implements IDB<KhachHang, Boolean, String> {
                 e.printStackTrace();
             }
         }
-        return khachHang;
+
+        return lichSuDocSo;
     }
 
     @Override
-    public KhachHang find(String s, String k1, String k2) {
+    public LichSuDocSo find(String s, String k1, String k2) {
         return null;
     }
 
     @Override
-    public List<KhachHang> getAll() {
+    public List<LichSuDocSo> getAll() {
         return null;
     }
 

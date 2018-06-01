@@ -41,7 +41,7 @@ public class KhachHang {
         this.danhBa = danhBa;
     }
 
-    public short isHieuLuc() {
+    public short getHieuLuc() {
         return hieuLuc;
     }
 
