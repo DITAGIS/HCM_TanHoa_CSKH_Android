@@ -25,6 +25,7 @@ import com.ditagis.hcm.tanhoa.cskh.entity.DongHoKhachHang;
 import com.ditagis.hcm.tanhoa.cskh.entity.KhachHang;
 import com.ditagis.hcm.tanhoa.cskh.entity.LichSuDocSo;
 import com.ditagis.hcm.tanhoa.cskh.utities.Preference;
+import com.ditagis.hcm.tanhoa.cskh.utities.Utils;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class TrangChuActivity extends AppCompatActivity
     private TextView mTxtValidation;
     private TitleValueAdapter mAdapter;
     private ListView mListView;
-    private final NumberFormat mNumberFormat = NumberFormat.getNumberInstance(Locale.GERMAN);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +49,6 @@ public class TrangChuActivity extends AppCompatActivity
         setContentView(R.layout.activity_trang_chu);
         mLayout = findViewById(R.id.layout_content_trangchu);
         mLayout.setVisibility(View.VISIBLE);
-
-
-        mNumberFormat.setGroupingUsed(true);
 
         //-----------------------------
         //start default
@@ -197,7 +195,7 @@ public class TrangChuActivity extends AppCompatActivity
         mAdapter.add(new TitleValueAdapter.Item(getString(R.string.tieuthu),
                 String.format(getString(R.string.format_number_m3), mDongHoKH.getTieuthumoi())));
         mAdapter.add(new TitleValueAdapter.Item(getString(R.string.tongtien),
-                String.format(getString(R.string.format_number_money), mNumberFormat.format(mDongHoKH.getTongTien()))));
+                String.format(getString(R.string.format_number_money), Utils.getInstance().getNumberFormat().format(mDongHoKH.getTongTien()))));
         mAdapter.notifyDataSetChanged();
 
         mLayout.setVisibility(View.VISIBLE);

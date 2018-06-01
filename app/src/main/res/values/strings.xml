@@ -19,7 +19,7 @@
     <string name="info_login_empty">Danh bạ hoặc mật khẩu không được để trống</string>
     <string name="validate_login_fail">Sai danh bạ hoặc mật khẩu</string>
     <string name="validate_hieuluc">Đồng hồ của khách hàng đã không còn hiệu lực\nVui lòng liên hệ công ty Cấp nước Tân Hòa\nđể biết thêm thông tin</string>
-
+    <string name="validate_tracuutiennuoc_invalidtime">Chưa đến đợt đọc số!\nVui lòng chọn thời gian khác để tra cứu</string>
 
     <!--activity end-->
 
@@ -110,7 +110,9 @@
     <string name="tieuthu">Tiêu thụ</string>
     <string name="tongtien">Tổng tiền</string>
     <string name="validate_tracuutiennuoc">Vui lòng chọn thời gian cần tra cứu</string>
-
+    <string name="tiennuoc">Tiền nước</string>
+    <string name="thueVAT">Thuế VAT</string>
+    <string name="phiBVMT">Phí BVMT</string>
 
 
 </resources>

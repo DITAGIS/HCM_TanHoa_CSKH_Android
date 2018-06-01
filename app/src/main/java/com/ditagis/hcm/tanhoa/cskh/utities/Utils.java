@@ -1,0 +1,29 @@
+package com.ditagis.hcm.tanhoa.cskh.utities;
+
+import java.text.NumberFormat;
+import java.util.Locale;
+
+public class Utils {
+    private  NumberFormat numberFormat;
+
+    public  NumberFormat getNumberFormat() {
+        numberFormat = NumberFormat.getNumberInstance(Locale.GERMAN);
+        numberFormat.setGroupingUsed(true);
+        return numberFormat;
+    }
+
+    private static Utils instance = null;
+
+    public static Utils getInstance() {
+        if (instance == null) {
+            instance = new Utils();
+
+        }
+
+        return instance;
+    }
+
+    private Utils() {
+
+    }
+}

@@ -16,8 +16,12 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ditagis.hcm.tanhoa.cskh.acynchronize.FindDongHoKhachHangAsycn;
 import com.ditagis.hcm.tanhoa.cskh.adapter.TitleValueTraCuuTienNuocAdapter;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
+import com.ditagis.hcm.tanhoa.cskh.entity.DongHoKhachHang;
+import com.ditagis.hcm.tanhoa.cskh.utities.Preference;
+import com.ditagis.hcm.tanhoa.cskh.utities.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,6 +29,8 @@ import java.util.Calendar;
 public class TraCuuTienNuocActivity extends AppCompatActivity implements View.OnClickListener {
     private DatePicker mDatePicker;
     private TextView mTxtMonthYear;
+    private TextView mtxtValidation;
+    private ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,20 +39,8 @@ public class TraCuuTienNuocActivity extends AppCompatActivity implements View.On
         mTxtMonthYear = findViewById(R.id.txt_tracuutiennuoc_MonthYear);
         Calendar calendar = Calendar.getInstance();
         mTxtMonthYear.setText(String.format(getString(R.string.format_monthyear), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR)));
-        ListView lstView = findViewById(R.id.lstView_tracuutiennuoc);
-        TitleValueTraCuuTienNuocAdapter adapter = new TitleValueTraCuuTienNuocAdapter(
-                this, new ArrayList<TitleValueTraCuuTienNuocAdapter.Item>());
-
-        lstView.setAdapter(adapter);
-        adapter.add(new TitleValueTraCuuTienNuocAdapter.Item("Chỉ số cũ", "300"));
-        adapter.add(new TitleValueTraCuuTienNuocAdapter.Item("Chỉ số mới", "310"));
-        adapter.add(new TitleValueTraCuuTienNuocAdapter.Item("Tiêu thụ", "10"));
-        adapter.add(new TitleValueTraCuuTienNuocAdapter.Item("Tiền nước", "55.000đ"));
-        adapter.add(new TitleValueTraCuuTienNuocAdapter.Item("Thuế VAT", "2.500đ"));
-        adapter.add(new TitleValueTraCuuTienNuocAdapter.Item("Phí BVMT", "5.500đ"));
-        adapter.add(new TitleValueTraCuuTienNuocAdapter.Item("Tổng cộng", "66.000đ"));
-        adapter.notifyDataSetChanged();
-
+        mtxtValidation = findViewById(R.id.txt_tracuutiennuoc_validation);
+        mListView = findViewById(R.id.lstView_tracuutiennuoc);
         ((RelativeLayout) findViewById(R.id.layout_tracuutiennuoc_select_time)).setOnClickListener(this);
     }
 
@@ -59,6 +53,9 @@ public class TraCuuTienNuocActivity extends AppCompatActivity implements View.On
         View dialogLayout = inflater.inflate(R.layout.dialog_datepicker, null);
         this.mDatePicker = dialogLayout.findViewById(R.id.datepicker);
         this.mDatePicker.setMaxDate(System.currentTimeMillis());
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2015, 0, 1);
+        this.mDatePicker.setMinDate(calendar.getTimeInMillis());
         int daySpinnerId = Resources.getSystem().getIdentifier("day", "id", "android");
         if (daySpinnerId != 0) {
             View daySpinner = dialogLayout.findViewById(daySpinnerId);
@@ -79,15 +76,67 @@ public class TraCuuTienNuocActivity extends AppCompatActivity implements View.On
                 }).setPositiveButton("Chọn", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                mTxtMonthYear.setText(String.format("%02d", mDatePicker.getMonth() + 1) +
-                        "/" + mDatePicker.getYear());
+                mTxtMonthYear.setText(String.format(getString(R.string.format_monthyear),
+                        mDatePicker.getMonth() + 1, mDatePicker.getYear()));
                 dialogInterface.dismiss();
+
+                getInfoDongHoKhachHang(String.format(getString(R.string.format_number_two),
+                        mDatePicker.getMonth() + 1), String.format(getString(R.string.format_number),
+                        mDatePicker.getYear()));
             }
         });
 
         final AlertDialog dialog = builder.create();
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.show();
+    }
+
+    /**
+     * @input kỳ, năm, danh bạ
+     * Hiển thị thông tin lên listview
+     */
+    private void getInfoDongHoKhachHang(String month, String year) {
+        FindDongHoKhachHangAsycn asycn = new FindDongHoKhachHangAsycn(this, new FindDongHoKhachHangAsycn.AsyncResponse() {
+            @Override
+            public void processFinish(DongHoKhachHang output) {
+                if (output == null) {
+                    handleFindDongHoKhachHangFail();
+                    return;
+                }
+
+                TitleValueTraCuuTienNuocAdapter adapter = new TitleValueTraCuuTienNuocAdapter(
+                        TraCuuTienNuocActivity.this, new ArrayList<TitleValueTraCuuTienNuocAdapter.Item>());
+
+                mListView.setAdapter(adapter);
+                adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.cscu),
+                        String.format(getString(R.string.format_number_m3), output.getCscu())));
+                adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.csmoi),
+                        String.format(getString(R.string.format_number_m3), output.getCsmoi())));
+                adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.tieuthu),
+                        String.format(getString(R.string.format_number_m3), output.getTieuthumoi())));
+                adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.tiennuoc),
+                        String.format(getString(R.string.format_number_money), Utils.getInstance().getNumberFormat().format(output.getTienNuoc()))));
+                adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.thueVAT),
+                        String.format(getString(R.string.format_number_money), Utils.getInstance().getNumberFormat().format(output.getThueVAT()))));
+                adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.phiBVMT),
+                        String.format(getString(R.string.format_number_money), Utils.getInstance().getNumberFormat().format(output.getPhiBVMT()))));
+                adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.tongtien),
+                        String.format(getString(R.string.format_number_money), Utils.getInstance().getNumberFormat().format(output.getTongTien()))));
+                adapter.notifyDataSetChanged();
+
+                mListView.setVisibility(View.VISIBLE);
+                mtxtValidation.setVisibility(View.GONE);
+            }
+        });
+        asycn.execute(year, month, Preference.getInstance().loadPreference(getString(R.string.preference_username)));
+
+
+    }
+
+    private void handleFindDongHoKhachHangFail() {
+        mListView.setVisibility(View.GONE);
+        mtxtValidation.setVisibility(View.VISIBLE);
+        mtxtValidation.setText(R.string.validate_tracuutiennuoc_invalidtime);
     }
 
 
