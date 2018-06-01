@@ -10,8 +10,14 @@
     <string name="nav_header_title">CTY CP Cấp nước Tân Hòa</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-
+    <string name="action_settings">Cài đặt</string>
+    <string name="action_mainpage">Trang chủ</string>
+    <string name="action_search">Tra cứu</string>
+    <string name="action_alert">Báo sự cố</string>
+    <string name="action_logout">Đăng xuất</string>
+    <string name="validate_no_connect">Không có kết nối internet</string>
+    <string name="info_login_empty">Danh bạ hoặc mật khẩu không được để trống</string>
+    <string name="validate_login_fail">Sai danh bạ hoặc mật khẩu</string>
     <!--activity end-->
 
     <!--preference begin-->
@@ -33,14 +39,46 @@
     <string name="sql_coloumn_khachhang_quan">quan</string>
     <string name="sql_coloumn_khachhang_sdt">sdt</string>
     <string name="sql_coloumn_khachhang_hopdong">hopdong</string>
-    <string name="sql_coloumn_khachhang_mlt">mlt1</string>
-
+    <string name="sql_coloumn_khachhang_gb">gb</string>
+    <string name="sql_coloumn_khachhang_dm">dm</string>
+    <string name="sql_coloumn_khachhang_sh">sh</string>
+    <string name="sql_coloumn_khachhang_sx">sx</string>
+    <string name="sql_coloumn_khachhang_dv">dv</string>
+    <string name="sql_coloumn_khachhang_hc">hc</string>
+    <string name="sql_coloumn_khachhang_hieu">hieu</string>
+    <string name="sql_coloumn_khachhang_co">co</string>
+    <string name="sql_coloumn_khachhang_sothan">sothan</string>
+    <string name="sql_coloumn_khachhang_chithan">chithan</string>
     <!--sql column khachhang end-->
     <string name="sql_get_khachhang">select * from &table_khachhang;
         where danhba = ? and pin = ?</string>
+    <string name="sql_login">select danhba from &table_khachhang;
+        where danhba = ? and pin = ?</string>
     <!--sql end-->
-    <string name="find_khachhHang_message">Đang lấy thông tin khác hàng...</string>
+    <string name="find_khachhHang_message">Đang lấy thông tin khách hàng...</string>
     <string name="connect_message">Đang kết nối cơ sở dữ liệu...</string>
     <string name="login_message">Đang kiểm tra thông tin đăng nhập...</string>
+
+    <!--string format begin-->
+    <string name="format_content_trangchu_danhbo">Danh bộ: %s</string>
+    <string name="format_content_trangchu_diachi">%s %s</string>
+    <string name="format_content_trangchu_sh">SH: %d%%</string>
+    <string name="format_content_trangchu_sx">SX: %d%%</string>
+    <string name="format_content_trangchu_dv">DV: %d%%</string>
+    <string name="format_content_trangchu_hc">HC: %d%%</string>
+    <string name="format_number">%d</string>
+    <string name="format_nav_tenkh_over">Xin chào %s...</string>
+    <string name="format_nav_tenkh">Xin chào %s</string>
+    <!--string format end-->
+
+
+    <string name="giabieu">Giá biểu</string>
+    <string name="dinhmuc">Đinh mức</string>
+    <string name="cscu">Chỉ số cũ</string>
+    <string name="csmoi">Chỉ số mới</string>
+    <string name="tieuthu">Tiêu thụ</string>
+    <string name="tongtien">Tổng tiền</string>
+
+
 
 </resources>

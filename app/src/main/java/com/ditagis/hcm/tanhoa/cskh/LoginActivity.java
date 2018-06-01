@@ -2,13 +2,15 @@ package com.ditagis.hcm.tanhoa.cskh;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.ditagis.hcm.tanhoa.cskh.acynchronize.LoginAsycn;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
+import com.ditagis.hcm.tanhoa.cskh.entity.KhachHang;
+import com.ditagis.hcm.tanhoa.cskh.utities.CheckConnectInternet;
 import com.ditagis.hcm.tanhoa.cskh.utities.Preference;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -17,6 +19,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView mTxtPassword;
     private TextView mTxtChangeAccount;
     private boolean isLastLogin;
+    private TextView mTxtValidation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mTxtUsername = findViewById(R.id.txtUsername);
         mTxtPassword = findViewById(R.id.txtPassword);
 
-
+        mTxtValidation = findViewById(R.id.txt_login_validation);
         create();
     }
 
@@ -53,26 +56,50 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             findViewById(R.id.layout_login_tool).setVisibility(View.VISIBLE);
             findViewById(R.id.layout_login_username).setVisibility(View.INVISIBLE);
         }
+
     }
 
     private void login() {
+        if (!CheckConnectInternet.isOnline(this)) {
+            mTxtValidation.setText(R.string.validate_no_connect);
+            mTxtValidation.setVisibility(View.VISIBLE);
+            return;
+        }
+        mTxtValidation.setVisibility(View.GONE);
+
         String userName = "";
         if (isLastLogin)
             userName = Preference.getInstance().loadPreference(getString(R.string.preference_username));
         else
             userName = mTxtUsername.getText().toString().trim();
-        String passWord = mTxtPassword.getText().toString().trim();
+        final String passWord = mTxtPassword.getText().toString().trim();
         if (userName.length() == 0 || passWord.length() == 0) {
-            handleLoginFail();
+            handleInfoLoginEmpty();
             return;
         }
+        final String finalUserName = userName;
+        LoginAsycn loginAsycn = new LoginAsycn(this, new LoginAsycn.AsyncResponse() {
+
+            @Override
+            public void processFinish(KhachHang output) {
+                if (output != null)
+                    handleLoginSuccess(finalUserName, passWord);
+                else
+                    handleLoginFail();
+            }
+        });
+        loginAsycn.execute(userName, passWord);
 //        if (userName.equals("12101860725") && passWord.equals("123456")) {
-            handleLoginSuccess(userName, passWord);
+
 //        }
     }
-
+    private void handleInfoLoginEmpty() {
+        mTxtValidation.setText(R.string.info_login_empty);
+        mTxtValidation.setVisibility(View.VISIBLE);
+    }
     private void handleLoginFail() {
-        Snackbar.make(btnLogin, "Danh bạ hoặc mật khẩu không được để trống", 2000);
+        mTxtValidation.setText(R.string.validate_login_fail);
+        mTxtValidation.setVisibility(View.VISIBLE);
     }
 
     private void handleLoginSuccess(String userName, String passWord) {

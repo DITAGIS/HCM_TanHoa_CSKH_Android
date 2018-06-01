@@ -1,17 +1,17 @@
 package com.ditagis.hcm.tanhoa.cskh.adapter;
 
+
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import java.util.List;
-
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
+
+import java.util.List;
 
 /**
  * Created by ThanLe on 04/10/2017.
@@ -55,12 +55,13 @@ public class TitleValueTraCuuTienNuocAdapter extends ArrayAdapter<TitleValueTraC
 
         TextView title = (TextView) convertView.findViewById(R.id.txt_tracuutiennuoc_tieude);
         title.setText(item.getTitle());
+        title.setTextColor(ContextCompat.getColor(mContext,
+                R.color.colorPrimaryLight));
 
         TextView value = (TextView) convertView.findViewById(R.id.txt_tracuutiennuoc_giatri);
         value.setText(item.getValue());
-        FrameLayout layout = convertView.findViewById(R.id.item_tracuutiennuoc);
-        layout.setBackgroundColor(ContextCompat.getColor(mContext,
-                R.color.color_item_tracuutiennuoc));
+        value.setTextColor(ContextCompat.getColor(mContext,
+                R.color.colorPrimaryLight));
         return convertView;
     }
 

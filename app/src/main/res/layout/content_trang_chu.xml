@@ -84,114 +84,51 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <!--Layout rate of SH-->
-            <LinearLayout
+
+            <TextView
+                android:id="@+id/txt_content_trangchu_sh"
+                style="@style/MyTextAppearance.White"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/colorCSC_SL_0_1"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="SH: 30%" />
 
-                <TextView
-                    style="@style/MyTextAppearance.White"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SH: " />
-
-                <TextView
-                    style="@style/MyTextAppearance.White"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="30" />
-
-                <TextView
-                    style="@style/MyTextAppearance.White"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="%" />
-            </LinearLayout>
-            <!--Layout rate of SX-->
-            <LinearLayout
+            <TextView
+                android:id="@+id/txt_content_trangchu_sx"
+                style="@style/MyTextAppearance.White"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/colorCSC_SL_1_1"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="SX: 30%" />
 
-                <TextView
-                    style="@style/MyTextAppearance.White"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SX: " />
-
-                <TextView
-                    style="@style/MyTextAppearance.White"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="70" />
-
-                <TextView
-                    style="@style/MyTextAppearance.White"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="%" />
-            </LinearLayout>
-            <!--Layout rate of DV-->
-            <LinearLayout
+            <TextView
+                android:id="@+id/txt_content_trangchu_dv"
+                style="@style/MyTextAppearance.White"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/colorCSC_SL_2_1"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="DV: 30%" />
 
-                <TextView
-                    style="@style/MyTextAppearance.White"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="DV: " />
-
-                <TextView
-                    style="@style/MyTextAppearance.White"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0" />
-
-                <TextView
-                    style="@style/MyTextAppearance.White"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="%" />
-            </LinearLayout>
-            <!--Layout rate of HC-->
-            <LinearLayout
+            <TextView
+                android:id="@+id/txt_content_trangchu_hc"
+                style="@style/MyTextAppearance.White"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/colorCSC_SL_3_1"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="HC: 30%" />
 
-                <TextView
-                    style="@style/MyTextAppearance.White"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="HC: " />
-
-                <TextView
-                    style="@style/MyTextAppearance.White"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0" />
-
-                <TextView
-                    style="@style/MyTextAppearance.White"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="%" />
-            </LinearLayout>
         </LinearLayout>
 
         <!--Layout more info-->

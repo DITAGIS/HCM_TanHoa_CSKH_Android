@@ -60,21 +60,38 @@ public class KhachHangDB implements IDB<KhachHang, Boolean, String> {
             while (rs.next()) {
                 short hieuLuc = rs.getShort(mContext.getString(R.string.sql_coloumn_khachhang_hieuluc));
                 String hopDong = rs.getString(mContext.getString(R.string.sql_coloumn_khachhang_hopdong));
-                String mlt = rs.getString(mContext.getString(R.string.sql_coloumn_khachhang_mlt));
                 String so = rs.getString(mContext.getString(R.string.sql_coloumn_khachhang_so));
                 String duong = rs.getString(mContext.getString(R.string.sql_coloumn_khachhang_duong));
                 String sdt = rs.getString(mContext.getString(R.string.sql_coloumn_khachhang_sdt));
                 String tenkh = rs.getString(mContext.getString(R.string.sql_coloumn_khachhang_tenkh));
-
+                String hieu = rs.getString(mContext.getString(R.string.sql_coloumn_khachhang_hieu));
+                int co = rs.getInt(mContext.getString(R.string.sql_coloumn_khachhang_co));
+                String chiThan = rs.getString(mContext.getString(R.string.sql_coloumn_khachhang_chithan));
+                int dm = rs.getInt(mContext.getString(R.string.sql_coloumn_khachhang_dm));
+                int gb = rs.getInt(mContext.getString(R.string.sql_coloumn_khachhang_gb));
+                int sh = rs.getInt(mContext.getString(R.string.sql_coloumn_khachhang_sh));
+                int sx = rs.getInt(mContext.getString(R.string.sql_coloumn_khachhang_sx));
+                int dv = rs.getInt(mContext.getString(R.string.sql_coloumn_khachhang_dv));
+                int hc = rs.getInt(mContext.getString(R.string.sql_coloumn_khachhang_hc));
+                String soThan = rs.getString(mContext.getString(R.string.sql_coloumn_khachhang_sothan));
                 khachHang = new KhachHang();
                 khachHang.setDanhBa(danhBo);
                 khachHang.setHieuLuc(hieuLuc);
                 khachHang.setHopDong(hopDong);
-                khachHang.setMaLoTrinh(mlt);
                 khachHang.setSo(so);
                 khachHang.setDuong(duong);
                 khachHang.setSdt(sdt);
                 khachHang.setTenKH(tenkh);
+                khachHang.setHieu(hieu);
+                khachHang.setCo(co);
+                khachHang.setChiThan(chiThan);
+                khachHang.setDm(dm);
+                khachHang.setGb(gb);
+                khachHang.setSh(sh);
+                khachHang.setSx(sx);
+                khachHang.setDv(dv);
+                khachHang.setHc(hc);
+                khachHang.setSoThan(soThan);
             }
         } catch (SQLException e1) {
             e1.printStackTrace();

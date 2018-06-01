@@ -33,6 +33,7 @@
             android:background="@drawable/layout_border_oval"
             android:contentDescription="@string/nav_header_desc"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:layout_marginRight="@dimen/margin_small"
             app:srcCompat="@drawable/ic_avt" />
 
         <LinearLayout
@@ -41,14 +42,15 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/nav_header_tenkh"
                 style="@style/MyTextAppearance.White"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/nav_header_vertical_spacing"
-                android:text="Xin chào Nguyễn Văn A sdfsa sadf sad sdfsa sadfsd adsadfs sadfs " />
+                android:text="Xin chào Nguyễn Trần Văn A..." />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/nav_header_diachi"
                 style="@style/MyTextAppearance.White"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

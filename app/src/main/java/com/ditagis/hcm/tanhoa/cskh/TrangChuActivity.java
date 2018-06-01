@@ -27,6 +27,8 @@ import java.util.ArrayList;
 public class TrangChuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     LinearLayout mLayout;
+    private KhachHang mKhachHang;
+    private DrawerLayout mDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +51,11 @@ public class TrangChuActivity extends AppCompatActivity
 //            }
 //        });
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        mDrawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+                this, mDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawer.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         //-----------------------------
@@ -68,27 +69,8 @@ public class TrangChuActivity extends AppCompatActivity
                     finish();
                     return;
                 }
-                ((TextView) findViewById(R.id.txt_content_trangchu_danhBo)).setText("Danh bộ: " +
-                        output.getDanhBa());
-                ((TextView) findViewById(R.id.txt_content_trangchu_tenKH)).setText(output.getTenKH());
-                ((TextView) findViewById(R.id.txt_content_trangchu_sdt)).setText(output.getSdt());
-                ((TextView) findViewById(R.id.txt_content_trangchu_diachi)).setText(output.getSo()
-                        + " " + output.getDuong());
-                ListView lstView = findViewById(R.id.lstView_info_main_page);
-                TitleValueAdapter adapter = new TitleValueAdapter(TrangChuActivity.this,
-                        new ArrayList<TitleValueAdapter.Item>());
-                lstView.setAdapter(adapter);
-                adapter.add(new TitleValueAdapter.Item("Giá biểu", "11"));
-                adapter.add(new TitleValueAdapter.Item("Đinh mức", "0"));
-                adapter.add(new TitleValueAdapter.Item("Chỉ số cũ", "335"));
-                adapter.add(new TitleValueAdapter.Item("Chỉ số mới", "365"));
-                adapter.add(new TitleValueAdapter.Item("Tiêu thụ", "30"));
-                adapter.add(new TitleValueAdapter.Item("Tổng tiền", "150.000"));
-                adapter.add(new TitleValueAdapter.Item("Tổng tiền", "150.000"));
-                adapter.add(new TitleValueAdapter.Item("Tổng tiền", "150.000"));
-                adapter.notifyDataSetChanged();
-
-                mLayout.setVisibility(View.VISIBLE);
+                mKhachHang = output;
+                setInfoMainPage();
             }
         });
         asycn.execute(Preference.getInstance().loadPreference(getString(R.string.preference_username)),
@@ -97,11 +79,50 @@ public class TrangChuActivity extends AppCompatActivity
 
     }
 
+    private void setInfoMainPage() {
+        String tenKH = mKhachHang.getTenKH();
+        ((TextView) findViewById(R.id.txt_content_trangchu_danhBo)).setText(
+                String.format(getString(R.string.format_content_trangchu_danhbo), mKhachHang.getDanhBa()));
+        ((TextView) findViewById(R.id.txt_content_trangchu_tenKH)).setText(tenKH);
+        ((TextView) findViewById(R.id.txt_content_trangchu_sdt)).setText(mKhachHang.getSdt());
+        ((TextView) findViewById(R.id.txt_content_trangchu_diachi)).setText(
+                String.format(getString(R.string.format_content_trangchu_diachi),
+                        mKhachHang.getSo(), mKhachHang.getDuong()));
+        ((TextView) findViewById(R.id.txt_content_trangchu_sh)).setText(
+                String.format(getString(R.string.format_content_trangchu_sh), mKhachHang.getSh()));
+        ((TextView) findViewById(R.id.txt_content_trangchu_sx)).setText(
+                String.format(getString(R.string.format_content_trangchu_sx), mKhachHang.getSx()));
+        ((TextView) findViewById(R.id.txt_content_trangchu_dv)).setText(
+                String.format(getString(R.string.format_content_trangchu_dv), mKhachHang.getDv()));
+        ((TextView) findViewById(R.id.txt_content_trangchu_hc)).setText(
+                String.format(getString(R.string.format_content_trangchu_hc), mKhachHang.getHc()));
+        //nếu tên khách hàng dài hơn 15 ký tự, thì hiển thị dấu ... phía sau để thay thế
+        ((TextView) mDrawer.findViewById(R.id.nav_header_tenkh)).setText(tenKH.length() > 15 ?
+                (String.format(getString(R.string.format_nav_tenkh_over), tenKH.substring(0, 15))) :
+                (String.format(getString(R.string.format_nav_tenkh), tenKH)));
+        ((TextView) mDrawer.findViewById(R.id.nav_header_diachi)).setText(
+                String.format(getString(R.string.format_content_trangchu_diachi),
+                        mKhachHang.getSo(), mKhachHang.getDuong()));
+        ListView lstView = findViewById(R.id.lstView_info_main_page);
+        TitleValueAdapter adapter = new TitleValueAdapter(TrangChuActivity.this,
+                new ArrayList<TitleValueAdapter.Item>());
+        lstView.setAdapter(adapter);
+        adapter.add(new TitleValueAdapter.Item(getString(R.string.giabieu), String.format(getString(R.string.format_number), mKhachHang.getGb())));
+        adapter.add(new TitleValueAdapter.Item(getString(R.string.dinhmuc), String.format(getString(R.string.format_number), mKhachHang.getDm())));
+        adapter.add(new TitleValueAdapter.Item(getString(R.string.cscu), "335"));
+        adapter.add(new TitleValueAdapter.Item(getString(R.string.csmoi), "365"));
+        adapter.add(new TitleValueAdapter.Item(getString(R.string.tieuthu), "30"));
+        adapter.add(new TitleValueAdapter.Item(getString(R.string.tongtien), "150.000"));
+        adapter.notifyDataSetChanged();
+
+        mLayout.setVisibility(View.VISIBLE);
+    }
+
     @Override
     public void onBackPressed() {
-//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-//        if (drawer.isDrawerOpen(GravityCompat.START)) {
-//            drawer.closeDrawer(GravityCompat.START);
+//        DrawerLayout mDrawer = findViewById(R.id.drawer_layout);
+//        if (mDrawer.isDrawerOpen(GravityCompat.START)) {
+//            mDrawer.closeDrawer(GravityCompat.START);
 //        } else {
 //            super.onBackPressed();
 //        }
@@ -136,14 +157,14 @@ public class TrangChuActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_main) {
             // Handle the camera action
         } else if (id == R.id.nav_search) {
             Intent intent = new Intent(TrangChuActivity.this, TraCuuActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_alert) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_logout) {
             finish();
