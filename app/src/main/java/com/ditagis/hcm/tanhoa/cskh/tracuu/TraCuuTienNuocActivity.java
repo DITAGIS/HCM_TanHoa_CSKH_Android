@@ -41,6 +41,7 @@ public class TraCuuTienNuocActivity extends AppCompatActivity implements View.On
         mTxtMonthYear.setText(String.format(getString(R.string.format_monthyear), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR)));
         mtxtValidation = findViewById(R.id.txt_tracuutiennuoc_validation);
         mListView = findViewById(R.id.lstView_tracuutiennuoc);
+
         ((RelativeLayout) findViewById(R.id.layout_tracuutiennuoc_select_time)).setOnClickListener(this);
     }
 
@@ -71,7 +72,6 @@ public class TraCuuTienNuocActivity extends AppCompatActivity implements View.On
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
-                        ;
                     }
                 }).setPositiveButton("Chọn", new DialogInterface.OnClickListener() {
             @Override
