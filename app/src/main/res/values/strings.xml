@@ -11,16 +11,23 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Cài đặt</string>
+    <string name="action_change_password">Đổi mật khẩu</string>
     <string name="action_mainpage">Trang chủ</string>
     <string name="action_search">Tra cứu</string>
     <string name="action_alert">Báo sự cố</string>
     <string name="action_logout">Đăng xuất</string>
+    <string name="changepassword_oldpassword">Nhập mật khẩu cũ</string>
+    <string name="changepassword_newpassword">Nhập mật khẩu mới</string>
+    <string name="changepassword_newpasswordconfirm">Nhập lại mật khẩu mới</string>
     <string name="validate_no_connect">Không có kết nối internet</string>
     <string name="info_login_empty">Danh bạ hoặc mật khẩu không được để trống</string>
     <string name="validate_login_fail">Sai danh bạ hoặc mật khẩu</string>
     <string name="validate_hieuluc">Đồng hồ của khách hàng đã không còn hiệu lực\nVui lòng liên hệ công ty Cấp nước Tân Hòa\nđể biết thêm thông tin</string>
     <string name="validate_tracuutiennuoc_invalidtime">Chưa đến đợt đọc số!\nVui lòng chọn thời gian khác để tra cứu</string>
-
+    <string name="validate_change_password">Mật khẩu mới không khớp</string>
+    <string name="validate_change_password_fail">Đổi mật khẩu thất bại</string>
+    <string name="validate_change_password_lack">Mật khẩu phải đủ 6 ký tự</string>
+    <string name="validate_password_old">Mật khẩu cũ không đúng</string>
     <!--activity end-->
 
     <!--preference begin-->
@@ -78,11 +85,17 @@
         where danhba = ? and pin = ?</string>
     <string name="sql_login">select danhba from &table_khachhang;
         where danhba = ? and pin = ?</string>
+    <string name="sql_changepassword">update &table_khachhang; set pin = ? where danhba = ?</string>
     <string name="sql_get_docso">select top 1 * from &table_docso; where docsoid = ? </string>
     <!--sql end-->
+
+    <!--message dialog begin-->
     <string name="find_khachhHang_message">Đang lấy thông tin khách hàng...</string>
     <string name="connect_message">Đang kết nối cơ sở dữ liệu...</string>
     <string name="login_message">Đang kiểm tra thông tin đăng nhập...</string>
+    <string name="change_password_check_old_password_message">Đang kiểm tra mật khẩu cũ...</string>
+    <string name="change_password_message">Đang đổi mật khẩu...</string>
+    <!--message dialog end-->
 
     <!--string format begin-->
     <string name="format_content_trangchu_danhbo">Danh bộ: %s</string>

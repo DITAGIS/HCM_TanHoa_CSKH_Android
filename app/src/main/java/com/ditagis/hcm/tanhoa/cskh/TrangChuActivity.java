@@ -249,6 +249,9 @@ public class TrangChuActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_settings) {
 
+        } else if (id == R.id.nav_change_password) {
+            Intent intent = new Intent(TrangChuActivity.this, DoiMatKhauActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_logout) {
             finish();
         }
