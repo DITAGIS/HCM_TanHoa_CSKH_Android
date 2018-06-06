@@ -145,6 +145,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
+
         switch (keyCode) {
             case KeyEvent.KEYCODE_ENTER:
                 if (mTxtPassword.getText().toString().trim().length() > 0) {

@@ -2,6 +2,7 @@ package com.ditagis.hcm.tanhoa.cskh;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -32,6 +33,18 @@ public class DoiMatKhauActivity extends AppCompatActivity implements View.OnClic
         mLayoutChangePassword = findViewById(R.id.layout_changepassword);
 
         findViewById(R.id.btn_change_password).setOnClickListener(this);
+        View.OnKeyListener keyListener = new View.OnKeyListener() {
+
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    changPassword();
+                }
+                return false;
+            }
+        };
+        mEtxtNewPasswordConfirm.setOnKeyListener(keyListener);
+
     }
 
     private boolean validate() {
