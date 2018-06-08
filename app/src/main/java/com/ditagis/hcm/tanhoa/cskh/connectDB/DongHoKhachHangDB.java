@@ -45,7 +45,7 @@ public class DongHoKhachHangDB implements IDB<DongHoKhachHang, Boolean, String> 
 
 
     @Override
-    public DongHoKhachHang find(String nam, String thang, String danhBo) {
+    public DongHoKhachHang find(String x, String thang, String danhBo) {
         Connection cnn = ConnectionDB.getInstance().getConnection();
         DongHoKhachHang dongHoKhachHang = null;
         ResultSet rs = null;
@@ -56,10 +56,12 @@ public class DongHoKhachHangDB implements IDB<DongHoKhachHang, Boolean, String> 
             StrictMode.setThreadPolicy(policy);
             String query = mContext.getString(R.string.sql_get_docso);
             PreparedStatement mStatement = cnn.prepareStatement(query);
-            mStatement.setString(1, nam + thang + danhBo);
+            mStatement.setString(1, danhBo);
             rs = mStatement.executeQuery();
 
             while (rs.next()) {
+                int nam = rs.getInt(mContext.getString(R.string.sql_coloumn_docso_nam));
+                int ky = rs.getInt(mContext.getString(R.string.sql_coloumn_docso_ky));
                 int cscu = rs.getInt(mContext.getString(R.string.sql_coloumn_docso_cscu));
                 int csmoi = rs.getInt(mContext.getString(R.string.sql_coloumn_docso_csmoi));
                 int tieuthucu = rs.getInt(mContext.getString(R.string.sql_coloumn_docso_tieuthucu));
@@ -71,6 +73,8 @@ public class DongHoKhachHangDB implements IDB<DongHoKhachHang, Boolean, String> 
                 dongHoKhachHang = new DongHoKhachHang(danhBo);
                 dongHoKhachHang.setCscu(cscu);
                 dongHoKhachHang.setCsmoi(csmoi);
+                dongHoKhachHang.setNam(nam);
+                dongHoKhachHang.setKy(ky);
                 dongHoKhachHang.setTieuthucu(tieuthucu);
                 dongHoKhachHang.setTieuthumoi(tieuthumoi);
                 dongHoKhachHang.setTienNuoc(tiennuoc);

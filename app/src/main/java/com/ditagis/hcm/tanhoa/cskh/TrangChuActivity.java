@@ -27,16 +27,13 @@ import com.ditagis.hcm.tanhoa.cskh.entity.LichSuDocSo;
 import com.ditagis.hcm.tanhoa.cskh.utities.Preference;
 import com.ditagis.hcm.tanhoa.cskh.utities.Utils;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class TrangChuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     LinearLayout mLayout;
     private KhachHang mKhachHang;
     private DongHoKhachHang mDongHoKH;
-    private LichSuDocSo mLichSuDS;
     private DrawerLayout mDrawer;
     private TextView mTxtValidation;
     private TitleValueAdapter mAdapter;
@@ -48,7 +45,6 @@ public class TrangChuActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trang_chu);
         mLayout = findViewById(R.id.layout_content_trangchu);
-        mLayout.setVisibility(View.VISIBLE);
 
         //-----------------------------
         //start default
@@ -82,7 +78,8 @@ public class TrangChuActivity extends AppCompatActivity
                 if (mKhachHang.getHieuLuc() > 0) {
 
                     mTxtValidation.setVisibility(View.GONE);
-                    getInfoLichSuDS();
+//                    getInfoLichSuDS();
+                    getInfoDongHoKhachHang();
                 }
                 //ngược lại, hiện thông báo
                 else {
@@ -110,20 +107,20 @@ public class TrangChuActivity extends AppCompatActivity
      * @input đợt và máy từ lớp khách hàng
      * Lấy thông tin mới nhất gán vào lớp lịch sử đọc số
      */
-    private void getInfoLichSuDS() {
-        FindLichSuDSAsycn lichSuDSAsycn = new FindLichSuDSAsycn(this, new FindLichSuDSAsycn.AsyncResponse() {
-            @Override
-            public void processFinish(LichSuDocSo output) {
-                if (output != null) {
-                    mLichSuDS = output;
-                    getInfoDongHoKhachHang();
-                } else {
-                    handleDongHoKhachHangInvalid();
-                }
-            }
-        });
-        lichSuDSAsycn.execute(mKhachHang.getDot(), mKhachHang.getMay());
-    }
+//    private void getInfoLichSuDS() {
+//        FindLichSuDSAsycn lichSuDSAsycn = new FindLichSuDSAsycn(this, new FindLichSuDSAsycn.AsyncResponse() {
+//            @Override
+//            public void processFinish(LichSuDocSo output) {
+//                if (output != null) {
+//                    mLichSuDS = output;
+//                    getInfoDongHoKhachHang();
+//                } else {
+//                    handleDongHoKhachHangInvalid();
+//                }
+//            }
+//        });
+//        lichSuDSAsycn.execute(mKhachHang.getDot(), mKhachHang.getMay());
+//    }
 
     /**
      * @input năm, kỳ từ lớp lịch sử đọc số và danh bạ từ lớp khách hàng
@@ -140,8 +137,7 @@ public class TrangChuActivity extends AppCompatActivity
                         }
                     }
                 });
-        findDongHoKhachHangAsycn.execute(String.format(getString(R.string.format_number), mLichSuDS.getNam()),
-                String.format(getString(R.string.format_number_two), mLichSuDS.getKy()), mKhachHang.getDanhBa());
+        findDongHoKhachHangAsycn.execute("", "", mKhachHang.getDanhBa());
     }
 
     /**

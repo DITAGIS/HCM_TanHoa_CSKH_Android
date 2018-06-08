@@ -66,6 +66,8 @@
 
     <!--sql column docso start-->
     <string name="sql_coloumn_docso_cscu">cscu</string>
+    <string name="sql_coloumn_docso_nam">nam</string>
+    <string name="sql_coloumn_docso_ky">ky</string>
     <string name="sql_coloumn_docso_csmoi">csmoi</string>
     <string name="sql_coloumn_docso_tieuthucu">tieuthucu</string>
     <string name="sql_coloumn_docso_tieuthumoi">tieuthumoi</string>
@@ -86,7 +88,7 @@
     <string name="sql_login">select danhba from &table_khachhang;
         where danhba = ? and pin = ?</string>
     <string name="sql_changepassword">update &table_khachhang; set pin = ? where danhba = ?</string>
-    <string name="sql_get_docso">select top 1 * from &table_docso; where docsoid = ? </string>
+    <string name="sql_get_docso">select top 1 * from &table_docso; where danhba = ? </string>
     <!--sql end-->
 
     <!--message dialog begin-->

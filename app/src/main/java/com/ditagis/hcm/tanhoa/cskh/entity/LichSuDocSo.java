@@ -11,6 +11,10 @@ public class LichSuDocSo {
         this.may = may;
     }
 
+    public LichSuDocSo() {
+
+    }
+
     public int getNam() {
         return nam;
     }
