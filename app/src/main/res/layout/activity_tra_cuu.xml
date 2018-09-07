@@ -15,7 +15,7 @@
         android:orientation="horizontal">
         <!--tra cứu tiền nước-->
         <LinearLayout
-            android:id="@+id/layout_tracuu_tiennuoc"
+            android:id="@+id/llayout_tracuu_tiennuoc"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -30,7 +30,7 @@
                 android:src="@drawable/bill" />
 
             <TextView
-                style="@style/MyTextAppearance.Black"
+                style="@style/MyTextAppearance.Black.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -39,7 +39,7 @@
         </LinearLayout>
         <!--tra cứu giá nước-->
         <LinearLayout
-            android:id="@+id/layout_tracuu_gianuoc"
+            android:id="@+id/llayout_tracuu_gianuoc"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -54,7 +54,7 @@
                 android:src="@drawable/budget" />
 
             <TextView
-                style="@style/MyTextAppearance.Black"
+                style="@style/MyTextAppearance.Black.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -70,7 +70,7 @@
         android:orientation="horizontal">
         <!--tra cứu sự cố-->
         <LinearLayout
-            android:id="@+id/layout_tracuu_suco"
+            android:id="@+id/llayout_tracuu_suco"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -85,7 +85,7 @@
                 android:src="@drawable/ic_su_co" />
 
             <TextView
-                style="@style/MyTextAppearance.Black"
+                style="@style/MyTextAppearance.Black.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -94,7 +94,7 @@
         </LinearLayout>
         <!--tra cứu thông báo-->
         <LinearLayout
-            android:id="@+id/layout_tracuu_thongbao"
+            android:id="@+id/llayout_tracuu_thongbao"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -109,7 +109,7 @@
                 android:src="@drawable/ic_notification" />
 
             <TextView
-                style="@style/MyTextAppearance.Black"
+                style="@style/MyTextAppearance.Black.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

@@ -9,5 +9,8 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="padding_layout">20dp</dimen>
     <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="width_title_tra_cuu_su_co">100dp</dimen>
 </resources>

@@ -5,6 +5,7 @@
     <string name="app_name">Chăm sóc khách hàng TH</string>
     <string name="tra_cuu_activity">Tra cứu</string>
     <string name="tra_cuu_tien_nuoc_activity">Tra cứu tiền nước</string>
+    <string name="tra_cuu_su_co_activity">Tra cứu sự cố</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">CTY CP Cấp nước Tân Hòa</string>
@@ -15,6 +16,7 @@
     <string name="action_mainpage">Trang chủ</string>
     <string name="action_search">Tra cứu</string>
     <string name="action_alert">Báo sự cố</string>
+    <string name="action_service_manual">Hướng dẫn dịch vụ</string>
     <string name="action_logout">Đăng xuất</string>
     <string name="changepassword_oldpassword">Nhập mật khẩu cũ</string>
     <string name="changepassword_newpassword">Nhập mật khẩu mới</string>
@@ -92,11 +94,11 @@
     <!--sql end-->
 
     <!--message dialog begin-->
-    <string name="find_khachhHang_message">Đang lấy thông tin khách hàng...</string>
-    <string name="connect_message">Đang kết nối cơ sở dữ liệu...</string>
-    <string name="login_message">Đang kiểm tra thông tin đăng nhập...</string>
-    <string name="change_password_check_old_password_message">Đang kiểm tra mật khẩu cũ...</string>
-    <string name="change_password_message">Đang đổi mật khẩu...</string>
+    <string name="find_khachhHang_message">Đang lấy thông tin khách hàng…</string>
+    <string name="connect_message">Đang kết nối máy chủ…</string>
+    <string name="login_message">Đang kiểm tra thông tin đăng nhập…</string>
+    <string name="change_password_check_old_password_message">Đang kiểm tra mật khẩu cũ…</string>
+    <string name="change_password_message">Đang đổi mật khẩu…</string>
     <!--message dialog end-->
 
     <!--string format begin-->
@@ -128,6 +130,9 @@
     <string name="tiennuoc">Tiền nước</string>
     <string name="thueVAT">Thuế VAT</string>
     <string name="phiBVMT">Phí BVMT</string>
+    <string name="url_webview_huong_dan_dich_vu">https://docs.google.com/viewer?url=www.capnuoctanhoa.com.vn/uploads/dichvukh/1-_KD-02_Mau_Phieu_De_Nghi_Sang_Ten_DHN_2.pdf</string>
+    <string name="preference_url_webview">preference_url_webview</string>
+    <string name="txt_chon_thoi_gian_tracuusuco">Chọn thời gian</string>
 
 
 </resources>

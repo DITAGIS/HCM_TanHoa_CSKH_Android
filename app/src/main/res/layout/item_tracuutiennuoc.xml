@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/txt_tracuutiennuoc_tieude"
-        style="@style/MyTextAppearance.Black"
+        style="@style/MyTextAppearance.Black.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_horizontal_margin"
@@ -18,7 +18,7 @@
 
     <TextView
         android:id="@+id/txt_tracuutiennuoc_giatri"
-        style="@style/MyTextAppearance.Black"
+        style="@style/MyTextAppearance.Black.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"

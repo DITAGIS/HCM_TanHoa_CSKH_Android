@@ -18,12 +18,10 @@ import android.widget.TextView;
 
 import com.ditagis.hcm.tanhoa.cskh.acynchronize.FindDongHoKhachHangAsycn;
 import com.ditagis.hcm.tanhoa.cskh.acynchronize.FindKhachHangAsycn;
-import com.ditagis.hcm.tanhoa.cskh.acynchronize.FindLichSuDSAsycn;
 import com.ditagis.hcm.tanhoa.cskh.adapter.TitleValueAdapter;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
 import com.ditagis.hcm.tanhoa.cskh.entity.DongHoKhachHang;
 import com.ditagis.hcm.tanhoa.cskh.entity.KhachHang;
-import com.ditagis.hcm.tanhoa.cskh.entity.LichSuDocSo;
 import com.ditagis.hcm.tanhoa.cskh.utities.Preference;
 import com.ditagis.hcm.tanhoa.cskh.utities.Utils;
 
@@ -235,22 +233,36 @@ public class TrangChuActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        switch (id) {
 
-        if (id == R.id.nav_main) {
+
+            case R.id.nav_main:
+                break;
             // Handle the camera action
-        } else if (id == R.id.nav_search) {
-            Intent intent = new Intent(TrangChuActivity.this, TraCuuActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_alert) {
+            case R.id.nav_search:
+                Intent intentSearch = new Intent(TrangChuActivity.this, TraCuuActivity.class);
+                startActivity(intentSearch);
+                break;
+            case R.id.nav_alert:
+                break;
+            case R.id.nav_service_manual:
+                Preference.getInstance().setContext(this);
+                Preference.getInstance().savePreferences(getString(R.string.preference_url_webview), getString(R.string.url_webview_huong_dan_dich_vu));
+                Intent intentServiceManual = new Intent(TrangChuActivity.this, BrowserActivity.class);
+                startActivity(intentServiceManual);
+                break;
+            case R.id.nav_settings:
+                break;
 
-        } else if (id == R.id.nav_settings) {
-
-        } else if (id == R.id.nav_change_password) {
-            Intent intent = new Intent(TrangChuActivity.this, DoiMatKhauActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_logout) {
-            finish();
+            case R.id.nav_change_password:
+                Intent intentChangePassword = new Intent(TrangChuActivity.this, DoiMatKhauActivity.class);
+                startActivity(intentChangePassword);
+                break;
+            case R.id.nav_logout:
+                finish();
+                break;
         }
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
