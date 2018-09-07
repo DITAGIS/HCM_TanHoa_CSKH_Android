@@ -38,8 +38,16 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
+    <style name="MyTextAppearance.Black.Italic" parent="MyTextAppearance.Black">
+        <item name="android:textStyle">italic</item>
+    </style>
+
     <style name="MyTextAppearance.Black.Medium" parent="MyTextAppearance.Black">
         <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="MyTextAppearance.Black.Medium.Bold" parent="MyTextAppearance.Black.Medium">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="MyTextAppearance.Red" parent="@android:style/TextAppearance">
@@ -50,6 +58,10 @@
 
     <style name="MyTextAppearance.Blue" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="MyTextAppearance.Blue.Bold" parent="MyTextAppearance.Blue">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="MyTextAppearance.Blue.Big" parent="MyTextAppearance.Blue">

@@ -1,0 +1,4 @@
+<resources>
+   <string name="test_string">  <![CDATA[ X<sup><small>2</small></sup> ]]>
+</string>
+</resources>

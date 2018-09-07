@@ -16,6 +16,7 @@ public class Constant {
             Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
     public String URL_FEATURE = "http://113.161.88.180:800/arcgis/rest/services/TanHoa/THSuCo/FeatureServer/0";
+    public String URL_GIA_NUOC = "http://sawagis.vn/tanhoa/cskh/views/dichvukhachhang/xemgianuoc.html";
 
     public static final short LOAISUCO_ONGNGANH = 1;
     public static final short LOAISUCO_ONGCHINH = 2;

@@ -14,6 +14,15 @@ public class DApplication extends Application {
         getConstant = new Constant();
     }
 
+    private String urlBrowser;
+
+    public String getUrlBrowser() {
+        return urlBrowser;
+    }
+
+    public void setUrlBrowser(String urlBrowser) {
+        this.urlBrowser = urlBrowser;
+    }
 
     private ArcGISFeature arcGISFeature;
 
@@ -24,6 +33,7 @@ public class DApplication extends Application {
     public void setArcGISFeature(ArcGISFeature arcGISFeature) {
         this.arcGISFeature = arcGISFeature;
     }
+
     private FeatureLayer featureLayer;
 
     public FeatureLayer getFeatureLayer() {
