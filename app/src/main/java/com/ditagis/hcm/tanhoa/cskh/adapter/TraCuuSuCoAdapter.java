@@ -53,9 +53,15 @@ public class TraCuuSuCoAdapter extends ArrayAdapter<TraCuuSuCoAdapter.Item> {
         Item item = items.get(position);
 
         TextView txtTop = convertView.findViewById(R.id.txt_top_tracuusuco);
-        txtTop.setText(item.getIdSuCo());
+        if (item.getIdSuCo() == null || item.getIdSuCo().isEmpty())
+            txtTop.setVisibility(View.GONE);
+        else txtTop.setText(item.getIdSuCo());
+
         TextView txtRight = convertView.findViewById(R.id.txt_right_tracuusuco);
         txtRight.setText(item.getTrangThai());
+        if (item.getTrangThai() == null || item.getTrangThai().isEmpty())
+            txtRight.setVisibility(View.GONE);
+        else txtTop.setText(item.getIdSuCo());
         TextView txtBottom = convertView.findViewById(R.id.txt_bottom_tracuusuco);
         txtBottom.setText(item.getDiaChi());
 
@@ -66,11 +72,29 @@ public class TraCuuSuCoAdapter extends ArrayAdapter<TraCuuSuCoAdapter.Item> {
         private String idSuCo;
         private String diaChi;
         private String trangThai;
+        private double latitude;
+        private double longtitude;
 
         public Item(String idSuCo, String diaChi, String trangThai) {
             this.idSuCo = idSuCo;
             this.diaChi = diaChi;
             this.trangThai = trangThai;
+        }
+
+        public double getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(double latitude) {
+            this.latitude = latitude;
+        }
+
+        public double getLongtitude() {
+            return longtitude;
+        }
+
+        public void setLongtitude(double longtitude) {
+            this.longtitude = longtitude;
         }
 
         public String getIdSuCo() {

@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.ditagis.hcm.tanhoa.cskh.acynchronize.LoginAsycn;
+import com.ditagis.hcm.tanhoa.cskh.async.LoginByAPIAsycn;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-import com.ditagis.hcm.tanhoa.cskh.entity.KhachHang;
+import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
 import com.ditagis.hcm.tanhoa.cskh.utities.CheckConnectInternet;
 import com.ditagis.hcm.tanhoa.cskh.utities.Preference;
 
@@ -22,11 +22,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private boolean isLastLogin;
     private TextView mTxtValidation;
 
+    private DApplication mApplication;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        mApplication = (DApplication) getApplication();
         btnLogin = (findViewById(R.id.btnLogin));
         mTxtChangeAccount = findViewById(R.id.txt_login_changeAccount);
         btnLogin.setOnClickListener(this);
@@ -82,16 +84,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
         final String finalUserName = userName;
-        LoginAsycn loginAsycn = new LoginAsycn(this, new LoginAsycn.AsyncResponse() {
-
-            @Override
-            public void processFinish(KhachHang output) {
-                if (output != null)
-                    handleLoginSuccess(finalUserName, passWord);
-                else
-                    handleLoginFail();
-            }
-        });
+        LoginByAPIAsycn loginAsycn = new LoginByAPIAsycn(this, () -> {
+            if (mApplication.getUserDangNhap != null)
+                handleLoginSuccess(finalUserName, passWord);
+            else
+                handleLoginFail();
+        }
+        );
         loginAsycn.execute(userName, passWord);
 //        if (userName.equals("12101860725") && passWord.equals("123456")) {
 

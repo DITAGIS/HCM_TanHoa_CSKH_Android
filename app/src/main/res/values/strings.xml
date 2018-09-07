@@ -134,5 +134,9 @@
     <string name="preference_url_webview">preference_url_webview</string>
     <string name="txt_chon_thoi_gian_tracuusuco">Chọn thời gian</string>
 
-
+    <string name="attachment">attachment</string>
+    <string name="path_saveImage">.qlsc</string>
+    <string name="arcgis_query_by_OBJECTID">OBJECTID = %d</string>
+    <string name="sql_column_login_displayname">DisplayName</string>
+    <string name="sql_column_login_role">Role</string>
 </resources>

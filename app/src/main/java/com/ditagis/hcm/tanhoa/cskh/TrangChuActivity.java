@@ -244,6 +244,8 @@ public class TrangChuActivity extends AppCompatActivity
                 startActivity(intentSearch);
                 break;
             case R.id.nav_alert:
+                Intent intentAlert = new Intent(TrangChuActivity.this, BaoSuCoActivity.class);
+                startActivity(intentAlert);
                 break;
             case R.id.nav_service_manual:
                 Preference.getInstance().setContext(this);

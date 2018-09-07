@@ -14,6 +14,13 @@ public class DApplication extends Application {
         getConstant = new Constant();
     }
 
+    public User getUserDangNhap;
+    public DiemSuCo getDiemSuCo;
+
+    {
+        getDiemSuCo = new DiemSuCo();
+    }
+
     private String urlBrowser;
 
     public String getUrlBrowser() {

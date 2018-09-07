@@ -38,6 +38,7 @@
         </activity>
         <activity
             android:name="com.ditagis.hcm.tanhoa.cskh.DoiMatKhauActivity"
+            android:label="Đổi mật khẩu"
             android:parentActivityName="com.ditagis.hcm.tanhoa.cskh.TrangChuActivity" />
         <activity
             android:name="com.ditagis.hcm.tanhoa.cskh.BrowserActivity"
@@ -48,7 +49,16 @@
             android:parentActivityName="com.ditagis.hcm.tanhoa.cskh.TraCuuActivity" />
         <activity
             android:name="com.ditagis.hcm.tanhoa.cskh.tracuu.TraCuuGiaNuocActivity"
-            android:parentActivityName="com.ditagis.hcm.tanhoa.cskh.TraCuuActivity"></activity>
+            android:label="Tra cứu giá nước"
+            android:parentActivityName="com.ditagis.hcm.tanhoa.cskh.TraCuuActivity" />
+        <activity
+            android:name="com.ditagis.hcm.tanhoa.cskh.BaoSuCoActivity"
+            android:label="Báo sự cố"
+            android:parentActivityName="com.ditagis.hcm.tanhoa.cskh.TrangChuActivity" />
+        <activity
+            android:label="Thông tin sự cố"
+            android:name="com.ditagis.hcm.tanhoa.cskh.NhapThongTinSuCoActivity"
+            android:parentActivityName="com.ditagis.hcm.tanhoa.cskh.BaoSuCoActivity"></activity>
     </application>
 
 </manifest>
