@@ -10,6 +10,9 @@ public class Constant {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
     public static final String DATE_FORMAT_STRING = "dd/MM/yyyy";
     public static final int REQUEST_CODE_PERMISSION = 2;
+    public static final short DOI_TUONG_PHAT_HIEN_KHACH_HANG = 0;
+    public static final String ROLE_PGN = "pgn";
+    public static final String HINH_THUC_PHAT_HIEN_BE_NGAM = "Bể ngầm";
     public static final String[] REQUEST_PERMISSIONS = new String[]{
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -74,6 +77,8 @@ public class Constant {
         public static final String NGUYEN_NHAN = "NguyenNhan";
         public static final String TGPHAN_ANH = "TGPhanAnh";
         public static final String DIA_CHI = "DiaChi";
+        public static final String DOI_TUONG_PHAT_HIEN = "DoiTuongPhatHien";
+        public static final String HINH_THUC_PHAT_HIEN = "HinhThucPhatHien";
     }
 
 

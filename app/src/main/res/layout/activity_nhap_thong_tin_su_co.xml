@@ -124,7 +124,32 @@
                         android:nextFocusDown="@+id/etxtNote_add_feature"
                         android:textCursorDrawable="@null" />
                 </LinearLayout>
+                <LinearLayout
 
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/colorWhite"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:layout_marginRight="@dimen/margin_medium"
+                        android:src="@drawable/ic_hinh_thuc_phat_hien" />
+
+                    <Spinner
+                        android:id="@+id/spin_hinh_thuc_phat_hien_add_feature"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/margin_medium"
+                        android:nextFocusDown="@+id/etxtNote_add_feature"
+                        android:textCursorDrawable="@null" />
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"

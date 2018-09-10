@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.widget.Toast;
 
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
@@ -20,10 +19,8 @@ import com.esri.arcgisruntime.data.FeatureQueryResult;
 import com.esri.arcgisruntime.data.QueryParameters;
 import com.esri.arcgisruntime.data.ServiceFeatureTable;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-
 
 
 /**
@@ -70,6 +67,8 @@ public class SingleTapAddFeatureAsync extends AsyncTask<Void, Feature, Void> {
             feature.getAttributes().put(Constant.FIELD_SUCO.GHI_CHU, mApplication.getDiemSuCo.getGhiChu());
             feature.getAttributes().put(Constant.FIELD_SUCO.NGUOI_PHAN_ANH, mApplication.getDiemSuCo.getNguoiCapNhat());
             feature.getAttributes().put(Constant.FIELD_SUCO.SDT, mApplication.getDiemSuCo.getSdt());
+            feature.getAttributes().put(Constant.FIELD_SUCO.HINH_THUC_PHAT_HIEN, mApplication.getDiemSuCo.getHinhThucPhatHien());
+            feature.getAttributes().put(Constant.FIELD_SUCO.DOI_TUONG_PHAT_HIEN, Constant.DOI_TUONG_PHAT_HIEN_KHACH_HANG);
             addFeatureAsync(feature);
 
         } catch (Exception e) {

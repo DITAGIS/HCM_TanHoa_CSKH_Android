@@ -16,8 +16,16 @@ public class DiemSuCo {
     public String nguyenNhan;
     public Point point;
     public byte[] image;
-
+    public short hinhThucPhatHien;
     public DiemSuCo() {
+    }
+
+    public short getHinhThucPhatHien() {
+        return hinhThucPhatHien;
+    }
+
+    public void setHinhThucPhatHien(short hinhThucPhatHien) {
+        this.hinhThucPhatHien = hinhThucPhatHien;
     }
 
     public Point getPoint() {

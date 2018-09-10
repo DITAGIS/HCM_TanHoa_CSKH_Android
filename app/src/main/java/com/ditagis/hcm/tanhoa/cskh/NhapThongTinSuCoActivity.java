@@ -5,26 +5,34 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
 import com.ditagis.hcm.tanhoa.cskh.entity.Constant;
 import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
 import com.ditagis.hcm.tanhoa.cskh.utities.ImageFile;
+import com.esri.arcgisruntime.data.CodedValue;
+import com.esri.arcgisruntime.data.CodedValueDomain;
+import com.esri.arcgisruntime.data.Domain;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,8 +48,11 @@ public class NhapThongTinSuCoActivity extends AppCompatActivity {
     EditText etxtNote;
     @BindView(R.id.img_add_feature)
     ImageView mImage;
+    @BindView(R.id.spin_hinh_thuc_phat_hien_add_feature)
+    Spinner spinHinhThucPhatHien;
     private DApplication mApplication;
     private Uri mUri;
+    private List<CodedValue> mCodeValues;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +66,36 @@ public class NhapThongTinSuCoActivity extends AppCompatActivity {
         //for camera
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
+        initViews();
+    }
 
+    private void initViews() {
+        Domain domain = mApplication.getFeatureLayer().getFeatureTable().
+                getField(Constant.FIELD_SUCO.HINH_THUC_PHAT_HIEN).getDomain();
+        mCodeValues = ((CodedValueDomain) domain).getCodedValues();
+        if (mCodeValues != null) {
+            List<String> codes = new ArrayList<>();
+            for (CodedValue codedValue : mCodeValues)
+                codes.add(codedValue.getName());
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, codes);
+            spinHinhThucPhatHien.setAdapter(adapter);
+            spinHinhThucPhatHien.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    if (Constant.HINH_THUC_PHAT_HIEN_BE_NGAM.toLowerCase().equals(adapter.getItem(i).toLowerCase())
+                            && !mApplication.getUserDangNhap.getRole().toLowerCase().startsWith(Constant.ROLE_PGN)) {
+                        Toast.makeText(NhapThongTinSuCoActivity.this, "Bạn không có quyền chọn hình thức phát hiện Bể ngầm!", Toast.LENGTH_LONG).show();
+                        if (adapter.getCount() > 1)
+                            spinHinhThucPhatHien.setSelection(1);
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+        }
     }
 
     private boolean isNotEmpty() {
@@ -93,6 +133,10 @@ public class NhapThongTinSuCoActivity extends AppCompatActivity {
                     mApplication.getDiemSuCo.setSdt(etxtPhoneNumber.getText().toString());
                     mApplication.getDiemSuCo.setVitri(etxtAddress.getText().toString());
                     mApplication.getDiemSuCo.setGhiChu(etxtNote.getText().toString());
+                    for (CodedValue codedValue : mCodeValues) {
+                        if (codedValue.getName().equals(spinHinhThucPhatHien.getSelectedItem().toString()))
+                            mApplication.getDiemSuCo.setHinhThucPhatHien(Short.parseShort(codedValue.getCode().toString()));
+                    }
                     finish();
                 } else {
                     handlingEmpty();
