@@ -5,19 +5,21 @@ import com.esri.arcgisruntime.geometry.Point;
 import java.util.Date;
 
 public class DiemSuCo {
-    public String idSuCo;
-    public short trangThai;
-    public String ghiChu;
-    public String nguoiCapNhat;
-    public Date ngayCapNhat;
-    public Date ngayThongBao;
-    public String vitri;
-    public String sdt;
-    public String nguyenNhan;
-    public Point point;
-    public byte[] image;
-    public short hinhThucPhatHien;
-    public DiemSuCo() {
+    private String idSuCo;
+    private short trangThai;
+    private String ghiChu;
+    private String nguoiCapNhat;
+    private String email;
+    private Date ngayCapNhat;
+    private Date ngayThongBao;
+    private String vitri;
+    private String sdt;
+    private String nguyenNhan;
+    private Point point;
+    private byte[] image;
+    private short hinhThucPhatHien;
+
+    DiemSuCo() {
     }
 
     public short getHinhThucPhatHien() {
@@ -26,6 +28,14 @@ public class DiemSuCo {
 
     public void setHinhThucPhatHien(short hinhThucPhatHien) {
         this.hinhThucPhatHien = hinhThucPhatHien;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Point getPoint() {

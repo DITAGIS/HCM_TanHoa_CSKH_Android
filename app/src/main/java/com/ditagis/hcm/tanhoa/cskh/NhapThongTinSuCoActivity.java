@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -43,6 +44,8 @@ public class NhapThongTinSuCoActivity extends AppCompatActivity {
     EditText etxtFullName;
     @BindView(R.id.etxtPhoneNumber_add_feature)
     EditText etxtPhoneNumber;
+    @BindView(R.id.etxtEmail_add_feature)
+    EditText etxtEmail;
     @BindView(R.id.etxtAddress_add_feature)
     EditText etxtAddress;
     @BindView(R.id.etxtNote_add_feature)
@@ -100,6 +103,7 @@ public class NhapThongTinSuCoActivity extends AppCompatActivity {
     }
 
     private boolean isNotEmpty() {
+
         return !etxtFullName.getText().toString().trim().isEmpty() &&
                 !etxtPhoneNumber.getText().toString().trim().isEmpty() &&
                 !etxtAddress.getText().toString().trim().isEmpty();
@@ -125,19 +129,37 @@ public class NhapThongTinSuCoActivity extends AppCompatActivity {
         }
     }
 
+    private void baoSuCo() {
+        mApplication.getDiemSuCo.setNguoiCapNhat(etxtFullName.getText().toString().trim());
+        mApplication.getDiemSuCo.setSdt(etxtPhoneNumber.getText().toString().trim());
+        mApplication.getDiemSuCo.setVitri(etxtAddress.getText().toString().trim());
+        mApplication.getDiemSuCo.setGhiChu(etxtNote.getText().toString().trim());
+        mApplication.getDiemSuCo.setEmail(etxtEmail.getText().toString().trim());
+        for (CodedValue codedValue : mCodeValues) {
+            if (codedValue.getName().equals(spinHinhThucPhatHien.getSelectedItem().toString()))
+                mApplication.getDiemSuCo.setHinhThucPhatHien(Short.parseShort(codedValue.getCode().toString()));
+        }
+        finish();
+    }
+
     public void onClickTextView(View view) {
         switch (view.getId()) {
             case R.id.txt_add_feature_add_feature:
                 if (isNotEmpty()) {
-                    mApplication.getDiemSuCo.setNguoiCapNhat(etxtFullName.getText().toString());
-                    mApplication.getDiemSuCo.setSdt(etxtPhoneNumber.getText().toString());
-                    mApplication.getDiemSuCo.setVitri(etxtAddress.getText().toString());
-                    mApplication.getDiemSuCo.setGhiChu(etxtNote.getText().toString());
-                    for (CodedValue codedValue : mCodeValues) {
-                        if (codedValue.getName().equals(spinHinhThucPhatHien.getSelectedItem().toString()))
-                            mApplication.getDiemSuCo.setHinhThucPhatHien(Short.parseShort(codedValue.getCode().toString()));
+                    if (etxtEmail.getText().toString().trim().isEmpty()) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setTitle(NhapThongTinSuCoActivity.this.getString(R.string.email_empty_title))
+                                .setMessage(NhapThongTinSuCoActivity.this.getString(R.string.email_empty_message))
+                                .setCancelable(false)
+                                .setPositiveButton(NhapThongTinSuCoActivity.this.getString(R.string.btnOK), (dialog, i) -> {
+                                    dialog.dismiss();
+                                    baoSuCo();
+                                }).setNegativeButton(NhapThongTinSuCoActivity.this.getString(R.string.btn_nhap_email), (dialog, i) -> dialog.dismiss());
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    } else {
+                        baoSuCo();
                     }
-                    finish();
                 } else {
                     handlingEmpty();
                 }
@@ -266,7 +288,8 @@ public class NhapThongTinSuCoActivity extends AppCompatActivity {
         goHome();
     }
 
-    private void goHome() { mApplication.getDiemSuCo.setPoint(null);
+    private void goHome() {
+        mApplication.getDiemSuCo.setPoint(null);
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
         finish();

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email_empty_title">Email trống!</string>
+    <string name="email_empty_message">CTY CP Cấp nước Tân Hòa sẽ thông báo qua email khi sự cố được giải quyết.\nBạn có chắc không nhập email?</string>
+    <string name="btnOK">OK</string>
+    <string name="btn_nhap_email">Nhập email</string>
+</resources>
