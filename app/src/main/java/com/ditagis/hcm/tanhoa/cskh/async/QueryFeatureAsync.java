@@ -28,8 +28,6 @@ import java.util.concurrent.ExecutionException;
 
 public class QueryFeatureAsync extends AsyncTask<Void, List<Feature>, Void> {
     @SuppressLint("StaticFieldLeak")
-    private Activity mActivity;
-    @SuppressLint("StaticFieldLeak")
     private AsyncResponse mDelegate;
     private DApplication mApplication;
     private ServiceFeatureTable mServiceFeatureTable;
@@ -43,7 +41,6 @@ public class QueryFeatureAsync extends AsyncTask<Void, List<Feature>, Void> {
 
     public QueryFeatureAsync(Activity activity, int trangThai, String diaChi, String thoiGianPhanAnh
             , AsyncResponse delegate) {
-        this.mActivity = activity;
         this.mApplication = (DApplication) activity.getApplication();
         this.mServiceFeatureTable = (ServiceFeatureTable) mApplication.getFeatureLayer().getFeatureTable();
         this.mDelegate = delegate;

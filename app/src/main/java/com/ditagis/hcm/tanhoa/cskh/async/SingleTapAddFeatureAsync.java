@@ -79,7 +79,6 @@ public class SingleTapAddFeatureAsync extends AsyncTask<Void, Feature, Void> {
 
     private void addFeatureAsync(final Feature feature) {
         new GenerateIDSuCoAsycn(mActivity, output -> {
-            output = "test";
             if (output.isEmpty()) {
                 publishProgress();
                 return;

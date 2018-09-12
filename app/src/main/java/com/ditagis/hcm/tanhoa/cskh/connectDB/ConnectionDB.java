@@ -14,11 +14,10 @@ public class ConnectionDB {
     private static final String DB_IMAGE = "DocSoTH_Hinh";
     private static final String USER = "cskh";
     private static final String PASSWORD = "cskh@123";
-    private static final ConnectionDB _instance = new ConnectionDB();
+    private static ConnectionDB _instance = new ConnectionDB();
     private Connection connection;
 
     private ConnectionDB() {
-        connection = getConnect();
     }
 
     public static final ConnectionDB getInstance() {

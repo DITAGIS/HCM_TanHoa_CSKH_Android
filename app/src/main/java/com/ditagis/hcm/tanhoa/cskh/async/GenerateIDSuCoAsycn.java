@@ -47,8 +47,8 @@ public class GenerateIDSuCoAsycn extends AsyncTask<Void, Void, String> {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             try {
                 conn.setDoOutput(false);
-                conn.setRequestMethod("POST");
-//                conn.setRequestProperty("Authorization", Preference.getInstance().loadPreference(mActivity.getString(R.string.preference_login_api)));
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Authorization", ((DApplication) mActivity.getApplication()).getUserDangNhap.getToken());
                 conn.connect();
 
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));

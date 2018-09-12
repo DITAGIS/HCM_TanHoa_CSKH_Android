@@ -114,8 +114,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Preference.getInstance().savePreferences(getString(R.string.preference_username), userName);
         Preference.getInstance().savePreferences(getString(R.string.preference_password), passWord);
 
-        Intent intent = new Intent(this, TrangChuActivity.class);
-        startActivity(intent);
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     private void changeAccount() {

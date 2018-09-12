@@ -2,13 +2,19 @@ package com.ditagis.hcm.tanhoa.cskh;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -45,10 +51,14 @@ import com.esri.arcgisruntime.mapping.view.Callout;
 import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
 import com.esri.arcgisruntime.mapping.view.Graphic;
 import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
+import com.esri.arcgisruntime.mapping.view.LocationDisplay;
 import com.esri.arcgisruntime.mapping.view.MapView;
+import com.esri.arcgisruntime.symbology.PictureMarkerSymbol;
 import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
+import com.esri.arcgisruntime.symbology.UniqueValueRenderer;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
@@ -82,6 +92,9 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
     private GraphicsOverlay mGraphicsOverlay;
     private Popup mPopUp;
     private MapViewHandler mMapViewHandler;
+    private boolean mIsAddingFeature;
+    private LocationDisplay mLocationDisplay;
+    private boolean mIsFirstLocating = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,12 +106,16 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
         mETxtQuery.setOnKeyListener(this);
 
         mApplication = (DApplication) getApplication();
-        init();
+        requestPermisson();
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private void init() {
+
         startProgressBar();
+        mIsAddingFeature = false;
+        mFloatBtnLocation.setOnClickListener(this::onClick);
         mSearchAdapter = new TraCuuSuCoAdapter(BaoSuCoActivity.this, new ArrayList<>());
         mLstViewSearch.setAdapter(mSearchAdapter);
         mLstViewSearch.setOnItemClickListener(this);
@@ -108,6 +125,8 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
         mMapView.setMap(arcGISMap);
         mMapView.getMap().addDoneLoadingListener(() -> {
             if (mMapView.getMap().getLoadStatus() == LoadStatus.LOADED) {
+                mLocationDisplay = mMapView.getLocationDisplay();
+                mLocationDisplay.startAsync();
                 mMapView.setOnTouchListener(new DefaultMapViewOnTouchListener(this, mMapView) {
                     @Override
                     public boolean onSingleTapConfirmed(MotionEvent e) {
@@ -118,19 +137,21 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
                     @Override
                     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
                         //center is x, y
-                        Point center = mMapView.getCurrentViewpoint(Viewpoint.Type.CENTER_AND_SCALE).getTargetGeometry().getExtent().getCenter();
+                        mGraphicsOverlay.getGraphics().clear();
+                        if (mIsAddingFeature) {
+                            Point center = mMapView.getCurrentViewpoint(Viewpoint.Type.CENTER_AND_SCALE).getTargetGeometry().getExtent().getCenter();
 
-                        //project is long, lat
+                            //project is long, lat
 //                    Geometry project = GeometryEngine.project(center, SpatialReferences.getWgs84());
 
-                        //geometry is x,y
+                            //geometry is x,y
 //                    Geometry geometry = GeometryEngine.project(project, SpatialReferences.getWebMercator());
-                        SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CROSS, Color.RED, 20);
-                        Graphic graphic = new Graphic(center, symbol);
-                        mGraphicsOverlay.getGraphics().clear();
-                        mGraphicsOverlay.getGraphics().add(graphic);
-                        mPopUp.getCallout().setLocation(center);
-                        mPointFindLocation = center;
+                            SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CROSS, Color.RED, 20);
+                            Graphic graphic = new Graphic(center, symbol);
+                            mGraphicsOverlay.getGraphics().add(graphic);
+                            mPopUp.getCallout().setLocation(center);
+                            mPointFindLocation = center;
+                        }
                         return super.onScroll(e1, e2, distanceX, distanceY);
                     }
 
@@ -147,6 +168,7 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
                 mMapView.getMap().getOperationalLayers().add(mFeatureLayer);
                 mFeatureLayer.addDoneLoadingListener(() -> {
                     if (mFeatureLayer.getLoadStatus() == LoadStatus.LOADED) {
+                        setRendererSuCoFeatureLayer(mFeatureLayer);
                         Toast.makeText(BaoSuCoActivity.this, "Tìm kiếm địa chỉ để báo sự cố, hoặc lấy vị trí hiện tại", Toast.LENGTH_LONG).show();
                         mApplication.setFeatureLayer(mFeatureLayer);
                         stopProgressBar();
@@ -223,6 +245,42 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
+    public void requestPermisson() {
+        boolean permissionCheck1 = ContextCompat.checkSelfPermission(this,
+                Constant.REQUEST_PERMISSIONS[0]) == PackageManager.PERMISSION_GRANTED;
+        boolean permissionCheck2 = ContextCompat.checkSelfPermission(this,
+                Constant.REQUEST_PERMISSIONS[1]) == PackageManager.PERMISSION_GRANTED;
+        boolean permissionCheck3 = ContextCompat.checkSelfPermission(this,
+                Constant.REQUEST_PERMISSIONS[2]) == PackageManager.PERMISSION_GRANTED;
+        boolean permissionCheck4 = ContextCompat.checkSelfPermission(this,
+                Constant.REQUEST_PERMISSIONS[3]) == PackageManager.PERMISSION_GRANTED;
+
+        if (!(permissionCheck1 && permissionCheck2 && permissionCheck3 && permissionCheck4)) {
+
+            // If permissions are not already granted, request permission from the user.
+            ActivityCompat.requestPermissions(this, Constant.REQUEST_PERMISSIONS, Constant.REQUEST_CODE_PERMISSION);
+        }  // Report other unknown failure types to the user - for example, location services may not // be enabled on the device. //                    String message = String.format("Error in DataSourceStatusChangedListener: %s", dataSourceStatusChangedEvent //                            .getSource().getLocationDataSource().getError().getMessage()); //                    Toast.makeText(QuanLySuCo.this, message, Toast.LENGTH_LONG).show();
+        else {
+            init();
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        boolean isGrant = true;
+        for (int i : grantResults) {
+            if (i != PackageManager.PERMISSION_GRANTED) {
+                isGrant = false;
+                break;
+            }
+        }
+        if (isGrant) {
+            init();
+        } else finish();
+    }
+
     private void themDiemSuCoNoCapture() {
         FindLocationAsycn findLocationAsycn = new FindLocationAsycn(this, false,
                 mGeocoder, output -> {
@@ -262,9 +320,57 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void deleteSearching() {
-        mGraphicsOverlay.getGraphics().clear();
+
         mSearchAdapter.clear();
         mSearchAdapter.notifyDataSetChanged();
+    }
+
+    private void handlingAddFeatureSuccess() {
+        mGraphicsOverlay.getGraphics().clear();
+        if (mLocationDisplay.isStarted())
+            mLocationDisplay.stop();
+        if (mPopUp.getCallout() != null & mPopUp.getCallout().isShowing())
+            mPopUp.getCallout().dismiss();
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        // set title
+        alertDialogBuilder.setTitle("CTY CP Cấp nước Tân Hòa");
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Xin cảm ơn quý khách đã báo sự cố!")
+                .setCancelable(true)
+                .setPositiveButton("OK", (dialog, id) -> dialog.dismiss());
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
+
+    }
+
+    private void handlingLocation() {
+        if (mIsFirstLocating) {
+            mIsFirstLocating = false;
+            mLocationDisplay.stop();
+            mLocationDisplay.startAsync();
+            setViewPointCenter(mLocationDisplay.getMapLocation());
+            mIsAddingFeature = true;
+        } else {
+            if (mLocationDisplay.isStarted()) {
+                mLocationDisplay.stop();
+                if (mPopUp.getCallout() != null && mPopUp.getCallout().isShowing())
+                    mPopUp.getCallout().dismiss();
+            } else {
+                mLocationDisplay.startAsync();
+                setViewPointCenter(mLocationDisplay.getMapLocation());
+                mIsAddingFeature = true;
+            }
+        }
     }
 
     private void search() {
@@ -291,6 +397,125 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    private void setRendererSuCoFeatureLayer(FeatureLayer mSuCoTanHoaLayer) {
+        UniqueValueRenderer uniqueValueRenderer = new UniqueValueRenderer();
+        uniqueValueRenderer.getFieldNames().add(Constant.FIELD_SUCO.TRANG_THAI);
+        uniqueValueRenderer.getFieldNames().add(Constant.FIELD_SUCO.HINH_THUC_PHAT_HIEN);
+
+
+        PictureMarkerSymbol chuaXuLySymbol = new PictureMarkerSymbol(mApplication.getConstant.URL_SYMBOL_CHUA_SUA_CHUA);
+        chuaXuLySymbol.setHeight(Constant.SIZE_FEATURE_RENDERER);
+        chuaXuLySymbol.setWidth(Constant.SIZE_FEATURE_RENDERER);
+
+        PictureMarkerSymbol dangXuLySymbol = new PictureMarkerSymbol(mApplication.getConstant.URL_SYMBOL_DANG_SUA_CHUA);
+        dangXuLySymbol.setHeight(Constant.SIZE_FEATURE_RENDERER);
+        dangXuLySymbol.setWidth(Constant.SIZE_FEATURE_RENDERER);
+
+        PictureMarkerSymbol hoanThanhSymBol = new PictureMarkerSymbol(mApplication.getConstant.URL_SYMBOL_HOAN_THANH);
+        hoanThanhSymBol.setHeight(Constant.SIZE_FEATURE_RENDERER);
+        hoanThanhSymBol.setWidth(Constant.SIZE_FEATURE_RENDERER);
+
+        PictureMarkerSymbol beNgamSymbol = new PictureMarkerSymbol(mApplication.getConstant.URL_SYMBOL_CHUA_SUA_CHUA_BE_NGAM);
+        beNgamSymbol.setHeight(Constant.SIZE_FEATURE_RENDERER);
+        beNgamSymbol.setWidth(Constant.SIZE_FEATURE_RENDERER);
+
+        uniqueValueRenderer.setDefaultSymbol(chuaXuLySymbol);
+        uniqueValueRenderer.setDefaultLabel("Chưa xác định");
+
+        List<Object> chuaXuLyValue = new ArrayList<>();
+        chuaXuLyValue.add(0);
+
+        //đang xử lý: begin
+        List<Object> dangXuLyValue = new ArrayList<>();
+        dangXuLyValue.add(1);
+        dangXuLyValue.add(1);
+        List<Object> dangXuLyValue1 = new ArrayList<>();
+        dangXuLyValue1.add(1);
+        dangXuLyValue1.add(2);
+
+        List<Object> dangXuLyValue2 = new ArrayList<>();
+        dangXuLyValue2.add(1);
+        dangXuLyValue2.add(3);
+
+        List<Object> dangXuLyValue3 = new ArrayList<>();
+        dangXuLyValue3.add(1);
+        dangXuLyValue3.add(4);
+
+        List<Object> dangXuLyValue4 = new ArrayList<>();
+        dangXuLyValue4.add(1);
+        dangXuLyValue4.add(5);
+
+        List<Object> dangXuLyValue5 = new ArrayList<>();
+        dangXuLyValue5.add(1);
+        dangXuLyValue5.add(6);
+        //đang xỷ lý: end
+
+        List<Object> beNgamChuaXuLyValue = new ArrayList<>();
+        beNgamChuaXuLyValue.add(0);
+        beNgamChuaXuLyValue.add(1);
+
+        //hoàn thành: begin
+        List<Object> hoanThanhValue = new ArrayList<>();
+        hoanThanhValue.add(3);
+        hoanThanhValue.add(1);
+        List<Object> hoanThanhValue1 = new ArrayList<>();
+        hoanThanhValue1.add(3);
+        hoanThanhValue1.add(2);
+
+        List<Object> hoanThanhValue2 = new ArrayList<>();
+        hoanThanhValue2.add(3);
+        hoanThanhValue2.add(3);
+
+        List<Object> hoanThanhValue3 = new ArrayList<>();
+        hoanThanhValue3.add(3);
+        hoanThanhValue3.add(4);
+
+        List<Object> hoanThanhValue4 = new ArrayList<>();
+        hoanThanhValue4.add(3);
+        hoanThanhValue4.add(5);
+
+        List<Object> hoanThanhValue5 = new ArrayList<>();
+        hoanThanhValue5.add(3);
+        hoanThanhValue5.add(6);
+        //hoàn thành: end
+
+        uniqueValueRenderer.getUniqueValues().add(new UniqueValueRenderer.UniqueValue(
+                "Chưa xử lý", "Chưa xử lý", chuaXuLySymbol, chuaXuLyValue));
+
+        uniqueValueRenderer.getUniqueValues().add(new UniqueValueRenderer.UniqueValue(
+                "Đang xử lý", "Đang xử lý", dangXuLySymbol, dangXuLyValue));
+        uniqueValueRenderer.getUniqueValues().add(new UniqueValueRenderer.UniqueValue(
+                "Đang xử lý", "Đang xử lý", dangXuLySymbol, dangXuLyValue1));
+        uniqueValueRenderer.getUniqueValues().add(new UniqueValueRenderer.UniqueValue(
+                "Đang xử lý", "Đang xử lý", dangXuLySymbol, dangXuLyValue2));
+        uniqueValueRenderer.getUniqueValues().add(new UniqueValueRenderer.UniqueValue(
+                "Đang xử lý", "Đang xử lý", dangXuLySymbol, dangXuLyValue3));
+        uniqueValueRenderer.getUniqueValues().add(new UniqueValueRenderer.UniqueValue(
+                "Đang xử lý", "Đang xử lý", dangXuLySymbol, dangXuLyValue4));
+        uniqueValueRenderer.getUniqueValues().add(new UniqueValueRenderer.UniqueValue(
+                "Đang xử lý", "Đang xử lý", dangXuLySymbol, dangXuLyValue5));
+
+        uniqueValueRenderer.getUniqueValues().add(new UniqueValueRenderer.UniqueValue(
+                "Chưa xử lý bể ngầm", "Chưa xử lý bể ngầm", beNgamSymbol, beNgamChuaXuLyValue));
+
+        uniqueValueRenderer.getUniqueValues().add(new UniqueValueRenderer.UniqueValue(
+                "Hoàn thành", "Hoàn thành", hoanThanhSymBol, hoanThanhValue));
+        uniqueValueRenderer.getUniqueValues().add(new UniqueValueRenderer.UniqueValue(
+                "Hoàn thành", "Hoàn thành", hoanThanhSymBol, hoanThanhValue1));
+        uniqueValueRenderer.getUniqueValues().add(new UniqueValueRenderer.UniqueValue(
+                "Hoàn thành", "Hoàn thành", hoanThanhSymBol, hoanThanhValue2));
+        uniqueValueRenderer.getUniqueValues().add(new UniqueValueRenderer.UniqueValue(
+                "Hoàn thành", "Hoàn thành", hoanThanhSymBol, hoanThanhValue3));
+        uniqueValueRenderer.getUniqueValues().add(new UniqueValueRenderer.UniqueValue(
+                "Hoàn thành", "Hoàn thành", hoanThanhSymBol, hoanThanhValue4));
+        uniqueValueRenderer.getUniqueValues().add(new UniqueValueRenderer.UniqueValue(
+                "Hoàn thành", "Hoàn thành", hoanThanhSymBol, hoanThanhValue5));
+        mSuCoTanHoaLayer.setRenderer(uniqueValueRenderer);
+        mSuCoTanHoaLayer.loadAsync();
+
+
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -299,6 +524,9 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.imgBtn_timkiemdiachi_themdiemsuco:
                 themDiemSuCoNoCapture();
+                break;
+            case R.id.floatBtnLocatoin_baosuco:
+                handlingLocation();
                 break;
         }
     }
@@ -316,6 +544,7 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        mIsAddingFeature = true;
         TraCuuSuCoAdapter.Item item = ((TraCuuSuCoAdapter.Item) adapterView.getItemAtPosition(i));
         deleteSearching();
         setViewPointCenterLongLat(new Point(item.getLongtitude(), item.getLatitude()), item.getDiaChi());
@@ -327,9 +556,33 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
             case Constant.REQUEST_CODE_ADD_FEATURE:
                 if (mApplication.getDiemSuCo.getPoint() != null) {
                     mMapViewHandler.addFeature(mApplication.getDiemSuCo.getPoint());
-                    deleteSearching();
+                    handlingAddFeatureSuccess();
                 }
                 break;
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // todo: goto back activity from here
+                goHome();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        goHome();
+    }
+
+    private void goHome() {
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

@@ -26,7 +26,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_margin="@dimen/margin_small"
-            android:text="Danh bộ: 131400900890"
             tools:ignore="RtlHardcoded" />
 
         <LinearLayout
@@ -67,8 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:layout_gravity="center"
-                android:text="Nguyễn Văn A" />
+                android:layout_gravity="center" />
 
         </LinearLayout>
     </LinearLayout>
@@ -94,8 +92,7 @@
                 android:layout_weight="1"
                 android:background="@color/colorCSC_SL_0_1"
                 android:gravity="center_horizontal"
-                android:padding="10dp"
-                android:text="SH: 30%" />
+                android:padding="10dp" />
 
             <TextView
                 android:id="@+id/txt_content_trangchu_sx"
@@ -105,8 +102,7 @@
                 android:layout_weight="1"
                 android:background="@color/colorCSC_SL_1_1"
                 android:gravity="center_horizontal"
-                android:padding="10dp"
-                android:text="SX: 30%" />
+                android:padding="10dp" />
 
             <TextView
                 android:id="@+id/txt_content_trangchu_dv"
@@ -116,8 +112,7 @@
                 android:layout_weight="1"
                 android:background="@color/colorCSC_SL_2_1"
                 android:gravity="center_horizontal"
-                android:padding="10dp"
-                android:text="DV: 30%" />
+                android:padding="10dp" />
 
             <TextView
                 android:id="@+id/txt_content_trangchu_hc"
@@ -127,8 +122,7 @@
                 android:layout_weight="1"
                 android:background="@color/colorCSC_SL_3_1"
                 android:gravity="center_horizontal"
-                android:padding="10dp"
-                android:text="HC: 30%" />
+                android:padding="10dp"/>
 
         </LinearLayout>
 
@@ -137,7 +131,7 @@
             android:id="@+id/lstView_info_main_page"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/margin_small"></ListView>
+            android:layout_marginTop="@dimen/margin_small" />
 
         <TextView
             android:id="@+id/txt_content_trangchu_validation"

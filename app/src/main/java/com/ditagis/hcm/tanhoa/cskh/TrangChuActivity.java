@@ -1,5 +1,6 @@
 package com.ditagis.hcm.tanhoa.cskh;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,8 +21,10 @@ import com.ditagis.hcm.tanhoa.cskh.acynchronize.FindDongHoKhachHangAsycn;
 import com.ditagis.hcm.tanhoa.cskh.acynchronize.FindKhachHangAsycn;
 import com.ditagis.hcm.tanhoa.cskh.adapter.TitleValueAdapter;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
+import com.ditagis.hcm.tanhoa.cskh.entity.Constant;
 import com.ditagis.hcm.tanhoa.cskh.entity.DongHoKhachHang;
 import com.ditagis.hcm.tanhoa.cskh.entity.KhachHang;
+import com.ditagis.hcm.tanhoa.cskh.utities.CheckConnectInternet;
 import com.ditagis.hcm.tanhoa.cskh.utities.Preference;
 import com.ditagis.hcm.tanhoa.cskh.utities.Utils;
 
@@ -61,34 +64,32 @@ public class TrangChuActivity extends AppCompatActivity
         //-----------------------------
         //end default
         //-----------------------------
+        startSignIn();
+    }
 
-        //lấy thông tin từ bảng khách hàng
-        FindKhachHangAsycn asycn = new FindKhachHangAsycn(this, new FindKhachHangAsycn.AsyncResponse() {
-            @Override
-            public void processFinish(KhachHang output) {
-                if (output == null) {
-                    finish();
-                    return;
-                }
-                mKhachHang = output;
-                setInfoMainPageByKhachHang();
-                //nếu đồng hồ còn hiệu lực, thì lấy thông tin đọc số
-                if (mKhachHang.getHieuLuc() > 0) {
+    private void startSignIn() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivityForResult(intent, Constant.REQUEST_LOGIN);
+    }
 
-                    mTxtValidation.setVisibility(View.GONE);
+    private void prepare(KhachHang output) {
+        if (output == null) {
+            finish();
+            return;
+        }
+        mKhachHang = output;
+        setInfoMainPageByKhachHang();
+        //nếu đồng hồ còn hiệu lực, thì lấy thông tin đọc số
+        if (mKhachHang.getHieuLuc() > 0) {
+
+            mTxtValidation.setVisibility(View.GONE);
 //                    getInfoLichSuDS();
-                    getInfoDongHoKhachHang();
-                }
-                //ngược lại, hiện thông báo
-                else {
-                    handleDongHoKhachHangInvalid();
-                }
-            }
-        });
-        asycn.execute(Preference.getInstance().loadPreference(getString(R.string.preference_username)),
-                Preference.getInstance().loadPreference(getString(R.string.preference_password)));
-
-
+            getInfoDongHoKhachHang();
+        }
+        //ngược lại, hiện thông báo
+        else {
+            handleDongHoKhachHangInvalid();
+        }
     }
 
     /**
@@ -247,12 +248,12 @@ public class TrangChuActivity extends AppCompatActivity
                 Intent intentAlert = new Intent(TrangChuActivity.this, BaoSuCoActivity.class);
                 startActivity(intentAlert);
                 break;
-            case R.id.nav_service_manual:
-                Preference.getInstance().setContext(this);
-                Preference.getInstance().savePreferences(getString(R.string.preference_url_webview), getString(R.string.url_webview_huong_dan_dich_vu));
-                Intent intentServiceManual = new Intent(TrangChuActivity.this, BrowserActivity.class);
-                startActivity(intentServiceManual);
-                break;
+//            case R.id.nav_service_manual:
+//                Preference.getInstance().setContext(this);
+//                Preference.getInstance().savePreferences(getString(R.string.preference_url_webview), getString(R.string.url_webview_huong_dan_dich_vu));
+//                Intent intentServiceManual = new Intent(TrangChuActivity.this, BrowserActivity.class);
+//                startActivity(intentServiceManual);
+//                break;
             case R.id.nav_settings:
                 break;
 
@@ -271,5 +272,27 @@ public class TrangChuActivity extends AppCompatActivity
         return true;
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        try {
+
+            switch (requestCode) {
+                case Constant.REQUEST_LOGIN:
+                    if (Activity.RESULT_OK != resultCode) {
+                        finish();
+                        return;
+                    } else {
+                        // create an empty map instance
+                        FindKhachHangAsycn asycn = new FindKhachHangAsycn(this, output -> {
+                            prepare(output);
+                        });
+                        if (CheckConnectInternet.isOnline(this))
+                            asycn.execute(Preference.getInstance().loadPreference(getString(R.string.preference_username)),
+                                    Preference.getInstance().loadPreference(getString(R.string.preference_password)));
+                    }
+
+            }
+        } catch (Exception ignored) {
+        }
+    }
 
 }

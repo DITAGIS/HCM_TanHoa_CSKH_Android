@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -101,8 +102,7 @@ public class NhapThongTinSuCoActivity extends AppCompatActivity {
     private boolean isNotEmpty() {
         return !etxtFullName.getText().toString().trim().isEmpty() &&
                 !etxtPhoneNumber.getText().toString().trim().isEmpty() &&
-                !etxtAddress.getText().toString().trim().isEmpty() &&
-                !etxtNote.getText().toString().trim().isEmpty();
+                !etxtAddress.getText().toString().trim().isEmpty();
     }
 
     private void handlingEmpty() {
@@ -247,11 +247,28 @@ public class NhapThongTinSuCoActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
-    public void onBackPressed() {
-        mApplication.getDiemSuCo.setPoint(null);
-        finish();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // todo: goto back activity from here
+                goHome();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
+    @Override
+    public void onBackPressed() {
+        goHome();
+    }
 
+    private void goHome() { mApplication.getDiemSuCo.setPoint(null);
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
+    }
 }

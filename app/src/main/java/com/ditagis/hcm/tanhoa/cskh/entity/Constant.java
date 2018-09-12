@@ -10,6 +10,8 @@ public class Constant {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
     public static final String DATE_FORMAT_STRING = "dd/MM/yyyy";
     public static final int REQUEST_CODE_PERMISSION = 2;
+    public static final int REQUEST_LOGIN = 0;
+    public static final int SIZE_FEATURE_RENDERER = 23;
     public static final short DOI_TUONG_PHAT_HIEN_KHACH_HANG = 0;
     public static final String ROLE_PGN = "pgn";
     public static final String HINH_THUC_PHAT_HIEN_BE_NGAM = "Bể ngầm";
@@ -26,7 +28,12 @@ public class Constant {
     public static final short LOAISUCO_ONGNGANH = 1;
     public static final short LOAISUCO_ONGCHINH = 2;
     public static final short LOAISUCO_CHUAPHANLOAI = 3;
+
     private final String SERVER = "http://sawagis.vn";
+    public String URL_SYMBOL_CHUA_SUA_CHUA = SERVER + "/tanhoa/Content/images/map/0.png";
+    public String URL_SYMBOL_CHUA_SUA_CHUA_BE_NGAM = "http://tanhoa.sawagis.vn/images/map/bengam.png";
+    public String URL_SYMBOL_DANG_SUA_CHUA = SERVER + "/tanhoa/Content/images/map/1.png";
+    public String URL_SYMBOL_HOAN_THANH = SERVER + "/tanhoa/Content/images/map/3.png";
     private String SERVER_API = SERVER + "/tanhoa1/api";
     public String API_LOGIN;
 
