@@ -137,6 +137,4 @@
     <string name="attachment">attachment</string>
     <string name="path_saveImage">.qlsc</string>
     <string name="arcgis_query_by_OBJECTID">OBJECTID = %d</string>
-    <string name="sql_column_login_displayname">DisplayName</string>
-    <string name="sql_column_login_role">Role</string>
 </resources>

@@ -89,6 +89,12 @@ public class Constant {
         public static final String HINH_THUC_PHAT_HIEN = "HinhThucPhatHien";
     }
 
+    public class FIELD_ACCOUNT {
+        public static final String ROLE = "Role";
+        public static final String GROUP_ROLE = "GroupRole";
+        public static final String DISPLAY_NAME = "DisplayName";
+    }
+
 
     public Constant() {
     }

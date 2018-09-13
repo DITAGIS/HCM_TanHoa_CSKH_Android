@@ -9,6 +9,7 @@ import android.util.Log;
 import com.ditagis.hcm.tanhoa.cskh.LoginActivity;
 import com.ditagis.hcm.tanhoa.cskh.acynchronize.LoginAsycn;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
+import com.ditagis.hcm.tanhoa.cskh.entity.Constant;
 import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
 import com.ditagis.hcm.tanhoa.cskh.entity.User;
 
@@ -122,12 +123,12 @@ public class LoginByAPIAsycn extends AsyncTask<String, Void, Void> {
                 }
 
             } catch (Exception e) {
-                Log.e("error", e.toString());
+                Log.e("lỗi lấy profile", e.toString());
             } finally {
                 conn.disconnect();
             }
         } catch (Exception e) {
-            Log.e("error", e.toString());
+            Log.e("lỗi lấy profile", e.toString());
         } finally {
         }
     }
@@ -141,8 +142,9 @@ public class LoginByAPIAsycn extends AsyncTask<String, Void, Void> {
         JSONArray jsonRoutes = jsonData.getJSONArray("account");
         for (int i = 0; i < jsonRoutes.length(); i++) {
             JSONObject jsonRoute = jsonRoutes.getJSONObject(i);
-            mApplication.getUserDangNhap.setDisplayName(jsonRoute.getString(mContext.getString(R.string.sql_column_login_displayname)));
-            mApplication.getUserDangNhap.setRole(jsonRoute.getString(mContext.getString(R.string.sql_column_login_role)));
+            mApplication.getUserDangNhap.setDisplayName(jsonRoute.getString(Constant.FIELD_ACCOUNT.DISPLAY_NAME));
+            mApplication.getUserDangNhap.setRole(jsonRoute.getString(Constant.FIELD_ACCOUNT.ROLE));
+            mApplication.getUserDangNhap.setGroupRole(jsonRoute.getString(Constant.FIELD_ACCOUNT.GROUP_ROLE));
         }
         return displayName;
 

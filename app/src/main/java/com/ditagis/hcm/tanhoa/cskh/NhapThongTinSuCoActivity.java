@@ -66,7 +66,7 @@ public class NhapThongTinSuCoActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         etxtAddress.setText(mApplication.getDiemSuCo.getVitri());
-
+//        etxtFullName.setText(mApplication.getUserDangNhap.getDisplayName());
         //for camera
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
