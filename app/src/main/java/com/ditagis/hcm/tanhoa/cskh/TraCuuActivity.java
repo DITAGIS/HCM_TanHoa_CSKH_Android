@@ -14,6 +14,7 @@ import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
 import com.ditagis.hcm.tanhoa.cskh.tracuu.TraCuuGiaNuocActivity;
 import com.ditagis.hcm.tanhoa.cskh.tracuu.TraCuuSuCoActivity;
 import com.ditagis.hcm.tanhoa.cskh.tracuu.TraCuuTienNuocActivity;
+import com.ditagis.hcm.tanhoa.cskh.utities.GoBrowser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +50,7 @@ public class TraCuuActivity extends AppCompatActivity implements View.OnClickLis
         mLayoutTraCuuTienNuoc.setOnClickListener(this);
         mLayoutTraCuuSuCo.setOnClickListener(this);
         mLayoutTraCuuGiaNuoc.setOnClickListener(this);
+        mLayoutTraCuuThongBao.setOnClickListener(this::onClick);
     }
 
     @Override
@@ -66,6 +68,13 @@ public class TraCuuActivity extends AppCompatActivity implements View.OnClickLis
                 mApplication.setUrlBrowser(mApplication.getConstant.URL_GIA_NUOC);
                 Intent intentGiaNuoc = new Intent(TraCuuActivity.this, TraCuuGiaNuocActivity.class);
                 startActivity(intentGiaNuoc);
+                break;
+            case R.id.llayout_tracuu_thongbao:
+                mApplication.setUrlBrowser("http://www.capnuoctanhoa.com.vn/customer");
+                GoBrowser goBrowser = new GoBrowser();
+                goBrowser.goURL(TraCuuActivity.this);
+//                Intent intentBrowser = new Intent(TraCuuActivity.this, BrowserActivity.class);
+//                startActivity(intentBrowser);
                 break;
         }
     }

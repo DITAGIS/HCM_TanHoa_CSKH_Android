@@ -9,7 +9,6 @@
         android:id="@+id/swipe_browse"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <WebView
             android:id="@+id/web_browse"
             android:layout_width="match_parent"

@@ -1,6 +1,7 @@
 package com.ditagis.hcm.tanhoa.cskh;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -32,14 +33,17 @@ public class BrowserActivity extends AppCompatActivity {
         mmSwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                goUrl(mApplication.getUrlBrowser());
+//                goUrlWebView();
+                goURLBrowser();
                 mmSwipe.setRefreshing(false);
             }
         });
-        goUrl(mApplication.getUrlBrowser());
+        goURLBrowser();
+//        goUrlWebView();
     }
 
-    private void goUrl(String url) {
+    private void goUrlWebView() {
+        String url = mApplication.getUrlBrowser();
         if (url == null || url.isEmpty()) {
             Toast.makeText(this, "Please enter url", Toast.LENGTH_SHORT).show();
             return;
@@ -50,6 +54,24 @@ public class BrowserActivity extends AppCompatActivity {
         mmWebview.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         mmWebview.loadUrl(url);
     }
+
+    private boolean goURLBrowser() {
+        boolean result = false;
+        String url = mApplication.getUrlBrowser();
+        if (!url.startsWith("http://") && !url.startsWith("https://"))
+            url = "http://" + url;
+
+        Uri webpage = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+
+        try {
+            startActivity(intent);
+            result = true;
+        } catch (Exception e) {
+        }
+        return result;
+    }
+
 
     @Override
     public void onBackPressed() {
