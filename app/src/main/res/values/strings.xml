@@ -91,6 +91,7 @@
         where danhba = ? and pin = ?</string>
     <string name="sql_changepassword">update &table_khachhang; set pin = ? where danhba = ?</string>
     <string name="sql_get_docso">select top 1 * from &table_docso; where danhba = ? </string>
+    <string name="sql_get_docso_ky_nam">select top 1 * from &table_docso; where danhba = ? and nam = ? and ky = ? </string>
     <!--sql end-->
 
     <!--message dialog begin-->

@@ -61,7 +61,7 @@
                 android:layout_gravity="center"
                 android:layout_marginRight="@dimen/margin_medium"
                 android:hint="Nhập địa chỉ"
-                android:inputType="textCapWords|textCapSentences"
+                android:inputType="text|textCapWords"
                 android:maxLines="1"
                 android:nextFocusDown="@+id/etxtFullName_add_feature"
                 android:textCursorDrawable="@null" />

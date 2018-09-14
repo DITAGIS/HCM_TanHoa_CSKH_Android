@@ -45,7 +45,7 @@ public class DongHoKhachHangDB implements IDB<DongHoKhachHang, Boolean, String> 
 
 
     @Override
-    public DongHoKhachHang find(String x, String thang, String danhBo) {
+    public DongHoKhachHang find(String namInput, String thang, String danhBo) {
         Connection cnn = ConnectionDB.getInstance().getConnection();
         DongHoKhachHang dongHoKhachHang = null;
         ResultSet rs = null;
@@ -55,8 +55,14 @@ public class DongHoKhachHangDB implements IDB<DongHoKhachHang, Boolean, String> 
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
             String query = mContext.getString(R.string.sql_get_docso);
+            if (!thang.isEmpty())
+                query = mContext.getString(R.string.sql_get_docso_ky_nam);
             PreparedStatement mStatement = cnn.prepareStatement(query);
             mStatement.setString(1, danhBo);
+            if (!thang.isEmpty()) {
+                mStatement.setString(2, namInput);
+                mStatement.setString(3, thang);
+            }
             rs = mStatement.executeQuery();
 
             while (rs.next()) {

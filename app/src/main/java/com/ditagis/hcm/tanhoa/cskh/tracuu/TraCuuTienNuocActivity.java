@@ -96,37 +96,34 @@ public class TraCuuTienNuocActivity extends AppCompatActivity implements View.On
      * Hiển thị thông tin lên listview
      */
     private void getInfoDongHoKhachHang(String month, String year) {
-        FindDongHoKhachHangAsycn asycn = new FindDongHoKhachHangAsycn(this, new FindDongHoKhachHangAsycn.AsyncResponse() {
-            @Override
-            public void processFinish(DongHoKhachHang output) {
-                if (output == null) {
-                    handleFindDongHoKhachHangFail();
-                    return;
-                }
-
-                TitleValueTraCuuTienNuocAdapter adapter = new TitleValueTraCuuTienNuocAdapter(
-                        TraCuuTienNuocActivity.this, new ArrayList<TitleValueTraCuuTienNuocAdapter.Item>());
-
-                mListView.setAdapter(adapter);
-                adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.cscu),
-                        String.format(getString(R.string.format_number_m3), output.getCscu())));
-                adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.csmoi),
-                        String.format(getString(R.string.format_number_m3), output.getCsmoi())));
-                adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.tieuthu),
-                        String.format(getString(R.string.format_number_m3), output.getTieuthumoi())));
-                adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.tiennuoc),
-                        String.format(getString(R.string.format_number_money), Utils.getInstance().getNumberFormat().format(output.getTienNuoc()))));
-                adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.thueVAT),
-                        String.format(getString(R.string.format_number_money), Utils.getInstance().getNumberFormat().format(output.getThueVAT()))));
-                adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.phiBVMT),
-                        String.format(getString(R.string.format_number_money), Utils.getInstance().getNumberFormat().format(output.getPhiBVMT()))));
-                adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.tongtien),
-                        String.format(getString(R.string.format_number_money), Utils.getInstance().getNumberFormat().format(output.getTongTien()))));
-                adapter.notifyDataSetChanged();
-
-                mListView.setVisibility(View.VISIBLE);
-                mtxtValidation.setVisibility(View.GONE);
+        FindDongHoKhachHangAsycn asycn = new FindDongHoKhachHangAsycn(this, output -> {
+            if (output == null) {
+                handleFindDongHoKhachHangFail();
+                return;
             }
+
+            TitleValueTraCuuTienNuocAdapter adapter = new TitleValueTraCuuTienNuocAdapter(
+                    TraCuuTienNuocActivity.this, new ArrayList<TitleValueTraCuuTienNuocAdapter.Item>());
+
+            mListView.setAdapter(adapter);
+            adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.cscu),
+                    String.format(getString(R.string.format_number_m3), output.getCscu())));
+            adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.csmoi),
+                    String.format(getString(R.string.format_number_m3), output.getCsmoi())));
+            adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.tieuthu),
+                    String.format(getString(R.string.format_number_m3), output.getTieuthumoi())));
+            adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.tiennuoc),
+                    String.format(getString(R.string.format_number_money), Utils.getInstance().getNumberFormat().format(output.getTienNuoc()))));
+            adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.thueVAT),
+                    String.format(getString(R.string.format_number_money), Utils.getInstance().getNumberFormat().format(output.getThueVAT()))));
+            adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.phiBVMT),
+                    String.format(getString(R.string.format_number_money), Utils.getInstance().getNumberFormat().format(output.getPhiBVMT()))));
+            adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.tongtien),
+                    String.format(getString(R.string.format_number_money), Utils.getInstance().getNumberFormat().format(output.getTongTien()))));
+            adapter.notifyDataSetChanged();
+
+            mListView.setVisibility(View.VISIBLE);
+            mtxtValidation.setVisibility(View.GONE);
         });
         asycn.execute(year, month, Preference.getInstance().loadPreference(getString(R.string.preference_username)));
 
