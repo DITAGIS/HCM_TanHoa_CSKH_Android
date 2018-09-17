@@ -6,8 +6,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.ditagis.hcm.tanhoa.cskh.LoginActivity;
-import com.ditagis.hcm.tanhoa.cskh.acynchronize.LoginAsycn;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
 import com.ditagis.hcm.tanhoa.cskh.entity.Constant;
 import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
@@ -73,10 +71,11 @@ public class LoginByAPIAsycn extends AsyncTask<String, Void, Void> {
                 }
                 bufferedReader.close();
                 String token = stringBuilder.toString().replace("\"", "");
-                mApplication.getUserDangNhap = new User();
-                mApplication.getUserDangNhap.setToken(token);
+                User user = new User();
+                mApplication.setUserDangNhap(user);
+                mApplication.getUserDangNhap().setToken(token);
                 getProfile();
-                mApplication.getUserDangNhap.setUserName(userName);
+                mApplication.getUserDangNhap().setUserName(userName);
 
             } catch (Exception e1) {
                 Log.e("Lỗi login", e1.toString());
@@ -111,7 +110,7 @@ public class LoginByAPIAsycn extends AsyncTask<String, Void, Void> {
             try {
                 conn.setDoOutput(false);
                 conn.setRequestMethod("GET");
-                conn.setRequestProperty("Authorization", mApplication.getUserDangNhap.getToken());
+                conn.setRequestProperty("Authorization", mApplication.getUserDangNhap().getToken());
                 conn.connect();
 
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -142,9 +141,9 @@ public class LoginByAPIAsycn extends AsyncTask<String, Void, Void> {
         JSONArray jsonRoutes = jsonData.getJSONArray("account");
         for (int i = 0; i < jsonRoutes.length(); i++) {
             JSONObject jsonRoute = jsonRoutes.getJSONObject(i);
-            mApplication.getUserDangNhap.setDisplayName(jsonRoute.getString(Constant.FIELD_ACCOUNT.DISPLAY_NAME));
-            mApplication.getUserDangNhap.setRole(jsonRoute.getString(Constant.FIELD_ACCOUNT.ROLE));
-            mApplication.getUserDangNhap.setGroupRole(jsonRoute.getString(Constant.FIELD_ACCOUNT.GROUP_ROLE));
+            mApplication.getUserDangNhap().setDisplayName(jsonRoute.getString(Constant.FIELD_ACCOUNT.DISPLAY_NAME));
+            mApplication.getUserDangNhap().setRole(jsonRoute.getString(Constant.FIELD_ACCOUNT.ROLE));
+            mApplication.getUserDangNhap().setGroupRole(jsonRoute.getString(Constant.FIELD_ACCOUNT.GROUP_ROLE));
         }
         return displayName;
 

@@ -6,6 +6,8 @@ import android.location.Location;
 import com.esri.arcgisruntime.data.ArcGISFeature;
 import com.esri.arcgisruntime.layers.FeatureLayer;
 
+import java.util.List;
+
 
 public class DApplication extends Application {
     public Constant getConstant;
@@ -14,11 +16,30 @@ public class DApplication extends Application {
         getConstant = new Constant();
     }
 
-    public User getUserDangNhap;
     public DiemSuCo getDiemSuCo;
 
     {
         getDiemSuCo = new DiemSuCo();
+    }
+
+    private User userDangNhap;
+
+    public User getUserDangNhap() {
+        return userDangNhap;
+    }
+
+    public void setUserDangNhap(User userDangNhap) {
+        this.userDangNhap = userDangNhap;
+    }
+
+    private List<DLayerInfo> dLayerInfos;
+
+    public List<DLayerInfo> getdLayerInfos() {
+        return dLayerInfos;
+    }
+
+    public void setdLayerInfos(List<DLayerInfo> dLayerInfos) {
+        this.dLayerInfos = dLayerInfos;
     }
 
     private String urlBrowser;

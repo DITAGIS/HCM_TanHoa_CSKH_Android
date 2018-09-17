@@ -87,7 +87,7 @@ public class NhapThongTinSuCoActivity extends AppCompatActivity {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     if (Constant.HINH_THUC_PHAT_HIEN_BE_NGAM.toLowerCase().equals(adapter.getItem(i).toLowerCase())
-                            && !mApplication.getUserDangNhap.getRole().toLowerCase().startsWith(Constant.ROLE_PGN)) {
+                            && !mApplication.getUserDangNhap().getRole().toLowerCase().startsWith(Constant.ROLE_PGN)) {
                         Toast.makeText(NhapThongTinSuCoActivity.this, "Bạn không có quyền chọn hình thức phát hiện Bể ngầm!", Toast.LENGTH_LONG).show();
                         if (adapter.getCount() > 1)
                             spinHinhThucPhatHien.setSelection(1);

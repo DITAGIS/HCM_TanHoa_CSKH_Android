@@ -15,6 +15,8 @@ public class Constant {
     public static final short DOI_TUONG_PHAT_HIEN_KHACH_HANG = 0;
     public static final String ROLE_PGN = "pgn";
     public static final String HINH_THUC_PHAT_HIEN_BE_NGAM = "Bể ngầm";
+    public static final String ID_BASEMAP = "BASEMAP";
+    public static final String URL_BASEMAP = "/3";
     public static final String[] REQUEST_PERMISSIONS = new String[]{
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -87,6 +89,8 @@ public class Constant {
         public static final String DIA_CHI = "DiaChi";
         public static final String DOI_TUONG_PHAT_HIEN = "DoiTuongPhatHien";
         public static final String HINH_THUC_PHAT_HIEN = "HinhThucPhatHien";
+        public static final String QUAN = "Quan";
+        public static final String PHUONG = "Phuong";
     }
 
     public class FIELD_ACCOUNT {
@@ -95,6 +99,25 @@ public class Constant {
         public static final String DISPLAY_NAME = "DisplayName";
     }
 
+    public class FIELD_HANHCHINH {
+        public static final String ID_HANH_CHINH = "IDHanhChinh";
+        public static final String MA_HUYEN = "MaHuyen";
+
+    }
+
+    public class SYS_CLOUMN {
+        public static final String URL = "Url";
+        public static final String DEFINITION = "Definition";
+        public static final String OUT_FIELDS = "OutFields";
+        public static final String LAYER_ID = "LayerID";
+        public static final String LAYER_TITLE = "LayerTitle";
+        public static final String IS_CREATE = "IsCreate";
+        public static final String IS_DELETE = "IsDelete";
+        public static final String IS_EDIT = "IsEdit";
+        public static final String IS_VIEW = "IsView";
+        public static final String UPDATE_FIELDS = "UpdateFields";
+
+    }
 
     public Constant() {
     }

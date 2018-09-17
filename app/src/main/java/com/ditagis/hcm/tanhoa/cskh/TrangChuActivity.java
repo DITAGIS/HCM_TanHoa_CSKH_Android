@@ -262,7 +262,7 @@ public class TrangChuActivity extends AppCompatActivity
                 startActivity(intentChangePassword);
                 break;
             case R.id.nav_logout:
-                finish();
+                startSignIn();
                 break;
         }
 

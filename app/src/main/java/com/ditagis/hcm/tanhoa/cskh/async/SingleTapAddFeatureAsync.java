@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
 import com.ditagis.hcm.tanhoa.cskh.entity.Constant;
 import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
+import com.ditagis.hcm.tanhoa.cskh.entity.DLayerInfo;
 import com.esri.arcgisruntime.concurrent.ListenableFuture;
 import com.esri.arcgisruntime.data.ArcGISFeature;
 import com.esri.arcgisruntime.data.Attachment;
@@ -72,8 +73,28 @@ public class SingleTapAddFeatureAsync extends AsyncTask<Void, Feature, Void> {
             feature.getAttributes().put(Constant.FIELD_SUCO.HINH_THUC_PHAT_HIEN, mApplication.getDiemSuCo.getHinhThucPhatHien());
             feature.getAttributes().put(Constant.FIELD_SUCO.DOI_TUONG_PHAT_HIEN, Constant.DOI_TUONG_PHAT_HIEN_KHACH_HANG);
             feature.getAttributes().put(Constant.FIELD_SUCO.EMAIL_NGUOI_PHAN_ANH, mApplication.getDiemSuCo.getEmail());
-            addFeatureAsync(feature);
+            for (DLayerInfo dLayerInfo : mApplication.getdLayerInfos())
+                if (dLayerInfo.getId().equals(Constant.ID_BASEMAP)) {
+                    ServiceFeatureTable serviceFeatureTableHanhChinh = new ServiceFeatureTable(
+                            dLayerInfo.getUrl() + Constant.URL_BASEMAP);
+                    QueryParameters queryParameters = new QueryParameters();
+                    queryParameters.setGeometry(feature.getGeometry());
+                    new QueryServiceFeatureTableAsync(mActivity, serviceFeatureTableHanhChinh, output -> {
+                        if (output != null) {
+                            Object phuong = output.getAttributes().get(Constant.FIELD_HANHCHINH.ID_HANH_CHINH);
+                            Object quan = output.getAttributes().get(Constant.FIELD_HANHCHINH.MA_HUYEN);
+                            if (quan != null) {
+                                feature.getAttributes().put(Constant.FIELD_SUCO.QUAN, quan.toString());
+                            }
+                            if (phuong != null)
+                                feature.getAttributes().put(Constant.FIELD_SUCO.PHUONG, phuong.toString());
+                        }
+                        addFeatureAsync(feature);
+                    }).execute(queryParameters);
 
+
+                    break;
+                }
         } catch (Exception e) {
             publishProgress();
         }

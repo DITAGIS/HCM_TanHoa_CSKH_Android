@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         final String finalUserName = userName;
         LoginByAPIAsycn loginAsycn = new LoginByAPIAsycn(this, () -> {
-            if (mApplication.getUserDangNhap != null)
+            if (mApplication.getUserDangNhap() != null)
                 handleLoginSuccess(finalUserName, passWord);
             else
                 handleLoginFail();
