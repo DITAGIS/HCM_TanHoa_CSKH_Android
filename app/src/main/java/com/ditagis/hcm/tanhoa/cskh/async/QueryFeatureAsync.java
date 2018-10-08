@@ -34,6 +34,7 @@ public class QueryFeatureAsync extends AsyncTask<Void, List<Feature>, Void> {
     private int mTrangThai;
     private String mDiaChi;
     private String mThoiGian;
+    private boolean mHasTime;
 
     public interface AsyncResponse {
         void processFinish(List<Feature> output);
@@ -50,7 +51,9 @@ public class QueryFeatureAsync extends AsyncTask<Void, List<Feature>, Void> {
         try {
             Date date = Constant.DATE_FORMAT.parse(thoiGianPhanAnh);
             this.mThoiGian = formatTimeToGMT(date);
+            this.mHasTime = true;
         } catch (ParseException e) {
+            this.mHasTime = false;
             e.printStackTrace();
         }
     }
@@ -71,11 +74,15 @@ public class QueryFeatureAsync extends AsyncTask<Void, List<Feature>, Void> {
         try {
 
             QueryParameters queryParameters = new QueryParameters();
-            @SuppressLint("DefaultLocale") String queryClause = String.format("%s = %d and %s > date '%s' and %s like N'%%%s%%'",
-                    Constant.FIELD_SUCO.TRANG_THAI, mTrangThai,
-                    Constant.FIELD_SUCO.TGPHAN_ANH, mThoiGian,
-                    Constant.FIELD_SUCO.DIA_CHI, mDiaChi);
-            queryParameters.setWhereClause(queryClause);
+            @SuppressLint("DefaultLocale") StringBuilder queryClause = new StringBuilder(String.format(" %s like N'%%%s%%'",
+                    Constant.FIELD_SUCO.DIA_CHI, mDiaChi));
+            if (mHasTime)
+                queryClause.append(String.format(" and %s > date '%s'", Constant.FIELD_SUCO.TGPHAN_ANH, mThoiGian));
+            if (mTrangThai != -1) {
+                queryClause.append(String.format(" and %s = %d",
+                        Constant.FIELD_SUCO.TRANG_THAI, mTrangThai));
+            }
+            queryParameters.setWhereClause(queryClause.toString());
 
             ListenableFuture<FeatureQueryResult> featureQueryResultListenableFuture = mServiceFeatureTable.queryFeaturesAsync(queryParameters, ServiceFeatureTable.QueryFeatureFields.LOAD_ALL);
             featureQueryResultListenableFuture.addDoneListener(() -> {
@@ -94,10 +101,7 @@ public class QueryFeatureAsync extends AsyncTask<Void, List<Feature>, Void> {
                     publishProgress();
                 }
             });
-        } catch (
-                Exception e)
-
-        {
+        } catch (Exception e) {
             publishProgress();
         }
         return null;

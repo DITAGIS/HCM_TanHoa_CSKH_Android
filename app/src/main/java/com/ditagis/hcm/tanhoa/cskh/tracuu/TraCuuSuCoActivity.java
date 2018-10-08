@@ -17,7 +17,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ditagis.hcm.tanhoa.cskh.adapter.TitleValueTraCuuSuCoAdapter;
 import com.ditagis.hcm.tanhoa.cskh.adapter.TraCuuSuCoAdapter;
@@ -67,6 +66,8 @@ public class TraCuuSuCoActivity extends AppCompatActivity implements View.OnClic
     LinearLayout mLayoutMain;
     @BindView(R.id.mapview_tra_cuu_su_co)
     MapView mMapView;
+    @BindView(R.id.txt_tra_cuu_su_co_ket_qua)
+    TextView mTxtKetQua;
 
     private FeatureLayer mFeatureLayer;
     private DApplication mApplication;
@@ -112,8 +113,11 @@ public class TraCuuSuCoActivity extends AppCompatActivity implements View.OnClic
             mCodeValues = ((CodedValueDomain) domain).getCodedValues();
             if (mCodeValues != null) {
                 List<String> codes = new ArrayList<>();
+                codes.add("Tất cả");
                 for (CodedValue codedValue : mCodeValues)
                     codes.add(codedValue.getName());
+                if (codes.size() > 4)
+                    codes.remove(4);
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(TraCuuSuCoActivity.this, android.R.layout.simple_list_item_1, codes);
                 mSpinTrangThai.setAdapter(adapter);
             }
@@ -199,23 +203,27 @@ public class TraCuuSuCoActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void traCuu() {
-        if (!mTxtThoiGian.getText().toString().equals(TraCuuSuCoActivity.this.getString(R.string.txt_chon_thoi_gian_tracuusuco))) {
-            startProgressBar();
-            mLayoutKetQua.setVisibility(View.GONE);
-            for (CodedValue codedValue : mCodeValues) {
-                if (codedValue.getName().equals(mSpinTrangThai.getSelectedItem().toString()))
-                    new QueryFeatureAsync(this, Short.parseShort(codedValue.getCode().toString()),
-                            mETxtDiaChi.getText().toString(),
-                            mTxtThoiGian.getText().toString(), output -> {
-                        stopProgressBar();
-                        if (output != null && output.size() > 0) {
-                            mFeaturesResult = output;
-                            handlingTraCuuHoanTat();
-                        }
-                    }).execute();
+//        if (!mTxtThoiGian.getText().toString().equals(TraCuuSuCoActivity.this.getString(R.string.txt_chon_thoi_gian_tracuusuco))) {
+        startProgressBar();
+        mLayoutKetQua.setVisibility(View.GONE);
+        short trangThai = -1;
+        for (CodedValue codedValue : mCodeValues) {
+            if (codedValue.getName().equals(mSpinTrangThai.getSelectedItem().toString())) {
+                trangThai = Short.parseShort(codedValue.getCode().toString());
             }
-        } else
-            Toast.makeText(TraCuuSuCoActivity.this, "Vui lòng chọn thời gian", Toast.LENGTH_SHORT).show();
+        }
+        new QueryFeatureAsync(this, trangThai,
+                mETxtDiaChi.getText().toString(),
+                mTxtThoiGian.getText().toString(), output -> {
+            stopProgressBar();
+            if (output != null && output.size() > 0) {
+                mFeaturesResult = output;
+                mTxtKetQua.setText(TraCuuSuCoActivity.this.getString(R.string.txt_ket_qua_tra_cuu,output.size()));
+                handlingTraCuuHoanTat();
+            }else mTxtKetQua.setText(TraCuuSuCoActivity.this.getString(R.string.txt_ket_qua_tra_cuu,0));
+        }).execute();
+//        } else
+//            Toast.makeText(TraCuuSuCoActivity.this, "Vui lòng chọn thời gian", Toast.LENGTH_SHORT).show();
     }
 
     private void handlingTraCuuHoanTat() {

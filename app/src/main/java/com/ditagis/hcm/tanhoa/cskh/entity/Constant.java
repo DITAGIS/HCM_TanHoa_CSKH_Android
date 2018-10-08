@@ -5,10 +5,10 @@ import android.Manifest;
 import java.text.SimpleDateFormat;
 
 public class Constant {
+    public static final String DATE_FORMAT_STRING = "dd/MM/yyyy";
     public static final SimpleDateFormat DATE_FORMAT_YEAR_FIRST = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static final SimpleDateFormat DATE_FORMAT_VIEW = new SimpleDateFormat("HH:mm:ss yyyy-MM-dd");
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
-    public static final String DATE_FORMAT_STRING = "dd/MM/yyyy";
     public static final int REQUEST_CODE_PERMISSION = 2;
     public static final int REQUEST_LOGIN = 0;
     public static final int SIZE_FEATURE_RENDERER = 23;

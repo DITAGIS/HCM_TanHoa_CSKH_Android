@@ -145,11 +145,13 @@
                 style="@style/MyTextAppearance.Blue.Big.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kết quả tra cứu" />
+                android:id="@+id/txt_tra_cuu_su_co_ket_qua"
+                android:text="@string/txt_ket_qua_tra_cuu" />
 
             <ListView
                 android:id="@+id/lst_tra_cuu_su_co"
                 android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/margin_small"
                 android:layout_height="wrap_content"></ListView>
         </LinearLayout>
     </LinearLayout>

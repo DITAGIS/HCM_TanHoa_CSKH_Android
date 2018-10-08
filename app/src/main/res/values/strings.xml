@@ -138,4 +138,5 @@
     <string name="attachment">attachment</string>
     <string name="path_saveImage">.qlsc</string>
     <string name="arcgis_query_by_OBJECTID">OBJECTID = %d</string>
+    <string name="txt_ket_qua_tra_cuu">Kết quả tra cứu:  %1$d</string>
 </resources>
