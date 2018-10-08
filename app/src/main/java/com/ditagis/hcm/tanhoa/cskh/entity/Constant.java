@@ -31,12 +31,13 @@ public class Constant {
     public static final short LOAISUCO_ONGCHINH = 2;
     public static final short LOAISUCO_CHUAPHANLOAI = 3;
 
-    private final String SERVER = "http://sawagis.vn";
-    public String URL_SYMBOL_CHUA_SUA_CHUA = SERVER + "/tanhoa/Content/images/map/0.png";
-    public String URL_SYMBOL_CHUA_SUA_CHUA_BE_NGAM = "http://tanhoa.sawagis.vn/images/map/bengam.png";
-    public String URL_SYMBOL_DANG_SUA_CHUA = SERVER + "/tanhoa/Content/images/map/1.png";
-    public String URL_SYMBOL_HOAN_THANH = SERVER + "/tanhoa/Content/images/map/3.png";
-    private String SERVER_API = SERVER + "/tanhoa1/api";
+    private final String SERVER = "http://tanhoa.sawagis.vn";
+    public String URL_SYMBOL_CHUA_SUA_CHUA = SERVER + "/images/map/0.png";
+    public String URL_SYMBOL_CHUA_SUA_CHUA_BE_NGAM = SERVER + "/images/map/bengam.png";
+    public String URL_SYMBOL_DANG_SUA_CHUA = SERVER + "/images/map/1.png";
+    public String URL_SYMBOL_HOAN_THANH = SERVER + "/images/map/2.png";
+
+    private String SERVER_API = SERVER + "/apiv1/api";
     public String API_LOGIN;
 
 
