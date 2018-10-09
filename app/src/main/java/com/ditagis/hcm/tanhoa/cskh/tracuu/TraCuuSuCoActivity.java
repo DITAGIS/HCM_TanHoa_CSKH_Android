@@ -144,8 +144,10 @@ public class TraCuuSuCoActivity extends AppCompatActivity implements View.OnClic
                         if (field.getDomain() != null) {
                             List<CodedValue> codedValues = ((CodedValueDomain) field.getDomain()).getCodedValues();
                             for (CodedValue codedValue : codedValues)
-                                if (codedValue.getCode().equals(value))
+                                if (codedValue.getCode().equals(value)) {
                                     item.setValue(codedValue.getName());
+                                    break;
+                                }
                         } else switch (field.getFieldType()) {
                             case DATE:
                                 item.setValue(Constant.DATE_FORMAT_VIEW.format(((Calendar) value).getTime()));
@@ -218,9 +220,10 @@ public class TraCuuSuCoActivity extends AppCompatActivity implements View.OnClic
             stopProgressBar();
             if (output != null && output.size() > 0) {
                 mFeaturesResult = output;
-                mTxtKetQua.setText(TraCuuSuCoActivity.this.getString(R.string.txt_ket_qua_tra_cuu,output.size()));
+                mTxtKetQua.setText(TraCuuSuCoActivity.this.getString(R.string.txt_ket_qua_tra_cuu, output.size()));
                 handlingTraCuuHoanTat();
-            }else mTxtKetQua.setText(TraCuuSuCoActivity.this.getString(R.string.txt_ket_qua_tra_cuu,0));
+            } else
+                mTxtKetQua.setText(TraCuuSuCoActivity.this.getString(R.string.txt_ket_qua_tra_cuu, 0));
         }).execute();
 //        } else
 //            Toast.makeText(TraCuuSuCoActivity.this, "Vui lòng chọn thời gian", Toast.LENGTH_SHORT).show();

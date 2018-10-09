@@ -5,10 +5,6 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_main"
-            android:icon="@drawable/ic_home"
-            android:title="@string/action_mainpage" />
-        <item
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_search"
             android:title="@string/action_search" />
@@ -16,22 +12,15 @@
             android:id="@+id/nav_alert"
             android:icon="@drawable/ic_alert"
             android:title="@string/action_alert" />
-        <!--<item-->
-            <!--android:id="@+id/nav_service_manual"-->
-            <!--android:icon="@drawable/ic_service_manual"-->
-            <!--android:title="@string/action_service_manual" />-->
 
     </group>
 
 
     <group>
         <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_settings"
-            android:title="@string/action_settings" />
-        <item
             android:id="@+id/nav_change_password"
             android:icon="@drawable/ic_password"
+            android:visible="false"
             android:title="@string/action_change_password" />
         <item
             android:id="@+id/nav_logout"

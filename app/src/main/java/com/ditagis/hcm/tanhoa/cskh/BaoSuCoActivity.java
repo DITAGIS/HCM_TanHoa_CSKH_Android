@@ -65,8 +65,8 @@ import java.util.concurrent.ExecutionException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-    public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickListener, View.OnKeyListener,
-            AdapterView.OnItemClickListener {
+public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickListener, View.OnKeyListener,
+        AdapterView.OnItemClickListener {
     @BindView(R.id.etxt_querysearch_baosuco)
     EditText mETxtQuery;
     @BindView(R.id.imgBtnSearch_baosuco)
@@ -165,6 +165,7 @@ import butterknife.ButterKnife;
                 setLicense();
                 ServiceFeatureTable serviceFeatureTable = new ServiceFeatureTable(mApplication.getConstant.URL_FEATURE);
                 mFeatureLayer = new FeatureLayer(serviceFeatureTable);
+                mFeatureLayer.setDefinitionExpression("1 = 0");
                 mMapView.getMap().getOperationalLayers().add(mFeatureLayer);
                 mFeatureLayer.addDoneLoadingListener(() -> {
                     if (mFeatureLayer.getLoadStatus() == LoadStatus.LOADED) {

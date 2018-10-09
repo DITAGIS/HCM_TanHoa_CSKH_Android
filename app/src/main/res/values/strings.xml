@@ -17,7 +17,7 @@
     <string name="action_search">Tra cứu</string>
     <string name="action_alert">Báo sự cố</string>
     <string name="action_service_manual">Hướng dẫn dịch vụ</string>
-    <string name="action_logout">Đăng xuất</string>
+    <string name="action_logout">Đổi danh bộ</string>
     <string name="changepassword_oldpassword">Nhập mật khẩu cũ</string>
     <string name="changepassword_newpassword">Nhập mật khẩu mới</string>
     <string name="changepassword_newpasswordconfirm">Nhập lại mật khẩu mới</string>
@@ -90,7 +90,7 @@
     <string name="sql_login">select danhba from &table_khachhang;
         where danhba = ? and pin = ?</string>
     <string name="sql_changepassword">update &table_khachhang; set pin = ? where danhba = ?</string>
-    <string name="sql_get_docso">select top 1 * from &table_docso; where danhba = ? </string>
+    <string name="sql_get_docso">select top 1 * from &table_docso; where danhba = ? order by nam desc, ky desc</string>
     <string name="sql_get_docso_ky_nam">select top 1 * from &table_docso; where danhba = ? and nam = ? and ky = ? </string>
     <!--sql end-->
 
@@ -121,6 +121,7 @@
     <!--string format end-->
 
 
+    <string name="ky">Kỳ</string>
     <string name="giabieu">Giá biểu</string>
     <string name="dinhmuc">Đinh mức</string>
     <string name="cscu">Chỉ số cũ</string>

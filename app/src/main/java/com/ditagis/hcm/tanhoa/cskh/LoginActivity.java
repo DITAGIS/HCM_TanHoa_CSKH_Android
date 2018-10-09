@@ -1,6 +1,7 @@
 package com.ditagis.hcm.tanhoa.cskh;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -38,6 +39,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mTxtPassword = findViewById(R.id.txtPassword);
 
         mTxtValidation = findViewById(R.id.txt_login_validation);
+        findViewById(R.id.llayout_login_password).setVisibility(View.GONE);
+        try {
+            ((TextView) findViewById(R.id.txt_login_version)).setText("Phiên bản: " + getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 //        mTxtUsername.setText("12101860724");
 //        mTxtPassword.setText("123456");
         create();
@@ -59,8 +66,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //chỉ nhập pasword
         else {
             isLastLogin = true;
-            findViewById(R.id.layout_login_tool).setVisibility(View.VISIBLE);
-            findViewById(R.id.layout_login_username).setVisibility(View.GONE);
+            mTxtUsername.setText(preference_userName);
+//            findViewById(R.id.layout_login_tool).setVisibility(View.VISIBLE);
+//            findViewById(R.id.layout_login_username).setVisibility(View.GONE);
         }
 
     }
@@ -73,12 +81,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         mTxtValidation.setVisibility(View.GONE);
 
-        String userName = "";
-        if (isLastLogin)
-            userName = Preference.getInstance().loadPreference(getString(R.string.preference_username));
-        else
-            userName = mTxtUsername.getText().toString().trim();
-        final String passWord = mTxtPassword.getText().toString().trim();
+        String userName = mTxtUsername.getText().toString().trim();
+        final String passWord = "123456";// mTxtPassword.getText().toString().trim();
         if (userName.length() == 0 || passWord.length() == 0) {
             handleInfoLoginEmpty();
             return;

@@ -183,6 +183,8 @@ public class TrangChuActivity extends AppCompatActivity
      * set text với những thông tin lấy được từ lớp đồng hồ khách hàng
      */
     private void setInfoMainPageByDongHoKhachHang() {
+        mAdapter.add(new TitleValueAdapter.Item(getString(R.string.ky),
+                String.format(getString(R.string.format_monthyear), mDongHoKH.getKy(),mDongHoKH.getNam())));
         mAdapter.add(new TitleValueAdapter.Item(getString(R.string.cscu),
                 String.format(getString(R.string.format_number_m3), mDongHoKH.getCscu())));
         mAdapter.add(new TitleValueAdapter.Item(getString(R.string.csmoi),
@@ -209,7 +211,6 @@ public class TrangChuActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.trang_chu, menu);
         return true;
     }
 
@@ -220,10 +221,6 @@ public class TrangChuActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
 
         return super.onOptionsItemSelected(item);
@@ -236,9 +233,6 @@ public class TrangChuActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id) {
 
-
-            case R.id.nav_main:
-                break;
             // Handle the camera action
             case R.id.nav_search:
                 Intent intentSearch = new Intent(TrangChuActivity.this, TraCuuActivity.class);
@@ -247,14 +241,6 @@ public class TrangChuActivity extends AppCompatActivity
             case R.id.nav_alert:
                 Intent intentAlert = new Intent(TrangChuActivity.this, BaoSuCoActivity.class);
                 startActivity(intentAlert);
-                break;
-//            case R.id.nav_service_manual:
-//                Preference.getInstance().setContext(this);
-//                Preference.getInstance().savePreferences(getString(R.string.preference_url_webview), getString(R.string.url_webview_huong_dan_dich_vu));
-//                Intent intentServiceManual = new Intent(TrangChuActivity.this, BrowserActivity.class);
-//                startActivity(intentServiceManual);
-//                break;
-            case R.id.nav_settings:
                 break;
 
             case R.id.nav_change_password:
