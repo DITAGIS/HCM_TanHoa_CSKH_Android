@@ -1,6 +1,7 @@
 package com.ditagis.hcm.tanhoa.cskh.tracuu;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
@@ -42,6 +43,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TimeZone;
 
 import butterknife.BindView;
@@ -82,7 +84,8 @@ public class TraCuuSuCoActivity extends AppCompatActivity implements View.OnClic
         mBtnTraCuu.setOnClickListener(this);
         mTxtThoiGian.setOnClickListener(this);
         mApplication = (DApplication) getApplication();
-
+        (Objects.requireNonNull(getSupportActionBar())).setDisplayHomeAsUpEnabled(true);
+        (Objects.requireNonNull(getSupportActionBar())).setDisplayShowHomeEnabled(true);
         init();
     }
 
@@ -257,5 +260,21 @@ public class TraCuuSuCoActivity extends AppCompatActivity implements View.OnClic
                 showDateTimePicker();
                 break;
         }
+    } @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        goHome();
+    }
+
+
+    public void goHome() {
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

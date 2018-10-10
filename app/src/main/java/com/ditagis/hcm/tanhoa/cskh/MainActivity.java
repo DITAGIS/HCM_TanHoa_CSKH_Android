@@ -22,6 +22,7 @@ import com.ditagis.hcm.tanhoa.cskh.acynchronize.FindKhachHangAsycn;
 import com.ditagis.hcm.tanhoa.cskh.adapter.TitleValueAdapter;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
 import com.ditagis.hcm.tanhoa.cskh.entity.Constant;
+import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
 import com.ditagis.hcm.tanhoa.cskh.entity.DongHoKhachHang;
 import com.ditagis.hcm.tanhoa.cskh.entity.KhachHang;
 import com.ditagis.hcm.tanhoa.cskh.utities.CheckConnectInternet;
@@ -30,7 +31,7 @@ import com.ditagis.hcm.tanhoa.cskh.utities.Utils;
 
 import java.util.ArrayList;
 
-public class TrangChuActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     LinearLayout mLayout;
     private KhachHang mKhachHang;
@@ -40,13 +41,14 @@ public class TrangChuActivity extends AppCompatActivity
     private TitleValueAdapter mAdapter;
     private ListView mListView;
 
+    private DApplication mApplication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trang_chu);
         mLayout = findViewById(R.id.layout_content_trangchu);
-
+        mApplication = (DApplication) getApplication();
         //-----------------------------
         //start default
         //-----------------------------
@@ -169,13 +171,13 @@ public class TrangChuActivity extends AppCompatActivity
                 String.format(getString(R.string.format_content_trangchu_diachi),
                         mKhachHang.getSo(), mKhachHang.getDuong()));
         mListView = findViewById(R.id.lstView_info_main_page);
-        mAdapter = new TitleValueAdapter(TrangChuActivity.this,
+        mAdapter = new TitleValueAdapter(MainActivity.this,
                 new ArrayList<TitleValueAdapter.Item>());
         mListView.setAdapter(mAdapter);
         mAdapter.add(new TitleValueAdapter.Item(getString(R.string.giabieu), String.format(getString(R.string.format_number), mKhachHang.getGb())));
         mAdapter.add(new TitleValueAdapter.Item(getString(R.string.dinhmuc), String.format(getString(R.string.format_number), mKhachHang.getDm())));
         mAdapter.notifyDataSetChanged();
-
+        mApplication.setKhachHang(mKhachHang);
         mLayout.setVisibility(View.VISIBLE);
     }
 
@@ -184,7 +186,7 @@ public class TrangChuActivity extends AppCompatActivity
      */
     private void setInfoMainPageByDongHoKhachHang() {
         mAdapter.add(new TitleValueAdapter.Item(getString(R.string.ky),
-                String.format(getString(R.string.format_monthyear), mDongHoKH.getKy(),mDongHoKH.getNam())));
+                String.format(getString(R.string.format_monthyear), mDongHoKH.getKy(), mDongHoKH.getNam())));
         mAdapter.add(new TitleValueAdapter.Item(getString(R.string.cscu),
                 String.format(getString(R.string.format_number_m3), mDongHoKH.getCscu())));
         mAdapter.add(new TitleValueAdapter.Item(getString(R.string.csmoi),
@@ -222,7 +224,6 @@ public class TrangChuActivity extends AppCompatActivity
         int id = item.getItemId();
 
 
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -235,16 +236,16 @@ public class TrangChuActivity extends AppCompatActivity
 
             // Handle the camera action
             case R.id.nav_search:
-                Intent intentSearch = new Intent(TrangChuActivity.this, TraCuuActivity.class);
+                Intent intentSearch = new Intent(MainActivity.this, TraCuuActivity.class);
                 startActivity(intentSearch);
                 break;
             case R.id.nav_alert:
-                Intent intentAlert = new Intent(TrangChuActivity.this, BaoSuCoActivity.class);
+                Intent intentAlert = new Intent(MainActivity.this, BaoSuCoActivity.class);
                 startActivity(intentAlert);
                 break;
 
             case R.id.nav_change_password:
-                Intent intentChangePassword = new Intent(TrangChuActivity.this, DoiMatKhauActivity.class);
+                Intent intentChangePassword = new Intent(MainActivity.this, DoiMatKhauActivity.class);
                 startActivity(intentChangePassword);
                 break;
             case R.id.nav_logout:

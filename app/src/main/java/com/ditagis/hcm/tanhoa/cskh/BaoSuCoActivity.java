@@ -60,6 +60,7 @@ import com.esri.arcgisruntime.symbology.UniqueValueRenderer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
@@ -101,7 +102,8 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bao_su_co);
         ButterKnife.bind(this);
-
+        (Objects.requireNonNull(getSupportActionBar())).setDisplayHomeAsUpEnabled(true);
+        (Objects.requireNonNull(getSupportActionBar())).setDisplayShowHomeEnabled(true);
         mImgBtnSearch.setOnClickListener(this);
         mETxtQuery.setOnKeyListener(this);
 
@@ -112,7 +114,10 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
 
     @SuppressLint("ClickableViewAccessibility")
     private void init() {
-
+        if (mApplication.getKhachHang() != null && mApplication.getKhachHang().getSo() != null &&
+                mApplication.getKhachHang().getDuong() != null)
+            mETxtQuery.setText(mApplication.getKhachHang().getSo() + " " + mApplication.getKhachHang().getDuong()
+            );
         startProgressBar();
         mIsAddingFeature = false;
         mFloatBtnLocation.setOnClickListener(this::onClick);
@@ -577,11 +582,18 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
     public void onBackPressed() {
         goHome();
     }
 
-    private void goHome() {
+
+    public void goHome() {
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
         finish();

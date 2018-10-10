@@ -1,127 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.ditagis.hcm.tanhoa.cskh.TraCuuActivity">
 
-    <!--Dòng 1-->
-    <LinearLayout
+    <GridView
+        android:id="@+id/grid_tracuu"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-        <!--tra cứu tiền nước-->
-        <LinearLayout
-            android:id="@+id/llayout_tracuu_tiennuoc"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:visibility="visible">
-
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center"
-                android:src="@drawable/bill" />
-
-            <TextView
-                style="@style/MyTextAppearance.Black.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="Tiền nước" />
-        </LinearLayout>
-        <!--tra cứu giá nước-->
-        <LinearLayout
-            android:id="@+id/llayout_tracuu_gianuoc"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:visibility="visible">
-
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center"
-                android:src="@drawable/budget" />
-
-            <TextView
-                style="@style/MyTextAppearance.Black.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="Giá nước" />
-        </LinearLayout>
-    </LinearLayout>
-    <!--Dòng 2-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-        <!--tra cứu sự cố-->
-        <LinearLayout
-            android:id="@+id/llayout_tracuu_suco"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:visibility="visible">
-
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_su_co" />
-
-            <TextView
-                style="@style/MyTextAppearance.Black.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="Sự cố" />
-        </LinearLayout>
-        <!--tra cứu thông báo-->
-        <LinearLayout
-            android:id="@+id/llayout_tracuu_thongbao"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:visibility="visible">
-
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_notification" />
-
-            <TextView
-                style="@style/MyTextAppearance.Black.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="Thông báo" />
-        </LinearLayout>
-    </LinearLayout>
-    <!--Dòng 3-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"></LinearLayout>
+        android:layout_height="wrap_content"
+        android:numColumns="2" />
 
 </LinearLayout>

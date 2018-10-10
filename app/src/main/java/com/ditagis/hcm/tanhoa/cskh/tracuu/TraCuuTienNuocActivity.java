@@ -3,6 +3,7 @@ package com.ditagis.hcm.tanhoa.cskh.tracuu;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import com.ditagis.hcm.tanhoa.cskh.utities.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 
 public class TraCuuTienNuocActivity extends AppCompatActivity implements View.OnClickListener {
     private DatePicker mDatePicker;
@@ -41,7 +43,8 @@ public class TraCuuTienNuocActivity extends AppCompatActivity implements View.On
         mTxtMonthYear.setText(String.format(getString(R.string.format_monthyear), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR)));
         mtxtValidation = findViewById(R.id.txt_tracuutiennuoc_validation);
         mListView = findViewById(R.id.lstView_tracuutiennuoc);
-
+        (Objects.requireNonNull(getSupportActionBar())).setDisplayHomeAsUpEnabled(true);
+        (Objects.requireNonNull(getSupportActionBar())).setDisplayShowHomeEnabled(true);
         ((RelativeLayout) findViewById(R.id.layout_tracuutiennuoc_select_time)).setOnClickListener(this);
     }
 
@@ -145,5 +148,21 @@ public class TraCuuTienNuocActivity extends AppCompatActivity implements View.On
                 selectTime();
                 break;
         }
+    } @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        goHome();
+    }
+
+
+    public void goHome() {
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

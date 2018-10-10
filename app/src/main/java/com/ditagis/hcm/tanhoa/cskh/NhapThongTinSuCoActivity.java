@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,13 +65,15 @@ public class NhapThongTinSuCoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nhap_thong_tin_su_co);
         mApplication = (DApplication) getApplication();
         ButterKnife.bind(this);
-
+        (Objects.requireNonNull(getSupportActionBar())).setDisplayHomeAsUpEnabled(true);
+        (Objects.requireNonNull(getSupportActionBar())).setDisplayShowHomeEnabled(true);
         etxtAddress.setText(mApplication.getDiemSuCo.getVitri());
 //        etxtFullName.setText(mApplication.getUserDangNhap.getDisplayName());
         //for camera
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
-        initViews();
+
+//        initViews();
     }
 
     private void initViews() {
@@ -282,7 +285,11 @@ public class NhapThongTinSuCoActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
     @Override
     public void onBackPressed() {
         goHome();

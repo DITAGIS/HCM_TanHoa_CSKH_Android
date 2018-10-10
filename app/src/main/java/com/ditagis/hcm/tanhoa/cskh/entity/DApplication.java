@@ -22,6 +22,16 @@ public class DApplication extends Application {
         getDiemSuCo = new DiemSuCo();
     }
 
+    private KhachHang khachHang;
+
+    public KhachHang getKhachHang() {
+        return khachHang;
+    }
+
+    public void setKhachHang(KhachHang khachHang) {
+        this.khachHang = khachHang;
+    }
+
     private User userDangNhap;
 
     public User getUserDangNhap() {

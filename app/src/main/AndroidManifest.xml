@@ -24,7 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.ditagis.hcm.tanhoa.cskh.TrangChuActivity"
+            android:name="com.ditagis.hcm.tanhoa.cskh.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -36,7 +36,7 @@
         <activity
             android:name="com.ditagis.hcm.tanhoa.cskh.TraCuuActivity"
             android:label="@string/tra_cuu_activity"
-            android:parentActivityName="com.ditagis.hcm.tanhoa.cskh.TrangChuActivity" />
+            android:parentActivityName="com.ditagis.hcm.tanhoa.cskh.MainActivity" />
         <activity
             android:name="com.ditagis.hcm.tanhoa.cskh.tracuu.TraCuuTienNuocActivity"
             android:label="@string/tra_cuu_tien_nuoc_activity"
@@ -47,10 +47,10 @@
         <activity
             android:name="com.ditagis.hcm.tanhoa.cskh.DoiMatKhauActivity"
             android:label="Đổi mật khẩu"
-            android:parentActivityName="com.ditagis.hcm.tanhoa.cskh.TrangChuActivity" />
+            android:parentActivityName="com.ditagis.hcm.tanhoa.cskh.MainActivity" />
         <activity
             android:name="com.ditagis.hcm.tanhoa.cskh.BrowserActivity"
-            android:parentActivityName="com.ditagis.hcm.tanhoa.cskh.TrangChuActivity" />
+            android:parentActivityName="com.ditagis.hcm.tanhoa.cskh.MainActivity" />
         <activity
             android:name="com.ditagis.hcm.tanhoa.cskh.tracuu.TraCuuSuCoActivity"
             android:label="@string/tra_cuu_su_co_activity"
@@ -62,7 +62,7 @@
         <activity
             android:name="com.ditagis.hcm.tanhoa.cskh.BaoSuCoActivity"
             android:label="Báo sự cố"
-            android:parentActivityName="com.ditagis.hcm.tanhoa.cskh.TrangChuActivity" />
+            android:parentActivityName="com.ditagis.hcm.tanhoa.cskh.MainActivity" />
         <activity
             android:name="com.ditagis.hcm.tanhoa.cskh.NhapThongTinSuCoActivity"
             android:label="Thông tin sự cố"

@@ -15,6 +15,8 @@ import com.ditagis.hcm.tanhoa.cskh.cskh.R;
 import com.ditagis.hcm.tanhoa.cskh.utities.Preference;
 import com.ditagis.hcm.tanhoa.cskh.utities.Utils;
 
+import java.util.Objects;
+
 public class DoiMatKhauActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText mEtxtOldPassord;
     private EditText mEtxtNewPassword;
@@ -33,7 +35,8 @@ public class DoiMatKhauActivity extends AppCompatActivity implements View.OnClic
         mTxtValidation = findViewById(R.id.txt_change_password_validation);
         mTxtChangePassword = findViewById(R.id.txt_change_password);
         mLayoutChangePassword = findViewById(R.id.layout_changepassword);
-
+        (Objects.requireNonNull(getSupportActionBar())).setDisplayHomeAsUpEnabled(true);
+        (Objects.requireNonNull(getSupportActionBar())).setDisplayShowHomeEnabled(true);
         findViewById(R.id.btn_change_password).setOnClickListener(this);
         View.OnKeyListener keyListener = new View.OnKeyListener() {
 
@@ -116,13 +119,19 @@ public class DoiMatKhauActivity extends AppCompatActivity implements View.OnClic
                 return super.onOptionsItemSelected(item);
         }
     }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
     @Override
     public void onBackPressed() {
         goHome();
     }
 
-    private void goHome() {
+
+    public void goHome() {
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
         finish();

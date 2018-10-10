@@ -20,7 +20,7 @@
         <item
             android:id="@+id/nav_change_password"
             android:icon="@drawable/ic_password"
-            android:visible="false"
+            android:visible="true"
             android:title="@string/action_change_password" />
         <item
             android:id="@+id/nav_logout"

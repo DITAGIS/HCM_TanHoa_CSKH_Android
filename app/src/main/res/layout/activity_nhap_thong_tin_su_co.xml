@@ -85,6 +85,7 @@
                         android:nextFocusDown="@+id/etxtAddress_add_feature"
                         android:textCursorDrawable="@null" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -153,14 +154,15 @@
                         android:nextFocusDown="@+id/etxtNote_add_feature"
                         android:textCursorDrawable="@null" />
                 </LinearLayout>
-                <LinearLayout
 
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@color/colorWhite"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="30dp"
@@ -179,6 +181,7 @@
                         android:nextFocusDown="@+id/etxtNote_add_feature"
                         android:textCursorDrawable="@null" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -252,12 +255,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
+            android:layout_margin="@dimen/margin_small"
+            android:background="@color/colorPrimary"
             android:clickable="true"
             android:focusable="true"
-            android:background="@color/colorPrimary"
             android:onClick="onClickTextView"
             android:padding="@dimen/padding_medium"
-            android:layout_margin="@dimen/margin_small"
             android:text="Phản ánh"
             tools:ignore="OnClick" />
     </FrameLayout>

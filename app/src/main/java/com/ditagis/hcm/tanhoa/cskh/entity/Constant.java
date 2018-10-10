@@ -120,6 +120,13 @@ public class Constant {
 
     }
 
+    public class TitleTraCuu {
+        public static final String TIEN_NUOC = "Tiền nước";
+        public static final String GIA_NUOC = "Giá nước";
+        public static final String SU_CO = "Sự cố";
+        public static final String THONG_BAO = "Thông báo";
+    }
+
     public Constant() {
     }
 }

@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mTxtPassword = findViewById(R.id.txtPassword);
 
         mTxtValidation = findViewById(R.id.txt_login_validation);
-        findViewById(R.id.llayout_login_password).setVisibility(View.GONE);
+//        findViewById(R.id.llayout_login_password).setVisibility(View.GONE);
         try {
             ((TextView) findViewById(R.id.txt_login_version)).setText("Phiên bản: " + getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
         } catch (PackageManager.NameNotFoundException e) {
@@ -48,7 +48,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //        mTxtUsername.setText("12101860724");
 //        mTxtPassword.setText("123456");
         create();
-        //12101860724
     }
 
     private void create() {
@@ -82,7 +81,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mTxtValidation.setVisibility(View.GONE);
 
         String userName = mTxtUsername.getText().toString().trim();
-        final String passWord = "123456";// mTxtPassword.getText().toString().trim();
+        final String passWord =  mTxtPassword.getText().toString().trim();
         if (userName.length() == 0 || passWord.length() == 0) {
             handleInfoLoginEmpty();
             return;
