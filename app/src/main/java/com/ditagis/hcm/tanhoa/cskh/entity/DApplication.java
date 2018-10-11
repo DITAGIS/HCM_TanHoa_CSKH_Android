@@ -23,6 +23,15 @@ public class DApplication extends Application {
     }
 
     private KhachHang khachHang;
+private DongHoKhachHang dongHoKhachHang;
+
+    public DongHoKhachHang getDongHoKhachHang() {
+        return dongHoKhachHang;
+    }
+
+    public void setDongHoKhachHang(DongHoKhachHang dongHoKhachHang) {
+        this.dongHoKhachHang = dongHoKhachHang;
+    }
 
     public KhachHang getKhachHang() {
         return khachHang;

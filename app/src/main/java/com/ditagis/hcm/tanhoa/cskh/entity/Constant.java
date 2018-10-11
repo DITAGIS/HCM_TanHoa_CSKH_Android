@@ -127,6 +127,31 @@ public class Constant {
         public static final String THONG_BAO = "Thông báo";
     }
 
+    public class TitleTraCuuThongBao {
+        public static final String DONG_TIEN_NUOC = "+ Thông báo đóng tiền nước";
+        public static final String CUP_NUOC = "+ Thông báo cúp nước";
+        public static final String KHAC = "+ Thông báo khác";
+    }
+
+    public class QueryString {
+        public static final String GET_HOA_DON = "SELECT TOP 1  [Nam],[Ky],[SoHoaDon],[NgayCapNhat],[TienHD]\n" +
+                "  FROM [DocSoTH].[dbo].[HoaDon]\n" +
+                "\n" +
+                "  where hoadonid = ?\n" +
+                "  order by nam desc, ky desc, dot desc";
+        public static final String CUP_NUOC = "+ Thông báo cúp nước";
+        public static final String KHAC = "+ Thông báo khác";
+    }
+
+    public class HoaDonColumn {
+        public static final String NAM = "Nam";
+        public static final String KY = "Ky";
+        public static final String SO_HOA_DON= "SoHoaDon";
+        public static final String NGAY_CAP_NHAT = "NgayCapNhat";
+        public static final String TIEN_HD = "TienHD";
+
+    }
+
     public Constant() {
     }
 }

@@ -12,8 +12,8 @@ import com.ditagis.hcm.tanhoa.cskh.entity.Constant;
 import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
 import com.ditagis.hcm.tanhoa.cskh.tracuu.TraCuuGiaNuocActivity;
 import com.ditagis.hcm.tanhoa.cskh.tracuu.TraCuuSuCoActivity;
+import com.ditagis.hcm.tanhoa.cskh.tracuu.TraCuuThongBaoActivity;
 import com.ditagis.hcm.tanhoa.cskh.tracuu.TraCuuTienNuocActivity;
-import com.ditagis.hcm.tanhoa.cskh.utities.GoBrowser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,9 +61,8 @@ public class TraCuuActivity extends AppCompatActivity {
                     startActivity(intentSuCo);
                     break;
                 case Constant.TitleTraCuu.THONG_BAO:
-                    mApplication.setUrlBrowser("http://www.capnuoctanhoa.com.vn/customer");
-                    GoBrowser goBrowser = new GoBrowser();
-                    goBrowser.goURL(TraCuuActivity.this);
+                    Intent intentThongBao = new Intent(TraCuuActivity.this, TraCuuThongBaoActivity.class);
+                    startActivity(intentThongBao);
                     break;
             }
         });

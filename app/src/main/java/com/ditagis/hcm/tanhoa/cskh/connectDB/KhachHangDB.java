@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.StrictMode;
 
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
+import com.ditagis.hcm.tanhoa.cskh.entity.Constant;
+import com.ditagis.hcm.tanhoa.cskh.entity.HoaDon;
 import com.ditagis.hcm.tanhoa.cskh.entity.KhachHang;
 
 import java.sql.Connection;
@@ -38,6 +40,46 @@ public class KhachHangDB implements IDB<KhachHang, Boolean, String> {
         return null;
     }
 
+    public HoaDon getBill(String hoaDonID) {
+        Connection cnn = ConnectionDB.getInstance().getConnection();
+        HoaDon hoaDon = null;
+        ResultSet rs = null;
+//        String sqlCode_CSC_SanLuong = "SELECT cscu, csmoi, codemoi, tieuthumoi  FROM Docso where docsoid like ? and danhba = ?";
+//        String sqlCode_CSC_SanLuong3Ky = "SELECT cscu, csmoi, codemoi, tieuthumoi  FROM Docso where danhba = ? and (ky = ? or ky =? or ky = ?) and nam =? order by ky desc";
+        try {
+            if (cnn == null)
+                return null;
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            String query = Constant.QueryString.GET_HOA_DON;
+            PreparedStatement mStatement = cnn.prepareStatement(query);
+
+            mStatement.setString(1, hoaDonID);
+            rs = mStatement.executeQuery();
+
+            while (rs.next()) {
+                String ky = rs.getString(Constant.HoaDonColumn.KY);
+                int nam = rs.getInt(Constant.HoaDonColumn.NAM);
+                String soHoaDon = rs.getString(Constant.HoaDonColumn.SO_HOA_DON);
+
+                hoaDon = new HoaDon();
+                hoaDon.setKy(ky);
+                hoaDon.setNam(nam);
+                hoaDon.setSoHoaDon(soHoaDon);
+            }
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        } finally {
+            try {
+                if (rs != null && !rs.isClosed())
+                    rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return hoaDon;
+    }
 
     @Override
     public KhachHang find(String danhBo, String pin) {

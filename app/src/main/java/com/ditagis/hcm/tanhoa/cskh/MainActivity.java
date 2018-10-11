@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity
         mAdapter.add(new TitleValueAdapter.Item(getString(R.string.tongtien),
                 String.format(getString(R.string.format_number_money), Utils.getInstance().getNumberFormat().format(mDongHoKH.getTongTien()))));
         mAdapter.notifyDataSetChanged();
-
+        mApplication.setDongHoKhachHang(mDongHoKH);
         mLayout.setVisibility(View.VISIBLE);
     }
 

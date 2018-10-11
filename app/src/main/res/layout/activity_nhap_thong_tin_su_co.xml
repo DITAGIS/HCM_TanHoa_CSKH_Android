@@ -204,7 +204,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginRight="@dimen/margin_medium"
-                        android:hint="Ghi chú"
+                        android:hint="Thông tin phản ánh"
                         android:inputType="text"
 
                         android:maxLines="1"

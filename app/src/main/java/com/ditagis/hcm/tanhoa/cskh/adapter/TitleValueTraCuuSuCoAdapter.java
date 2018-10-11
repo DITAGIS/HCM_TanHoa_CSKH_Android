@@ -48,14 +48,14 @@ public class TitleValueTraCuuSuCoAdapter extends ArrayAdapter<TitleValueTraCuuSu
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.item_tracuusuco, null);
+            convertView = inflater.inflate(R.layout.item_tracuutiennuoc, null);
         }
         Item item = items.get(position);
 
-        TextView title = convertView.findViewById(R.id.txt_title_item_tracuusuco);
+        TextView title = convertView.findViewById(R.id.txt_tracuutiennuoc_tieude);
         title.setText(item.getTitle());
 
-        TextView value = convertView.findViewById(R.id.txt_value_item_tracuusuco);
+        TextView value = convertView.findViewById(R.id.txt_tracuutiennuoc_giatri);
         value.setText(item.getValue());
         return convertView;
     }

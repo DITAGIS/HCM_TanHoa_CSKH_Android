@@ -10,10 +10,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera2" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-
 
     <application
         android:name="com.ditagis.hcm.tanhoa.cskh.entity.DApplication"
@@ -41,9 +41,7 @@
             android:name="com.ditagis.hcm.tanhoa.cskh.tracuu.TraCuuTienNuocActivity"
             android:label="@string/tra_cuu_tien_nuoc_activity"
             android:parentActivityName="com.ditagis.hcm.tanhoa.cskh.TraCuuActivity" />
-        <activity android:name="com.ditagis.hcm.tanhoa.cskh.LoginActivity">
-
-        </activity>
+        <activity android:name="com.ditagis.hcm.tanhoa.cskh.LoginActivity"></activity>
         <activity
             android:name="com.ditagis.hcm.tanhoa.cskh.DoiMatKhauActivity"
             android:label="Đổi mật khẩu"
@@ -67,6 +65,10 @@
             android:name="com.ditagis.hcm.tanhoa.cskh.NhapThongTinSuCoActivity"
             android:label="Thông tin sự cố"
             android:parentActivityName="com.ditagis.hcm.tanhoa.cskh.BaoSuCoActivity" />
+        <activity
+            android:label="Tra cứu thông báo"
+            android:name="com.ditagis.hcm.tanhoa.cskh.tracuu.TraCuuThongBaoActivity"
+            android:parentActivityName="com.ditagis.hcm.tanhoa.cskh.MainActivity" />
     </application>
 
 </manifest>

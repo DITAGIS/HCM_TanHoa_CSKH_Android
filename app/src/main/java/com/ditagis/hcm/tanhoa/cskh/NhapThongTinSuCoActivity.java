@@ -68,6 +68,12 @@ public class NhapThongTinSuCoActivity extends AppCompatActivity {
         (Objects.requireNonNull(getSupportActionBar())).setDisplayHomeAsUpEnabled(true);
         (Objects.requireNonNull(getSupportActionBar())).setDisplayShowHomeEnabled(true);
         etxtAddress.setText(mApplication.getDiemSuCo.getVitri());
+        if (mApplication.getKhachHang() != null) {
+            if (mApplication.getKhachHang().getTenKH() != null)
+                etxtFullName.setText(mApplication.getKhachHang().getTenKH());
+            if (mApplication.getKhachHang().getSdt() != null)
+                etxtPhoneNumber.setText(mApplication.getKhachHang().getSdt());
+        }
 //        etxtFullName.setText(mApplication.getUserDangNhap.getDisplayName());
         //for camera
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
@@ -285,11 +291,13 @@ public class NhapThongTinSuCoActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
+
     @Override
     public void onBackPressed() {
         goHome();
