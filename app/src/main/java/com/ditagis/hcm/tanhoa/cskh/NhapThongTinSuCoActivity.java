@@ -144,10 +144,10 @@ public class NhapThongTinSuCoActivity extends AppCompatActivity {
         mApplication.getDiemSuCo.setVitri(etxtAddress.getText().toString().trim());
         mApplication.getDiemSuCo.setGhiChu(etxtNote.getText().toString().trim());
         mApplication.getDiemSuCo.setEmail(etxtEmail.getText().toString().trim());
-        for (CodedValue codedValue : mCodeValues) {
-            if (codedValue.getName().equals(spinHinhThucPhatHien.getSelectedItem().toString()))
-                mApplication.getDiemSuCo.setHinhThucPhatHien(Short.parseShort(codedValue.getCode().toString()));
-        }
+//        for (CodedValue codedValue : mCodeValues) {
+//            if (codedValue.getName().equals(spinHinhThucPhatHien.getSelectedItem().toString()))
+//                mApplication.getDiemSuCo.setHinhThucPhatHien(Short.parseShort(codedValue.getCode().toString()));
+//        }
         finish();
     }
 

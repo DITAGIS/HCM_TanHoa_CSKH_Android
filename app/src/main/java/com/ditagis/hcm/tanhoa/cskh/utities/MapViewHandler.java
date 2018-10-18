@@ -43,7 +43,8 @@ public class MapViewHandler extends Activity {
         SingleTapAddFeatureAsync singleTapAdddFeatureAsync = new SingleTapAddFeatureAsync(mMainActivity,
                 mServiceFeatureTable, output -> {
             if (output != null) {
-            }
+                mMainActivity.handlingAddFeatureSuccess();
+            }else mMainActivity.handlingAddFeatureFail();
         });
         singleTapAdddFeatureAsync.execute();
     }

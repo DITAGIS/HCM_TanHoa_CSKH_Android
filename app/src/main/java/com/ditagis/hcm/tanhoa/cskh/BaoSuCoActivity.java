@@ -331,7 +331,7 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
         mSearchAdapter.notifyDataSetChanged();
     }
 
-    private void handlingAddFeatureSuccess() {
+    public void handlingAddFeatureSuccess() {
         mGraphicsOverlay.getGraphics().clear();
         if (mLocationDisplay.isStarted())
             mLocationDisplay.stop();
@@ -356,6 +356,10 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
         // show it
         alertDialog.show();
 
+
+    }
+    public void handlingAddFeatureFail() {
+        Toast.makeText(this,"Không báo được sự cố. Vui lòng thử lại sau", Toast.LENGTH_LONG).show();
 
     }
 

@@ -16,7 +16,6 @@ import com.esri.arcgisruntime.data.ArcGISFeature;
 import com.esri.arcgisruntime.data.Attachment;
 import com.esri.arcgisruntime.data.Feature;
 import com.esri.arcgisruntime.data.FeatureEditResult;
-import com.esri.arcgisruntime.data.FeatureQueryResult;
 import com.esri.arcgisruntime.data.QueryParameters;
 import com.esri.arcgisruntime.data.ServiceFeatureTable;
 
@@ -117,25 +116,29 @@ public class SingleTapAddFeatureAsync extends AsyncTask<Void, Feature, Void> {
                     try {
                         List<FeatureEditResult> featureEditResults = listListenableEditAsync.get();
                         if (featureEditResults.size() > 0) {
-                            long objectId = featureEditResults.get(0).getObjectId();
-                            final QueryParameters queryParameters = new QueryParameters();
-                            final String query = String.format(mActivity.getString(R.string.arcgis_query_by_OBJECTID), objectId);
-                            queryParameters.setWhereClause(query);
-                            final ListenableFuture<FeatureQueryResult> featuresAsync = mServiceFeatureTable.queryFeaturesAsync(queryParameters, ServiceFeatureTable.QueryFeatureFields.LOAD_ALL);
-                            featuresAsync.addDoneListener(() -> {
-                                try {
-                                    FeatureQueryResult result = featuresAsync.get();
-                                    if (result.iterator().hasNext()) {
-                                        Feature item = result.iterator().next();
-                                        ArcGISFeature arcGISFeature = (ArcGISFeature) item;
-                                        addAttachment(arcGISFeature, feature);
-                                        publishProgress(item);
-                                    }
-                                } catch (InterruptedException | ExecutionException e) {
-                                    e.printStackTrace();
-                                }
-
-                            });
+                            if (mApplication.getDiemSuCo.getImage() != null)
+                                addAttachment((ArcGISFeature) feature);
+                            else publishProgress(feature);
+//                            long objectId = featureEditResults.get(0).getObjectId();
+//                            final QueryParameters queryParameters = new QueryParameters();
+//                            final String query = String.format(mActivity.getString(R.string.arcgis_query_by_OBJECTID), objectId);
+//                            queryParameters.setWhereClause(query);
+//                            final ListenableFuture<FeatureQueryResult> featuresAsync = mServiceFeatureTable.queryFeaturesAsync(queryParameters, ServiceFeatureTable.QueryFeatureFields.LOAD_ALL);
+//                            featuresAsync.addDoneListener(() -> {
+//                                try {
+//                                    FeatureQueryResult result = featuresAsync.get();
+//                                    if (result.iterator().hasNext()) {
+//                                        Feature item = result.iterator().next();
+//                                        ArcGISFeature arcGISFeature = (ArcGISFeature) item;
+//                                        addAttachment(arcGISFeature, feature);
+//                                        publishProgress(item);
+//                                    } else publishProgress();
+//                                } catch (InterruptedException | ExecutionException e) {
+//                                    e.printStackTrace();
+//                                    publishProgress();
+//                                }
+//
+//                            });
                         }
                     } catch (InterruptedException | ExecutionException e) {
                         publishProgress();
@@ -147,7 +150,7 @@ public class SingleTapAddFeatureAsync extends AsyncTask<Void, Feature, Void> {
         }).execute();
     }
 
-    private void addAttachment(ArcGISFeature arcGISFeature, final Feature feature) {
+    private void addAttachment(ArcGISFeature arcGISFeature) {
         final String attachmentName = mApplication.getApplicationContext().getString(R.string.attachment) + "_" + System.currentTimeMillis() + ".png";
         final ListenableFuture<Attachment> addResult = arcGISFeature.addAttachmentAsync(
                 mApplication.getDiemSuCo.getImage(), Bitmap.CompressFormat.PNG.toString(), attachmentName);
@@ -160,30 +163,32 @@ public class SingleTapAddFeatureAsync extends AsyncTask<Void, Feature, Void> {
                 if (attachment.getSize() > 0) {
                     final ListenableFuture<Void> tableResult = mServiceFeatureTable.updateFeatureAsync(arcGISFeature);
                     tableResult.addDoneListener(() -> {
-                        final ListenableFuture<List<FeatureEditResult>> updatedServerResult = mServiceFeatureTable.applyEditsAsync();
-                        updatedServerResult.addDoneListener(() -> {
-                            List<FeatureEditResult> edits;
-                            try {
-                                edits = updatedServerResult.get();
-                                if (edits.size() > 0) {
-                                    if (!edits.get(0).hasCompletedWithErrors()) {
-                                        publishProgress(feature);
-                                    }
-                                }
-                            } catch (InterruptedException | ExecutionException e) {
-                                e.printStackTrace();
-                            } finally {
-                                if (mDialog != null && mDialog.isShowing()) {
-                                    mDialog.dismiss();
-                                }
-                            }
-
-                        });
+                        applyEdit(arcGISFeature);
                     });
-                }
+                } else publishProgress(arcGISFeature);
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
+                publishProgress();
             }
+        });
+    }
+
+    private void applyEdit(ArcGISFeature feature) {
+        final ListenableFuture<List<FeatureEditResult>> updatedServerResult = mServiceFeatureTable.applyEditsAsync();
+        updatedServerResult.addDoneListener(() -> {
+            List<FeatureEditResult> edits;
+            try {
+                edits = updatedServerResult.get();
+                if (edits.size() > 0) {
+                    if (!edits.get(0).hasCompletedWithErrors()) {
+                        publishProgress(feature);
+                    }
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                publishProgress();
+                e.printStackTrace();
+            }
+
         });
     }
 
