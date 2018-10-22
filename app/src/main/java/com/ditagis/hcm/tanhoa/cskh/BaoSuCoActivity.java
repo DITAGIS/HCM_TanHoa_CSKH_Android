@@ -168,7 +168,7 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
                 mGraphicsOverlay = new GraphicsOverlay();
                 mMapView.getGraphicsOverlays().add(mGraphicsOverlay);
                 setLicense();
-                ServiceFeatureTable serviceFeatureTable = new ServiceFeatureTable(mApplication.getConstant.URL_FEATURE);
+                ServiceFeatureTable serviceFeatureTable = new ServiceFeatureTable(Constant.URL_FEATURE);
                 mFeatureLayer = new FeatureLayer(serviceFeatureTable);
                 mFeatureLayer.setDefinitionExpression("1 = 0");
                 mMapView.getMap().getOperationalLayers().add(mFeatureLayer);
@@ -191,7 +191,7 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
 
     private void setLicense() {
         //way 1
-        ArcGISRuntimeEnvironment.setLicense(mApplication.getConstant.LICENCE);
+        ArcGISRuntimeEnvironment.setLicense(Constant.LICENCE);
         //way 2
 //        UserCredential credential = new UserCredential("thanle95", "Gemini111");
 //
@@ -413,19 +413,19 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
         uniqueValueRenderer.getFieldNames().add(Constant.FIELD_SUCO.HINH_THUC_PHAT_HIEN);
 
 
-        PictureMarkerSymbol chuaXuLySymbol = new PictureMarkerSymbol(mApplication.getConstant.URL_SYMBOL_CHUA_SUA_CHUA);
+        PictureMarkerSymbol chuaXuLySymbol = new PictureMarkerSymbol(Constant.URLSymbol.CHUA_SUA_CHUA);
         chuaXuLySymbol.setHeight(Constant.SIZE_FEATURE_RENDERER);
         chuaXuLySymbol.setWidth(Constant.SIZE_FEATURE_RENDERER);
 
-        PictureMarkerSymbol dangXuLySymbol = new PictureMarkerSymbol(mApplication.getConstant.URL_SYMBOL_DANG_SUA_CHUA);
+        PictureMarkerSymbol dangXuLySymbol = new PictureMarkerSymbol(Constant.URLSymbol.DANG_SUA_CHUA);
         dangXuLySymbol.setHeight(Constant.SIZE_FEATURE_RENDERER);
         dangXuLySymbol.setWidth(Constant.SIZE_FEATURE_RENDERER);
 
-        PictureMarkerSymbol hoanThanhSymBol = new PictureMarkerSymbol(mApplication.getConstant.URL_SYMBOL_HOAN_THANH);
+        PictureMarkerSymbol hoanThanhSymBol = new PictureMarkerSymbol(Constant.URLSymbol.HOAN_THANH);
         hoanThanhSymBol.setHeight(Constant.SIZE_FEATURE_RENDERER);
         hoanThanhSymBol.setWidth(Constant.SIZE_FEATURE_RENDERER);
 
-        PictureMarkerSymbol beNgamSymbol = new PictureMarkerSymbol(mApplication.getConstant.URL_SYMBOL_CHUA_SUA_CHUA_BE_NGAM);
+        PictureMarkerSymbol beNgamSymbol = new PictureMarkerSymbol(Constant.URLSymbol.CHUA_SUA_CHUA_BE_NGAM);
         beNgamSymbol.setHeight(Constant.SIZE_FEATURE_RENDERER);
         beNgamSymbol.setWidth(Constant.SIZE_FEATURE_RENDERER);
 

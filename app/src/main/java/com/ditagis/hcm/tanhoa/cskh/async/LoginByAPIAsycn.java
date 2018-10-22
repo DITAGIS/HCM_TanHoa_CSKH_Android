@@ -54,7 +54,7 @@ public class LoginByAPIAsycn extends AsyncTask<String, Void, Void> {
 //        String passEncoded = (new EncodeMD5()).encode(pin + "_DITAGIS");
         // Do some validation here
         String urlParameters = String.format("Username=%s&Password=%s", userName, pin);
-        String urlWithParam = String.format("%s?%s", mApplication.getConstant.API_LOGIN, urlParameters);
+        String urlWithParam = String.format("%s?%s", Constant.URL_API.LOGIN, urlParameters);
         try {
 //            + "&apiKey=" + API_KEY
             URL url = new URL(urlWithParam);
@@ -71,12 +71,20 @@ public class LoginByAPIAsycn extends AsyncTask<String, Void, Void> {
                 }
                 bufferedReader.close();
                 String token = stringBuilder.toString().replace("\"", "");
+
+                getProfile();
+
+//                if (checkAccess(token)) {
                 User user = new User();
                 mApplication.setUserDangNhap(user);
                 mApplication.getUserDangNhap().setToken(token);
-                getProfile();
                 mApplication.getUserDangNhap().setUserName(userName);
-
+                conn.disconnect();
+                return null;
+//                } else {
+//                    conn.disconnect();
+//                    return null;
+//                }
             } catch (Exception e1) {
                 Log.e("Lỗi login", e1.toString());
             } finally {
@@ -105,7 +113,7 @@ public class LoginByAPIAsycn extends AsyncTask<String, Void, Void> {
 
 //        String API_URL = "http://sawagis.vn/tanhoa1/api/Account/Profile";
         try {
-            URL url = new URL(mApplication.getConstant.DISPLAY_NAME);
+            URL url = new URL(Constant.URL_API.PROFILE);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             try {
                 conn.setDoOutput(false);
@@ -129,6 +137,34 @@ public class LoginByAPIAsycn extends AsyncTask<String, Void, Void> {
         } catch (Exception e) {
             Log.e("lỗi lấy profile", e.toString());
         } finally {
+        }
+    }
+
+    private Boolean checkAccess(String token) {
+        boolean isAccess = false;
+        try {
+            URL url = new URL(Constant.URL_API.IS_ACCESS);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            try {
+                conn.setDoOutput(false);
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Authorization", token);
+                conn.connect();
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String line = bufferedReader.readLine();
+                if (line.equals("true"))
+                    isAccess = true;
+
+            } catch (Exception e) {
+                Log.e("error", e.toString());
+            } finally {
+                conn.disconnect();
+            }
+        } catch (Exception e) {
+            Log.e("error", e.toString());
+        } finally {
+            return isAccess;
         }
     }
 

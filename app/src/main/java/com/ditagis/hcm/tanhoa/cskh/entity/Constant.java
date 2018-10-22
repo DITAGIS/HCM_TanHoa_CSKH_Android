@@ -22,60 +22,43 @@ public class Constant {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
-    public final String LICENCE = "runtimelite,1000,rud6046938574,none,4N5X0H4AH5JB003AD169";
-    public String URL_FEATURE = "http://113.161.88.180:800/arcgis/rest/services/TanHoa/THSuCo/FeatureServer/0";
+    public static final String LICENCE = "runtimelite,1000,rud6046938574,none,4N5X0H4AH5JB003AD169";
+    public static final String URL_FEATURE = "http://113.161.88.180:800/arcgis/rest/services/TanHoa/THSuCo/FeatureServer/0";
     public String URL_GIA_NUOC = "http://sawagis.vn/tanhoa/cskh/views/dichvukhachhang/xemgianuoc.html";
     public static final int REQUEST_CODE_ADD_FEATURE = 7;
     public static final int REQUEST_CODE_ADD_FEATURE_ATTACHMENT = 8;
-    public static final short LOAISUCO_ONGNGANH = 1;
-    public static final short LOAISUCO_ONGCHINH = 2;
-    public static final short LOAISUCO_CHUAPHANLOAI = 3;
 
-    private final String SERVER = "http://tanhoa.sawagis.vn";
-    public String URL_SYMBOL_CHUA_SUA_CHUA = SERVER + "/images/map/0.png";
-    public String URL_SYMBOL_CHUA_SUA_CHUA_BE_NGAM = SERVER + "/images/map/bengam.png";
-    public String URL_SYMBOL_DANG_SUA_CHUA = SERVER + "/images/map/1.png";
-    public String URL_SYMBOL_HOAN_THANH = SERVER + "/images/map/2.png";
+//    private static final String SERVER = "http://tanhoa.sawagis.vn";
+    private static final String SERVER = "http://113.161.88.180:798";
+    private static final String SERVER1 = "http://113.161.88.180:1010";
+    private static final String SERVER_API = SERVER + "/apiv1/api";
 
-    private String SERVER_API = SERVER + "/apiv1/api";
-    public String API_LOGIN;
-
-
-    {
-        API_LOGIN = SERVER_API + "/Login";
-    }
-
-    public String DISPLAY_NAME;
-
-
-    {
-        DISPLAY_NAME = SERVER_API + "/Account/Profile";
-    }
-
-    public String GENERATE_ID_SUCO;
-
-
-    {
-        GENERATE_ID_SUCO = SERVER_API + "/QuanLySuCo/GenerateIDSuCo";
-    }
-
-    public String LAYER_INFO;
-
-
-    {
-        LAYER_INFO = SERVER_API + "/Account/layerinfo";
-    }
-
-    public int MAX_SCALE_IMAGE_WITH_LABLES;
+    public final int MAX_SCALE_IMAGE_WITH_LABLES;
 
     {
         MAX_SCALE_IMAGE_WITH_LABLES = 5;
     }
 
-    public String ADMIN_AREA_TPHCM;
+    public final String ADMIN_AREA_TPHCM;
 
     {
         ADMIN_AREA_TPHCM = "Hồ Chí Minh";
+    }
+
+    public class URLSymbol {
+        public static final String CHUA_SUA_CHUA = SERVER + "/images/map/0.png";
+        public static final String CHUA_SUA_CHUA_BE_NGAM = SERVER + "/images/map/bengam.png";
+        public static final String DANG_SUA_CHUA = SERVER + "/images/map/1.png";
+        public static final String HOAN_THANH = SERVER + "/images/map/2.png";
+    }
+
+    public class URL_API {
+        public static final String LAYER_INFO = SERVER_API + "/Account/layerinfo";
+        public static final String GENERATE_ID_SUCO = SERVER_API + "/QuanLySuCo/GenerateIDSuCo";
+        public static final String PROFILE = SERVER_API + "/Account/Profile";
+        public static final String LOGIN = SERVER_API + "/Login";
+        public static final String IS_ACCESS = SERVER_API + "/Account/IsAccess/m_cskh";
+        public static final String THU_TIEN = SERVER_API + "/Login";
     }
 
     public class FIELD_SUCO {
@@ -146,7 +129,7 @@ public class Constant {
     public class HoaDonColumn {
         public static final String NAM = "Nam";
         public static final String KY = "Ky";
-        public static final String SO_HOA_DON= "SoHoaDon";
+        public static final String SO_HOA_DON = "SoHoaDon";
         public static final String NGAY_CAP_NHAT = "NgayCapNhat";
         public static final String TIEN_HD = "TienHD";
 

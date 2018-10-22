@@ -15,7 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-public class GenerateIDSuCoAsycn extends AsyncTask<Void, Void, String> {
+public class ThongBaoThuTienAsycn extends AsyncTask<Void, Void, String> {
     private ProgressDialog mDialog;
     @SuppressLint("StaticFieldLeak")
     private Activity mActivity;
@@ -25,7 +25,7 @@ public class GenerateIDSuCoAsycn extends AsyncTask<Void, Void, String> {
         void processFinish(String output);
     }
 
-    GenerateIDSuCoAsycn(Activity activity, AsyncResponse delegate) {
+    ThongBaoThuTienAsycn(Activity activity, AsyncResponse delegate) {
         this.mActivity = activity;
         this.mDelegate = delegate;
     }
@@ -44,12 +44,12 @@ public class GenerateIDSuCoAsycn extends AsyncTask<Void, Void, String> {
         //Tránh gặp lỗi networkOnMainThread nên phải dùng asyncTask
         String id = "";
         try {
-            URL url = new URL(Constant.URL_API.GENERATE_ID_SUCO);
+            URL url = new URL(Constant.URL_API.THU_TIEN);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             try {
                 conn.setDoOutput(false);
                 conn.setRequestMethod("GET");
-                conn.setRequestProperty("Authorization", ((DApplication) mActivity.getApplication()).getUserDangNhap().getToken());
+//                conn.setRequestProperty("Authorization", ((DApplication) mActivity.getApplication()).getUserDangNhap().getToken());
                 conn.connect();
 
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
