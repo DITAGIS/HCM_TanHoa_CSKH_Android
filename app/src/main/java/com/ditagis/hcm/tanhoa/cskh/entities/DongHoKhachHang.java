@@ -25,7 +25,6 @@ public class DongHoKhachHang {
     private double tongTien;
 
 
-
     public DongHoKhachHang(String danhBa, String hopDong, String tenKH, String diaChi, String sdt, int tyLeSH, int tyLeSX, int tyLeDV, int tyLeHC, int GB, int DM, int chiSoCu, int chiSoMoi, int tieuThu, double BVMT, double thueVAT, double thanhTien, int nam, int ky, int tieuThuCu, int tieuThuMoi, double tongTien) {
         this.danhBa = danhBa;
         this.hopDong = hopDong;
@@ -48,7 +47,7 @@ public class DongHoKhachHang {
         this.ky = ky;
         this.tieuThuCu = tieuThuCu;
         this.tieuThuMoi = tieuThuMoi;
-        this.tongTien = tongTien;
+        this.tongTien = thanhTien + thueVAT + BVMT;
     }
 
     public String getDanhBa() {

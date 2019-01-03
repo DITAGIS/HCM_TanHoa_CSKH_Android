@@ -114,7 +114,7 @@ public class TraCuuTienNuocActivity extends AppCompatActivity implements View.On
             adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.phiBVMT),
                     String.format(getString(R.string.format_number_money), Utils.getInstance().getNumberFormat().format(output.getBVMT()))));
             adapter.add(new TitleValueTraCuuTienNuocAdapter.Item(getString(R.string.tongtien),
-                    String.format(getString(R.string.format_number_money), Utils.getInstance().getNumberFormat().format(output.getThanhTien()))));
+                    String.format(getString(R.string.format_number_money), Utils.getInstance().getNumberFormat().format(output.getTongTien()))));
             adapter.notifyDataSetChanged();
 
             mListView.setVisibility(View.VISIBLE);
