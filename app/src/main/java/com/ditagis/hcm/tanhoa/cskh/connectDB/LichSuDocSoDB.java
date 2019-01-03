@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.StrictMode;
 
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-import com.ditagis.hcm.tanhoa.cskh.entity.LichSuDocSo;
+import com.ditagis.hcm.tanhoa.cskh.entities.LichSuDocSo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

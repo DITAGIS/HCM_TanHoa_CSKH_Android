@@ -8,8 +8,8 @@ import android.widget.GridView;
 
 import com.ditagis.hcm.tanhoa.cskh.adapter.TraCuuAdapter;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-import com.ditagis.hcm.tanhoa.cskh.entity.Constant;
-import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
+import com.ditagis.hcm.tanhoa.cskh.entities.Constant;
+import com.ditagis.hcm.tanhoa.cskh.entities.DApplication;
 import com.ditagis.hcm.tanhoa.cskh.tracuu.TraCuuGiaNuocActivity;
 import com.ditagis.hcm.tanhoa.cskh.tracuu.TraCuuSuCoActivity;
 import com.ditagis.hcm.tanhoa.cskh.tracuu.TraCuuThongBaoActivity;

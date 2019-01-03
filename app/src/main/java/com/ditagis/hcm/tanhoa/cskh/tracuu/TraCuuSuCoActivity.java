@@ -23,8 +23,8 @@ import com.ditagis.hcm.tanhoa.cskh.adapter.TitleValueTraCuuSuCoAdapter;
 import com.ditagis.hcm.tanhoa.cskh.adapter.TraCuuSuCoAdapter;
 import com.ditagis.hcm.tanhoa.cskh.async.QueryFeatureAsync;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-import com.ditagis.hcm.tanhoa.cskh.entity.Constant;
-import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
+import com.ditagis.hcm.tanhoa.cskh.entities.Constant;
+import com.ditagis.hcm.tanhoa.cskh.entities.DApplication;
 import com.esri.arcgisruntime.data.CodedValue;
 import com.esri.arcgisruntime.data.CodedValueDomain;
 import com.esri.arcgisruntime.data.Domain;
@@ -96,7 +96,7 @@ public class TraCuuSuCoActivity extends AppCompatActivity implements View.OnClic
         mMapView.setMap(arcGISMap);
         mMapView.getMap().addDoneLoadingListener(() -> {
             if (mMapView.getMap().getLoadStatus() == LoadStatus.LOADED) {
-                mFeatureLayer = new FeatureLayer(new ServiceFeatureTable(mApplication.getConstant.URL_FEATURE));
+                mFeatureLayer = new FeatureLayer(new ServiceFeatureTable(mApplication.getURLFeature()));
                 mMapView.getMap().getOperationalLayers().add(mFeatureLayer);
                 mFeatureLayer.addDoneLoadingListener(() -> {
                     if (mFeatureLayer.getLoadStatus() == LoadStatus.LOADED) {

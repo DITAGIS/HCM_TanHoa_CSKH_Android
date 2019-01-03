@@ -8,8 +8,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.ditagis.hcm.tanhoa.cskh.acynchronize.FindKhachHangAsycn;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-import com.ditagis.hcm.tanhoa.cskh.entity.DAddress;
+import com.ditagis.hcm.tanhoa.cskh.entities.DAddress;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ public class FindLocationAsycn extends AsyncTask<String, Void, List<DAddress>> {
     private Context mContext;
     private AsyncResponse mDelegate;
     private double mLongtitude, mLatitude;
-
     public interface AsyncResponse {
         void processFinish(List<DAddress> output);
     }

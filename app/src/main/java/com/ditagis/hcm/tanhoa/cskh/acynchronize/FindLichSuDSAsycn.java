@@ -5,11 +5,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.ditagis.hcm.tanhoa.cskh.connectDB.DongHoKhachHangDB;
 import com.ditagis.hcm.tanhoa.cskh.connectDB.LichSuDocSoDB;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-import com.ditagis.hcm.tanhoa.cskh.entity.DongHoKhachHang;
-import com.ditagis.hcm.tanhoa.cskh.entity.LichSuDocSo;
+import com.ditagis.hcm.tanhoa.cskh.entities.LichSuDocSo;
 
 public class FindLichSuDSAsycn extends AsyncTask<String, Void, LichSuDocSo> {
     private ProgressDialog mDialog;

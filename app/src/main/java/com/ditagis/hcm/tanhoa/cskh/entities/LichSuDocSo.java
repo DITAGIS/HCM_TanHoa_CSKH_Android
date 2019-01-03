@@ -1,4 +1,4 @@
-package com.ditagis.hcm.tanhoa.cskh.entity;
+package com.ditagis.hcm.tanhoa.cskh.entities;
 
 public class LichSuDocSo {
     private int nam;

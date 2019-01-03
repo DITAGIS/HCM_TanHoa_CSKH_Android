@@ -1,4 +1,4 @@
-package com.ditagis.hcm.tanhoa.cskh.entity;
+package com.ditagis.hcm.tanhoa.cskh.entities;
 
 import android.app.Application;
 import android.location.Location;
@@ -22,8 +22,18 @@ public class DApplication extends Application {
         getDiemSuCo = new DiemSuCo();
     }
 
+    private String URLFeature;
+
+    public String getURLFeature() {
+        return URLFeature;
+    }
+
+    public void setURLFeature(String URLFeature) {
+        this.URLFeature = URLFeature;
+    }
+
     private KhachHang khachHang;
-private DongHoKhachHang dongHoKhachHang;
+    private DongHoKhachHang dongHoKhachHang;
 
     public DongHoKhachHang getDongHoKhachHang() {
         return dongHoKhachHang;
@@ -99,5 +109,16 @@ private DongHoKhachHang dongHoKhachHang;
 
     public void setmLocation(Location mLocation) {
         this.mLocation = mLocation;
+    }
+
+
+    private boolean checkedVersion;
+
+    public boolean isCheckedVersion() {
+        return checkedVersion;
+    }
+
+    public void setCheckedVersion(boolean checkedVersion) {
+        this.checkedVersion = checkedVersion;
     }
 }

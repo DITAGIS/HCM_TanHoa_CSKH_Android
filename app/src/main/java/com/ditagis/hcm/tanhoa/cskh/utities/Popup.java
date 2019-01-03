@@ -1,48 +1,31 @@
 package com.ditagis.hcm.tanhoa.cskh.utities;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.location.Geocoder;
-import android.net.Uri;
-import android.provider.MediaStore;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ditagis.hcm.tanhoa.cskh.BaoSuCoActivity;
 import com.ditagis.hcm.tanhoa.cskh.async.FindLocationAsycn;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-import com.ditagis.hcm.tanhoa.cskh.entity.Constant;
-import com.ditagis.hcm.tanhoa.cskh.entity.DAddress;
-import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
+import com.ditagis.hcm.tanhoa.cskh.entities.DAddress;
+import com.ditagis.hcm.tanhoa.cskh.entities.DApplication;
 import com.esri.arcgisruntime.data.ArcGISFeature;
-import com.esri.arcgisruntime.data.CodedValue;
-import com.esri.arcgisruntime.data.CodedValueDomain;
-import com.esri.arcgisruntime.data.FeatureType;
-import com.esri.arcgisruntime.data.Field;
 import com.esri.arcgisruntime.data.ServiceFeatureTable;
-import com.esri.arcgisruntime.geometry.Envelope;
 import com.esri.arcgisruntime.geometry.Geometry;
 import com.esri.arcgisruntime.geometry.GeometryEngine;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.SpatialReferences;
-import com.esri.arcgisruntime.layers.FeatureLayer;
 import com.esri.arcgisruntime.mapping.view.Callout;
 import com.esri.arcgisruntime.mapping.view.MapView;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 
 
 @SuppressLint("Registered")

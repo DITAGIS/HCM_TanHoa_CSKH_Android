@@ -6,9 +6,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.ditagis.hcm.tanhoa.cskh.connectDB.ChangePasswordDB;
-import com.ditagis.hcm.tanhoa.cskh.connectDB.ConnectionDB;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-import com.ditagis.hcm.tanhoa.cskh.entity.KhachHang;
+import com.ditagis.hcm.tanhoa.cskh.entities.KhachHang;
 import com.ditagis.hcm.tanhoa.cskh.utities.Utils;
 
 public class ChangePasswordAsycn extends AsyncTask<String, Void, Integer> {

@@ -8,7 +8,7 @@ import android.util.Log;
 import com.ditagis.hcm.tanhoa.cskh.connectDB.ConnectionDB;
 import com.ditagis.hcm.tanhoa.cskh.connectDB.LoginDB;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-import com.ditagis.hcm.tanhoa.cskh.entity.KhachHang;
+import com.ditagis.hcm.tanhoa.cskh.entities.KhachHang;
 
 public class LoginAsycn extends AsyncTask<String, Void, KhachHang> {
     private ProgressDialog mDialog;

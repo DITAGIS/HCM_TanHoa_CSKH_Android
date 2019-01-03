@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.widget.Toast;
 
-import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
+import com.ditagis.hcm.tanhoa.cskh.entities.DApplication;
 
 public class GoBrowser {
     public void goURL(Activity activity) {

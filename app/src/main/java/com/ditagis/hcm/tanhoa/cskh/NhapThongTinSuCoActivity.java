@@ -22,8 +22,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-import com.ditagis.hcm.tanhoa.cskh.entity.Constant;
-import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
+import com.ditagis.hcm.tanhoa.cskh.entities.Constant;
+import com.ditagis.hcm.tanhoa.cskh.entities.DApplication;
 import com.ditagis.hcm.tanhoa.cskh.utities.ImageFile;
 import com.esri.arcgisruntime.data.CodedValue;
 import com.esri.arcgisruntime.data.CodedValueDomain;

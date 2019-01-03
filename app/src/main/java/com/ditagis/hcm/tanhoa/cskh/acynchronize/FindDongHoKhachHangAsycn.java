@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.ditagis.hcm.tanhoa.cskh.connectDB.DongHoKhachHangDB;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-import com.ditagis.hcm.tanhoa.cskh.entity.DongHoKhachHang;
+import com.ditagis.hcm.tanhoa.cskh.entities.DongHoKhachHang;
 
 public class FindDongHoKhachHangAsycn extends AsyncTask<String, Void, DongHoKhachHang> {
     private ProgressDialog mDialog;

@@ -6,8 +6,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.ditagis.hcm.tanhoa.cskh.entity.Constant;
-import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
+import com.ditagis.hcm.tanhoa.cskh.entities.Constant;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

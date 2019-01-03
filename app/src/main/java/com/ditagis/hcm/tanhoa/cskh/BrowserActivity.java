@@ -11,7 +11,7 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
+import com.ditagis.hcm.tanhoa.cskh.entities.DApplication;
 import com.ditagis.hcm.tanhoa.cskh.utities.DWebViewClient;
 
 public class BrowserActivity extends AppCompatActivity {

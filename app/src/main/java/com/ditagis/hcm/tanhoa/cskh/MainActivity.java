@@ -10,23 +10,21 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.ditagis.hcm.tanhoa.cskh.acynchronize.FindDongHoKhachHangAsycn;
-import com.ditagis.hcm.tanhoa.cskh.acynchronize.FindKhachHangAsycn;
 import com.ditagis.hcm.tanhoa.cskh.adapter.TitleValueAdapter;
+import com.ditagis.hcm.tanhoa.cskh.async.ThongTinKHAPIAsycn;
+import com.ditagis.hcm.tanhoa.cskh.async.ThongTinKHNamKyAPIAsycn;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-import com.ditagis.hcm.tanhoa.cskh.entity.Constant;
-import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
-import com.ditagis.hcm.tanhoa.cskh.entity.DongHoKhachHang;
-import com.ditagis.hcm.tanhoa.cskh.entity.KhachHang;
+import com.ditagis.hcm.tanhoa.cskh.entities.Constant;
+import com.ditagis.hcm.tanhoa.cskh.entities.DApplication;
+import com.ditagis.hcm.tanhoa.cskh.entities.DongHoKhachHang;
+import com.ditagis.hcm.tanhoa.cskh.entities.NamKy;
 import com.ditagis.hcm.tanhoa.cskh.utities.CheckConnectInternet;
-import com.ditagis.hcm.tanhoa.cskh.utities.Preference;
 import com.ditagis.hcm.tanhoa.cskh.utities.Utils;
 
 import java.util.ArrayList;
@@ -34,7 +32,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     LinearLayout mLayout;
-    private KhachHang mKhachHang;
     private DongHoKhachHang mDongHoKH;
     private DrawerLayout mDrawer;
     private TextView mTxtValidation;
@@ -74,24 +71,14 @@ public class MainActivity extends AppCompatActivity
         startActivityForResult(intent, Constant.REQUEST_LOGIN);
     }
 
-    private void prepare(KhachHang output) {
+    private void prepare(NamKy output) {
         if (output == null) {
+            handleDongHoKhachHangInvalid();
             finish();
             return;
         }
-        mKhachHang = output;
-        setInfoMainPageByKhachHang();
-        //nếu đồng hồ còn hiệu lực, thì lấy thông tin đọc số
-        if (mKhachHang.getHieuLuc() > 0) {
+        getInfoDongHoKhachHang(output);
 
-            mTxtValidation.setVisibility(View.GONE);
-//                    getInfoLichSuDS();
-            getInfoDongHoKhachHang();
-        }
-        //ngược lại, hiện thông báo
-        else {
-            handleDongHoKhachHangInvalid();
-        }
     }
 
     /**
@@ -127,74 +114,65 @@ public class MainActivity extends AppCompatActivity
      * @input năm, kỳ từ lớp lịch sử đọc số và danh bạ từ lớp khách hàng
      * Lấy thông tin chỉ số, tiêu thụ, tiền nước gán vào lớp đồng hồ khách hàng
      */
-    private void getInfoDongHoKhachHang() {
-        FindDongHoKhachHangAsycn findDongHoKhachHangAsycn = new FindDongHoKhachHangAsycn(this,
-                new FindDongHoKhachHangAsycn.AsyncResponse() {
-                    @Override
-                    public void processFinish(DongHoKhachHang output) {
-                        if (output != null) {
-                            mDongHoKH = output;
-                            setInfoMainPageByDongHoKhachHang();
-                        }
+    private void getInfoDongHoKhachHang(NamKy namKy) {
+        ThongTinKHAPIAsycn asycn = new ThongTinKHAPIAsycn(this,
+                output -> {
+                    mTxtValidation.setVisibility(View.GONE);
+                    if (output != null) {
+                        mDongHoKH = output;
+                        setInfoMainPageByDongHoKhachHang(namKy);
                     }
                 });
-        findDongHoKhachHangAsycn.execute("", "", mKhachHang.getDanhBa());
+        asycn.execute(mApplication.getUserDangNhap().getUserName(), namKy.getNam() + "", namKy.getKy());
     }
 
     /**
-     * set text với những thông tin lấy được từ lớp khách hàng
+     * set text với những thông tin lấy được từ lớp đồng hồ khách hàng
      */
-    private void setInfoMainPageByKhachHang() {
-        String tenKH = mKhachHang.getTenKH();
+    private void setInfoMainPageByDongHoKhachHang(NamKy namKy) {
+        String tenKH = mDongHoKH.getTenKH();
         ((TextView) findViewById(R.id.txt_content_trangchu_danhBo)).setText(
-                String.format(getString(R.string.format_content_trangchu_danhbo), mKhachHang.getDanhBa()));
+                String.format(getString(R.string.format_content_trangchu_danhbo), mDongHoKH.getDanhBa()));
         StringBuilder builder = new StringBuilder(tenKH);
-        if (!mKhachHang.getSdt().isEmpty())
-            builder.append(String.format(getString(R.string.format_new_line), mKhachHang.getSdt()));
-        builder.append(String.format(getString(R.string.format_newline_address), mKhachHang.getSo(),
-                mKhachHang.getDuong()));
+        if (!mDongHoKH.getSdt().isEmpty())
+            builder.append("\n").append(mDongHoKH.getSdt());
+        builder.append("\n").append(mDongHoKH.getDiaChi());
         ((TextView) findViewById(R.id.txt_content_trangchu_info_invidual)).setText(builder.toString());
         ((TextView) findViewById(R.id.txt_content_trangchu_sh)).setText(
-                String.format(getString(R.string.format_content_trangchu_sh), mKhachHang.getSh()));
+                String.format(getString(R.string.format_content_trangchu_sh), 0));
         ((TextView) findViewById(R.id.txt_content_trangchu_sx)).setText(
-                String.format(getString(R.string.format_content_trangchu_sx), mKhachHang.getSx()));
+                String.format(getString(R.string.format_content_trangchu_sx), 0));
         ((TextView) findViewById(R.id.txt_content_trangchu_dv)).setText(
-                String.format(getString(R.string.format_content_trangchu_dv), mKhachHang.getDv()));
+                String.format(getString(R.string.format_content_trangchu_dv), 0));
         ((TextView) findViewById(R.id.txt_content_trangchu_hc)).setText(
-                String.format(getString(R.string.format_content_trangchu_hc), mKhachHang.getHc()));
+                String.format(getString(R.string.format_content_trangchu_hc), 0));
 
         //nếu tên khách hàng dài hơn 10 ký tự, thì hiển thị dấu ... phía sau để thay thế
         ((TextView) mDrawer.findViewById(R.id.nav_header_tenkh)).setText(tenKH.length() > 10 ?
                 (String.format(getString(R.string.format_nav_tenkh_over), tenKH.substring(0, 10))) :
                 (String.format(getString(R.string.format_nav_tenkh), tenKH)));
         ((TextView) mDrawer.findViewById(R.id.nav_header_diachi)).setText(
-                String.format(getString(R.string.format_content_trangchu_diachi),
-                        mKhachHang.getSo(), mKhachHang.getDuong()));
+                mDongHoKH.getDiaChi());
         mListView = findViewById(R.id.lstView_info_main_page);
         mAdapter = new TitleValueAdapter(MainActivity.this,
-                new ArrayList<TitleValueAdapter.Item>());
+                new ArrayList<>());
         mListView.setAdapter(mAdapter);
-        mAdapter.add(new TitleValueAdapter.Item(getString(R.string.giabieu), String.format(getString(R.string.format_number), mKhachHang.getGb())));
-        mAdapter.add(new TitleValueAdapter.Item(getString(R.string.dinhmuc), String.format(getString(R.string.format_number), mKhachHang.getDm())));
+        mAdapter.add(new TitleValueAdapter.Item(getString(R.string.giabieu), String.format(getString(R.string.format_number), mDongHoKH.getGB())));
+        mAdapter.add(new TitleValueAdapter.Item(getString(R.string.dinhmuc), String.format(getString(R.string.format_number), mDongHoKH.getDM())));
         mAdapter.notifyDataSetChanged();
-        mApplication.setKhachHang(mKhachHang);
+//        mApplication.setKhachHang(mKhachHang);
+        mApplication.setDongHoKhachHang(mDongHoKH);
         mLayout.setVisibility(View.VISIBLE);
-    }
-
-    /**
-     * set text với những thông tin lấy được từ lớp đồng hồ khách hàng
-     */
-    private void setInfoMainPageByDongHoKhachHang() {
         mAdapter.add(new TitleValueAdapter.Item(getString(R.string.ky),
-                String.format(getString(R.string.format_monthyear), mDongHoKH.getKy(), mDongHoKH.getNam())));
+                String.format(getString(R.string.format_monthyear), Integer.parseInt(namKy.getKy()), namKy.getNam())));
         mAdapter.add(new TitleValueAdapter.Item(getString(R.string.cscu),
-                String.format(getString(R.string.format_number_m3), mDongHoKH.getCscu())));
+                String.format(getString(R.string.format_number_m3), mDongHoKH.getChiSoCu())));
         mAdapter.add(new TitleValueAdapter.Item(getString(R.string.csmoi),
-                String.format(getString(R.string.format_number_m3), mDongHoKH.getCsmoi())));
+                String.format(getString(R.string.format_number_m3), mDongHoKH.getChiSoMoi())));
         mAdapter.add(new TitleValueAdapter.Item(getString(R.string.tieuthu),
-                String.format(getString(R.string.format_number_m3), mDongHoKH.getTieuthumoi())));
+                String.format(getString(R.string.format_number_m3), mDongHoKH.getTieuThu())));
         mAdapter.add(new TitleValueAdapter.Item(getString(R.string.tongtien),
-                String.format(getString(R.string.format_number_money), Utils.getInstance().getNumberFormat().format(mDongHoKH.getTongTien()))));
+                String.format(getString(R.string.format_number_money), Utils.getInstance().getNumberFormat().format(mDongHoKH.getThanhTien()))));
         mAdapter.notifyDataSetChanged();
         mApplication.setDongHoKhachHang(mDongHoKH);
         mLayout.setVisibility(View.VISIBLE);
@@ -208,23 +186,6 @@ public class MainActivity extends AppCompatActivity
 //        } else {
 //            super.onBackPressed();
 //        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -266,15 +227,11 @@ public class MainActivity extends AppCompatActivity
                 case Constant.REQUEST_LOGIN:
                     if (Activity.RESULT_OK != resultCode) {
                         finish();
-                        return;
                     } else {
                         // create an empty map instance
-                        FindKhachHangAsycn asycn = new FindKhachHangAsycn(this, output -> {
-                            prepare(output);
-                        });
+                        ThongTinKHNamKyAPIAsycn apiAsycn = new ThongTinKHNamKyAPIAsycn(this, this::prepare);
                         if (CheckConnectInternet.isOnline(this))
-                            asycn.execute(Preference.getInstance().loadPreference(getString(R.string.preference_username)),
-                                    Preference.getInstance().loadPreference(getString(R.string.preference_password)));
+                            apiAsycn.execute(mApplication.getUserDangNhap().getUserName());
                     }
 
             }

@@ -1,4 +1,4 @@
-package com.ditagis.hcm.tanhoa.cskh.entity;
+package com.ditagis.hcm.tanhoa.cskh.entities;
 
 import com.esri.arcgisruntime.geometry.Point;
 

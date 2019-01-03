@@ -1,4 +1,4 @@
-package com.ditagis.hcm.tanhoa.cskh.entity;
+package com.ditagis.hcm.tanhoa.cskh.entities;
 
 import android.Manifest;
 
@@ -23,12 +23,11 @@ public class Constant {
             Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
     public static final String LICENCE = "runtimelite,1000,rud6046938574,none,4N5X0H4AH5JB003AD169";
-    public static final String URL_FEATURE = "http://113.161.88.180:800/arcgis/rest/services/TanHoa/THSuCo/FeatureServer/0";
     public String URL_GIA_NUOC = "http://sawagis.vn/tanhoa/cskh/views/dichvukhachhang/xemgianuoc.html";
     public static final int REQUEST_CODE_ADD_FEATURE = 7;
     public static final int REQUEST_CODE_ADD_FEATURE_ATTACHMENT = 8;
 
-//    private static final String SERVER = "http://tanhoa.sawagis.vn";
+    //    private static final String SERVER = "http://tanhoa.sawagis.vn";
     private static final String SERVER = "http://113.161.88.180:798";
     private static final String SERVER1 = "http://113.161.88.180:1010";
     private static final String SERVER_API = SERVER + "/apiv1/api";
@@ -53,12 +52,15 @@ public class Constant {
     }
 
     public class URL_API {
+        public static final String CHECK_VERSION = "http://tanhoa.sawagis.vn/apiv1" + "/versioning/CSKH?version=%s";
         public static final String LAYER_INFO = SERVER_API + "/Account/layerinfo";
         public static final String GENERATE_ID_SUCO = SERVER_API + "/QuanLySuCo/GenerateIDSuCo";
         public static final String PROFILE = SERVER_API + "/Account/Profile";
         public static final String LOGIN = SERVER_API + "/Login";
         public static final String IS_ACCESS = SERVER_API + "/Account/IsAccess/m_cskh";
         public static final String THU_TIEN = SERVER_API + "/Login";
+        public static final String LAY_CHI_SO = SERVER_API + "/QuanLySanLuong/LayChiSo?danhBa=%s&nam=%s&ky=%s";
+        public static final String LAY_NAM_KY = SERVER_API + "/quanlysanluong/selectsanluongnam?danhba=%s";
     }
 
     public class FIELD_SUCO {
@@ -124,6 +126,26 @@ public class Constant {
                 "  order by nam desc, ky desc, dot desc";
         public static final String CUP_NUOC = "+ Thông báo cúp nước";
         public static final String KHAC = "+ Thông báo khác";
+    }
+
+    public class KhachHangColumn {
+        public static final String DANH_BO = "DanhBo";
+        public static final String HOP_DONG = "HopDong";
+        public static final String TEN_KH = "TenKhachHang";
+        public static final String DIA_CHI = "DiaChi";
+        public static final String SDT = "SoDienThoai";
+        public static final String GB = "GB";
+        public static final String DM = "DM";
+        public static final String CSC = "ChiSoCu";
+        public static final String CSM = "ChiSoMoi";
+        public static final String TIEU_THU = "TieuThu";
+        public static final String BVMT = "BVMT";
+        public static final String GTGT = "GTGT";
+        public static final String THANH_TIEN = "ThanhTien";
+        public static final String TY_LE_SH = "TiLeSH";
+        public static final String TY_LE_SX = "TiLeSX";
+        public static final String TY_LE_DV = "TiLeDV";
+        public static final String TY_LE_HC = "TiLeHC";
     }
 
     public class HoaDonColumn {

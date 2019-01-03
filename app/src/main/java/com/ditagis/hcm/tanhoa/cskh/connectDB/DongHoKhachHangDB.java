@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.StrictMode;
 
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-import com.ditagis.hcm.tanhoa.cskh.entity.DongHoKhachHang;
+import com.ditagis.hcm.tanhoa.cskh.entities.DongHoKhachHang;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -76,17 +76,18 @@ public class DongHoKhachHangDB implements IDB<DongHoKhachHang, Boolean, String> 
                 int thueVAT = rs.getInt(mContext.getString(R.string.sql_coloumn_docso_thuevat));
                 int phiBVMT = rs.getInt(mContext.getString(R.string.sql_coloumn_docso_phibvmt));
                 double tongTien = rs.getDouble(mContext.getString(R.string.sql_coloumn_docso_tongtien));
-                dongHoKhachHang = new DongHoKhachHang(danhBo);
-                dongHoKhachHang.setCscu(cscu);
-                dongHoKhachHang.setCsmoi(csmoi);
-                dongHoKhachHang.setNam(nam);
-                dongHoKhachHang.setKy(ky);
-                dongHoKhachHang.setTieuthucu(tieuthucu);
-                dongHoKhachHang.setTieuthumoi(tieuthumoi);
-                dongHoKhachHang.setTienNuoc(tiennuoc);
-                dongHoKhachHang.setThueVAT(thueVAT);
-                dongHoKhachHang.setPhiBVMT(phiBVMT);
-                dongHoKhachHang.setTongTien(tongTien);
+//                dongHoKhachHang = new DongHoKhachHang();
+//                dongHoKhachHang.setDanhBa(danhBo);
+//                dongHoKhachHang.setChiSoCu(cscu);
+//                dongHoKhachHang.setChiSoMoi(csmoi);
+//                dongHoKhachHang.setNam(nam);
+//                dongHoKhachHang.setKy(ky);
+//                dongHoKhachHang.setTieuThuCu(tieuthucu);
+//                dongHoKhachHang.setTieuThuMoi(tieuthumoi);
+//                dongHoKhachHang.setThanhTien(tiennuoc);
+//                dongHoKhachHang.setThueVAT(thueVAT);
+//                dongHoKhachHang.setBVMT(phiBVMT);
+//                dongHoKhachHang.setTongTien(tongTien);
             }
         } catch (SQLException e1) {
             e1.printStackTrace();

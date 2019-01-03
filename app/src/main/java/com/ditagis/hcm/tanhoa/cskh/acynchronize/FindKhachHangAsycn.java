@@ -7,10 +7,10 @@ import android.util.Log;
 
 import com.ditagis.hcm.tanhoa.cskh.connectDB.KhachHangDB;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-import com.ditagis.hcm.tanhoa.cskh.entity.Constant;
-import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
-import com.ditagis.hcm.tanhoa.cskh.entity.DLayerInfo;
-import com.ditagis.hcm.tanhoa.cskh.entity.KhachHang;
+import com.ditagis.hcm.tanhoa.cskh.entities.Constant;
+import com.ditagis.hcm.tanhoa.cskh.entities.DApplication;
+import com.ditagis.hcm.tanhoa.cskh.entities.DLayerInfo;
+import com.ditagis.hcm.tanhoa.cskh.entities.KhachHang;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -28,10 +28,11 @@ import android.widget.Toast;
 
 import com.ditagis.hcm.tanhoa.cskh.adapter.TraCuuSuCoAdapter;
 import com.ditagis.hcm.tanhoa.cskh.async.FindLocationAsycn;
+import com.ditagis.hcm.tanhoa.cskh.async.PreparingByAPIAsycn;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-import com.ditagis.hcm.tanhoa.cskh.entity.Constant;
-import com.ditagis.hcm.tanhoa.cskh.entity.DAddress;
-import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
+import com.ditagis.hcm.tanhoa.cskh.entities.Constant;
+import com.ditagis.hcm.tanhoa.cskh.entities.DAddress;
+import com.ditagis.hcm.tanhoa.cskh.entities.DApplication;
 import com.ditagis.hcm.tanhoa.cskh.utities.MapViewHandler;
 import com.ditagis.hcm.tanhoa.cskh.utities.MySnackBar;
 import com.ditagis.hcm.tanhoa.cskh.utities.Popup;
@@ -119,74 +120,81 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
             mETxtQuery.setText(mApplication.getKhachHang().getSo() + " " + mApplication.getKhachHang().getDuong()
             );
         startProgressBar();
-        mIsAddingFeature = false;
-        mFloatBtnLocation.setOnClickListener(this::onClick);
-        mSearchAdapter = new TraCuuSuCoAdapter(BaoSuCoActivity.this, new ArrayList<>());
-        mLstViewSearch.setAdapter(mSearchAdapter);
-        mLstViewSearch.setOnItemClickListener(this);
-        mGeocoder = new Geocoder(this.getApplicationContext(), Locale.getDefault());
+        new PreparingByAPIAsycn(this, output -> {
+            if (output != null && output.length() > 0) {
+                mIsAddingFeature = false;
+                mFloatBtnLocation.setOnClickListener(this::onClick);
+                mSearchAdapter = new TraCuuSuCoAdapter(BaoSuCoActivity.this, new ArrayList<>());
+                mLstViewSearch.setAdapter(mSearchAdapter);
+                mLstViewSearch.setOnItemClickListener(this);
+                mGeocoder = new Geocoder(this.getApplicationContext(), Locale.getDefault());
 
-        ArcGISMap arcGISMap = new ArcGISMap(Basemap.Type.OPEN_STREET_MAP, 10.8035455, 106.6182534, 13);
-        mMapView.setMap(arcGISMap);
-        mMapView.getMap().addDoneLoadingListener(() -> {
-            if (mMapView.getMap().getLoadStatus() == LoadStatus.LOADED) {
-                mLocationDisplay = mMapView.getLocationDisplay();
-                mLocationDisplay.startAsync();
-                mMapView.setOnTouchListener(new DefaultMapViewOnTouchListener(this, mMapView) {
-                    @Override
-                    public boolean onSingleTapConfirmed(MotionEvent e) {
-                        return super.onSingleTapConfirmed(e);
-                    }
+                ArcGISMap arcGISMap = new ArcGISMap(Basemap.Type.OPEN_STREET_MAP, 10.8035455, 106.6182534, 13);
+                mMapView.setMap(arcGISMap);
+                mMapView.getMap().addDoneLoadingListener(() -> {
+                    if (mMapView.getMap().getLoadStatus() == LoadStatus.LOADED) {
+                        mLocationDisplay = mMapView.getLocationDisplay();
+                        mLocationDisplay.startAsync();
+                        mMapView.setOnTouchListener(new DefaultMapViewOnTouchListener(this, mMapView) {
+                            @Override
+                            public boolean onSingleTapConfirmed(MotionEvent e) {
+                                return super.onSingleTapConfirmed(e);
+                            }
 
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-                        //center is x, y
-                        mGraphicsOverlay.getGraphics().clear();
-                        if (mIsAddingFeature) {
-                            Point center = mMapView.getCurrentViewpoint(Viewpoint.Type.CENTER_AND_SCALE).getTargetGeometry().getExtent().getCenter();
+                            @SuppressLint("SetTextI18n")
+                            @Override
+                            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                                //center is x, y
+                                mGraphicsOverlay.getGraphics().clear();
+                                if (mIsAddingFeature) {
+                                    Point center = mMapView.getCurrentViewpoint(Viewpoint.Type.CENTER_AND_SCALE).getTargetGeometry().getExtent().getCenter();
 
-                            //project is long, lat
+                                    //project is long, lat
 //                    Geometry project = GeometryEngine.project(center, SpatialReferences.getWgs84());
 
-                            //geometry is x,y
+                                    //geometry is x,y
 //                    Geometry geometry = GeometryEngine.project(project, SpatialReferences.getWebMercator());
-                            SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CROSS, Color.RED, 20);
-                            Graphic graphic = new Graphic(center, symbol);
-                            mGraphicsOverlay.getGraphics().add(graphic);
-                            mPopUp.getCallout().setLocation(center);
-                            mPointFindLocation = center;
-                        }
-                        return super.onScroll(e1, e2, distanceX, distanceY);
-                    }
+                                    SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CROSS, Color.RED, 20);
+                                    Graphic graphic = new Graphic(center, symbol);
+                                    mGraphicsOverlay.getGraphics().add(graphic);
+                                    mPopUp.getCallout().setLocation(center);
+                                    mPointFindLocation = center;
+                                }
+                                return super.onScroll(e1, e2, distanceX, distanceY);
+                            }
 
-                    @Override
-                    public boolean onScale(ScaleGestureDetector detector) {
-                        return super.onScale(detector);
+                            @Override
+                            public boolean onScale(ScaleGestureDetector detector) {
+                                return super.onScale(detector);
+                            }
+                        });
+                        mGraphicsOverlay = new GraphicsOverlay();
+                        mMapView.getGraphicsOverlays().add(mGraphicsOverlay);
+                        setLicense();
+                        ServiceFeatureTable serviceFeatureTable = new ServiceFeatureTable(mApplication.getURLFeature());
+                        mFeatureLayer = new FeatureLayer(serviceFeatureTable);
+                        mFeatureLayer.setDefinitionExpression("1 = 0");
+                        mMapView.getMap().getOperationalLayers().add(mFeatureLayer);
+                        mFeatureLayer.addDoneLoadingListener(() -> {
+                            if (mFeatureLayer.getLoadStatus() == LoadStatus.LOADED) {
+                                setRendererSuCoFeatureLayer(mFeatureLayer);
+                                Toast.makeText(BaoSuCoActivity.this, "Tìm kiếm địa chỉ để báo sự cố, hoặc lấy vị trí hiện tại", Toast.LENGTH_LONG).show();
+                                mApplication.setFeatureLayer(mFeatureLayer);
+                                stopProgressBar();
+
+                                Callout callout = mMapView.getCallout();
+                                mPopUp = new Popup(BaoSuCoActivity.this, mMapView, serviceFeatureTable, callout, mGeocoder);
+                                mMapViewHandler = new MapViewHandler(mFeatureLayer, mMapView, mPopUp,
+                                        BaoSuCoActivity.this);
+                            }
+                        });
                     }
                 });
-                mGraphicsOverlay = new GraphicsOverlay();
-                mMapView.getGraphicsOverlays().add(mGraphicsOverlay);
-                setLicense();
-                ServiceFeatureTable serviceFeatureTable = new ServiceFeatureTable(Constant.URL_FEATURE);
-                mFeatureLayer = new FeatureLayer(serviceFeatureTable);
-                mFeatureLayer.setDefinitionExpression("1 = 0");
-                mMapView.getMap().getOperationalLayers().add(mFeatureLayer);
-                mFeatureLayer.addDoneLoadingListener(() -> {
-                    if (mFeatureLayer.getLoadStatus() == LoadStatus.LOADED) {
-                        setRendererSuCoFeatureLayer(mFeatureLayer);
-                        Toast.makeText(BaoSuCoActivity.this, "Tìm kiếm địa chỉ để báo sự cố, hoặc lấy vị trí hiện tại", Toast.LENGTH_LONG).show();
-                        mApplication.setFeatureLayer(mFeatureLayer);
-                        stopProgressBar();
-
-                        Callout callout = mMapView.getCallout();
-                        mPopUp = new Popup(BaoSuCoActivity.this, mMapView, serviceFeatureTable, callout, mGeocoder);
-                        mMapViewHandler = new MapViewHandler(mFeatureLayer, mMapView, mPopUp,
-                                BaoSuCoActivity.this);
-                    }
-                });
+            } else {
+                BaoSuCoActivity.this.finish();
             }
-        });
+        }).execute();
+
     }
 
     private void setLicense() {
@@ -358,8 +366,9 @@ public class BaoSuCoActivity extends AppCompatActivity implements View.OnClickLi
 
 
     }
+
     public void handlingAddFeatureFail() {
-        Toast.makeText(this,"Không báo được sự cố. Vui lòng thử lại sau", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Không báo được sự cố. Vui lòng thử lại sau", Toast.LENGTH_LONG).show();
 
     }
 

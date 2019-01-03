@@ -4,12 +4,14 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-import com.ditagis.hcm.tanhoa.cskh.entity.Constant;
-import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
-import com.ditagis.hcm.tanhoa.cskh.entity.User;
+import com.ditagis.hcm.tanhoa.cskh.entities.Constant;
+import com.ditagis.hcm.tanhoa.cskh.entities.DApplication;
+import com.ditagis.hcm.tanhoa.cskh.entities.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,6 +49,7 @@ public class LoginByAPIAsycn extends AsyncTask<String, Void, Void> {
         this.mDialog.show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected Void doInBackground(String... params) {
         String userName = params[0];

@@ -9,9 +9,9 @@ import android.widget.Toast;
 import com.ditagis.hcm.tanhoa.cskh.adapter.TitleValueAdapter;
 import com.ditagis.hcm.tanhoa.cskh.connectDB.KhachHangDB;
 import com.ditagis.hcm.tanhoa.cskh.cskh.R;
-import com.ditagis.hcm.tanhoa.cskh.entity.Constant;
-import com.ditagis.hcm.tanhoa.cskh.entity.DApplication;
-import com.ditagis.hcm.tanhoa.cskh.entity.HoaDon;
+import com.ditagis.hcm.tanhoa.cskh.entities.Constant;
+import com.ditagis.hcm.tanhoa.cskh.entities.DApplication;
+import com.ditagis.hcm.tanhoa.cskh.entities.HoaDon;
 import com.ditagis.hcm.tanhoa.cskh.utities.GoBrowser;
 
 import java.util.ArrayList;
